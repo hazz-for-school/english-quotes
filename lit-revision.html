@@ -264,18 +264,22 @@
   }
   .blank {
     display: inline-block;
-    min-width: 80px;
+    min-width: 2.75em;
     border-bottom: 2px solid var(--oak);
-    color: transparent;
+    color: var(--oak-dark);
     background: var(--amber-pale);
     border-radius: 3px;
-    padding: 0 6px;
+    padding: 0 5px;
     user-select: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95em;
   }
   .blank.revealed {
-    color: var(--oak-dark);
     font-style: italic;
     font-weight: 600;
+  }
+  .card-prompt .quote-cloze-wrap {
+    font-family: 'Playfair Display', serif;
   }
 
   /* ── Mode toggle ── */
@@ -380,14 +384,7 @@
   @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
   .analysis-panel .full-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-style: italic;
-    line-height: 1.55;
-    border-left: 3px solid var(--amber-light);
-    padding-left: 0.8rem;
-    margin-bottom: 0.75rem;
-    opacity: 0.95;
+    display: none;
   }
   .analysis-panel .source { font-size: 0.72rem; opacity: 0.6; margin-bottom: 0.6rem; }
   .analysis-panel .analysis-text {
@@ -530,7 +527,7 @@
     </div>
     <div id="mc-container" class="mc-options"></div>
     <div id="type-container" class="type-area" style="display:none">
-      <textarea class="type-input" id="type-input" placeholder="Type the quote here…"></textarea>
+      <textarea class="type-input" id="type-input" placeholder="Type the missing word or phrase…"></textarea>
       <button class="submit-btn" id="submit-type-btn">Check Answer</button>
       <button class="reveal-btn" id="reveal-btn">Show Answer</button>
     </div>
@@ -577,9 +574,9 @@ const TEXTS = {
         act:"Act 1, Scene 5",
         quote:"Come, you spirits / That tend on mortal thoughts, unsex me here",
         context:"Lady Macbeth's soliloquy after reading Macbeth's letter",
-        prompt:"Lady Macbeth calls upon spirits to _____ her of her femininity so she can commit regicide.",
-        blank:"strip",
-        options:["fill","strip","remind","cure"],
+        prompt:"Come, you spirits / That tend on mortal thoughts, _____ me here",
+        blank:"unsex",
+        options:["release","unsex","harden","free"],
         answerIndex:1,
         themes:["Gender & Manipulation","The Supernatural","Power & Ambition"],
         analysis:"Lady Macbeth actively rejects femininity, which Shakespeare's audience equated with weakness. The imperative 'unsex me here' is shocking — she invites demonic possession to harden herself. This is the most explicit example of gender as a construct in the play, and links to the Witches' androgynous appearance."
@@ -590,7 +587,7 @@ const TEXTS = {
         act:"Act 1, Scene 5",
         quote:"Stop up the access and passage to remorse",
         context:"Lady Macbeth's soliloquy — she demands her conscience be blocked",
-        prompt:"Lady Macbeth asks spirits to 'stop up the access and passage to _____'.",
+        prompt:"Stop up the access and passage to _____",
         blank:"remorse",
         options:["guilt","remorse","heaven","feeling"],
         answerIndex:1,
@@ -603,7 +600,7 @@ const TEXTS = {
         act:"Act 1, Scene 7",
         quote:"I have no spur / To prick the sides of my intent, but only / Vaulting ambition, which o'erleaps itself / And falls on th'other side",
         context:"Macbeth's soliloquy as he weighs up murdering Duncan",
-        prompt:"Macbeth admits his only motive is 'vaulting _____' — which he knows will cause his downfall.",
+        prompt:"I have no spur / To prick the sides of my intent, but only / Vaulting _____, which o'erleaps itself / And falls on th'other side",
         blank:"ambition",
         options:["desire","hatred","ambition","greed"],
         answerIndex:2,
@@ -616,7 +613,7 @@ const TEXTS = {
         act:"Act 1, Scene 1",
         quote:"Fair is foul, and foul is fair",
         context:"The Witches' opening chant",
-        prompt:"The Witches' paradox '_____ is foul, and foul is fair' establishes the play's theme of moral inversion.",
+        prompt:"_____ is foul, and foul is fair",
         blank:"Fair",
         options:["Good","Fair","Truth","Light"],
         answerIndex:1,
@@ -629,9 +626,9 @@ const TEXTS = {
         act:"Act 1, Scene 3",
         quote:"So foul and fair a day I have not seen",
         context:"Macbeth's first words in the play, unknowingly echoing the Witches",
-        prompt:"Macbeth's first line unconsciously mirrors the Witches, hinting at his link to evil from the very start.",
-        blank:"Witches",
-        options:["King","Witches","Banquo","heavens"],
+        prompt:"So _____ and fair a day I have not seen",
+        blank:"foul",
+        options:["fair","foul","bold","strange"],
         answerIndex:1,
         themes:["Appearance vs Reality","The Supernatural","Fate & Free Will"],
         analysis:"This is one of Shakespeare's subtlest dramatic ironies. The audience has just heard the Witches' chant; Macbeth repeats their language without knowing. It suggests his corruption may be innate, not simply caused by the prophecy — a key debate point for essays on free will vs fate."
@@ -642,7 +639,7 @@ const TEXTS = {
         act:"Act 1, Scene 4",
         quote:"There's no art / To find the mind's construction in the face",
         context:"Duncan speaking about the treacherous Thane of Cawdor — moments before trusting Macbeth",
-        prompt:"Duncan laments that there is no way to read a person's character from their _____.",
+        prompt:"There's no art / To find the mind's construction in the _____",
         blank:"face",
         options:["words","face","rank","loyalty"],
         answerIndex:1,
@@ -655,7 +652,7 @@ const TEXTS = {
         act:"Act 2, Scene 1",
         quote:"Is this a dagger which I see before me, / The handle toward my hand?",
         context:"Macbeth's hallucination before murdering Duncan",
-        prompt:"Macbeth sees a _____ leading him toward Duncan's chamber — his first supernatural hallucination.",
+        prompt:"Is this a _____ which I see before me, / The handle toward my hand?",
         blank:"dagger",
         options:["ghost","crown","dagger","shadow"],
         answerIndex:2,
@@ -668,7 +665,7 @@ const TEXTS = {
         act:"Act 2, Scene 2",
         quote:"Will all great Neptune's ocean wash this blood / Clean from my hand?",
         context:"Immediately after murdering Duncan — Macbeth cannot wash away the metaphorical guilt",
-        prompt:"Macbeth asks whether even the ocean of _____ can cleanse his guilt — suggesting it cannot.",
+        prompt:"Will all great _____'s ocean wash this blood / Clean from my hand?",
         blank:"Neptune",
         options:["God","Neptune","time","Heaven"],
         answerIndex:1,
@@ -681,7 +678,7 @@ const TEXTS = {
         act:"Act 2, Scene 2",
         quote:"A little water clears us of this deed",
         context:"Lady Macbeth dismissing Macbeth's guilt immediately after Duncan's murder",
-        prompt:"Lady Macbeth coldly tells Macbeth 'A little _____ clears us of this deed', contrasting his horror with her apparent ease.",
+        prompt:"A little _____ clears us of this deed",
         blank:"water",
         options:["prayer","water","time","thought"],
         answerIndex:1,
@@ -694,7 +691,7 @@ const TEXTS = {
         act:"Act 3, Scene 4",
         quote:"I am in blood / Stepped in so far that, should I wade no more, / Returning were as tedious as go o'er",
         context:"Macbeth acknowledges he cannot turn back from tyranny",
-        prompt:"Macbeth uses the metaphor of wading through _____ to describe how his crimes trap him.",
+        prompt:"I am in _____ / Stepped in so far that, should I wade no more, / Returning were as tedious as go o'er",
         blank:"blood",
         options:["water","shadow","blood","darkness"],
         answerIndex:2,
@@ -707,10 +704,10 @@ const TEXTS = {
         act:"Act 3, Scene 1",
         quote:"To be thus is nothing, but to be safely thus",
         context:"Macbeth's soliloquy — he has the crown but fears Banquo",
-        prompt:"Macbeth realises that simply _____ king is meaningless without security — so he orders Banquo's murder.",
-        blank:"being",
-        options:["being","becoming","seeming","remaining"],
-        answerIndex:0,
+        prompt:"To be thus is nothing, but to be _____ thus",
+        blank:"safely",
+        options:["openly","safely","richly","truly"],
+        answerIndex:1,
         themes:["Power & Ambition","Fate & Free Will","Violence & Tyranny"],
         analysis:"Shows how ambition is self-consuming. The crown does not satisfy — Macbeth immediately fears its loss. This is one of the play's central ironies: the thing he murders for brings no peace. His tyranny escalates not from pleasure in power but from paranoia."
       },
@@ -720,9 +717,9 @@ const TEXTS = {
         act:"Act 5, Scene 5",
         quote:"She should have died hereafter; / There would have been a time for such a word",
         context:"Macbeth's reaction to Lady Macbeth's death — hollow and detached",
-        prompt:"On hearing of Lady Macbeth's death, Macbeth responds with _____ rather than grief.",
-        blank:"nihilism",
-        options:["weeping","nihilism","anger","relief"],
+        prompt:"She should have died _____; / There would have been a time for such a word",
+        blank:"hereafter",
+        options:["silence","hereafter","sorrow","rage"],
         answerIndex:1,
         themes:["Guilt & Conscience","Violence & Tyranny","Power & Ambition"],
         analysis:"His emotional numbness is total — he cannot grieve. This leads into the 'Tomorrow, and tomorrow, and tomorrow' soliloquy, his bleakest expression of nihilism. Together they show how tyranny has consumed him from the inside, destroying his capacity for human feeling long before his death."
@@ -733,7 +730,7 @@ const TEXTS = {
         act:"Act 5, Scene 5",
         quote:"Tomorrow, and tomorrow, and tomorrow / Creeps in this petty pace from day to day",
         context:"Macbeth's nihilistic soliloquy on hearing of Lady Macbeth's death",
-        prompt:"The triple repetition of '___________' conveys the meaningless tedium Macbeth sees in existence.",
+        prompt:"_____, and tomorrow, and tomorrow / Creeps in this petty pace from day to day",
         blank:"Tomorrow",
         options:["Tomorrow","Yesterday","Sorrow","Darkness"],
         answerIndex:0,
@@ -746,7 +743,7 @@ const TEXTS = {
         act:"Act 5, Scene 1",
         quote:"Out, damned spot! Out, I say!",
         context:"Lady Macbeth's sleepwalking scene — she relives the murders",
-        prompt:"In the sleepwalking scene, Lady Macbeth's repeated 'Out, damned _____!' shows guilt has finally broken her.",
+        prompt:"Out, damned _____! Out, I say!",
         blank:"spot",
         options:["hand","spot","dream","ghost"],
         answerIndex:1,
@@ -759,9 +756,9 @@ const TEXTS = {
         act:"Act 4, Scene 3 / Act 5, Scene 1",
         quote:"Angels are bright still, though the brightest fell",
         context:"Malcolm testing Macduff — warning that even good-looking things can be corrupt",
-        prompt:"Malcolm warns Macduff that even angels remain bright, yet the 'brightest' — _____ — fell. This implies Macbeth was once glorious.",
-        blank:"Lucifer",
-        options:["Macbeth","Duncan","Lucifer","Banquo"],
+        prompt:"Angels are bright still, though the _____ fell",
+        blank:"brightest",
+        options:["noblest","proudest","brightest","bravest"],
         answerIndex:2,
         themes:["Appearance vs Reality","Power & Ambition","The Supernatural"],
         analysis:"The allusion to Lucifer (the fallen angel) frames Macbeth in theological terms. It also suggests Macbeth was once Scotland's brightest figure — his fall is thus all the more tragic. Malcolm is ironically also testing whether Macduff can see through appearances, the very skill Macbeth has exploited."
@@ -772,7 +769,7 @@ const TEXTS = {
         act:"Act 1, Scene 3",
         quote:"What, can the devil speak true?",
         context:"Banquo reacting to Macbeth's promotion confirming the Witches' prophecy",
-        prompt:"Banquo's question 'can the devil speak _____?' warns that truth and evil can coexist — a warning Macbeth ignores.",
+        prompt:"What, can the devil speak _____?",
         blank:"true",
         options:["loud","true","softly","freely"],
         answerIndex:1,
@@ -785,7 +782,7 @@ const TEXTS = {
         act:"Act 1, Scene 3",
         quote:"All hail, Macbeth, that shalt be king hereafter!",
         context:"The Witches' prophecy to Macbeth on the heath",
-        prompt:"The Witches hail Macbeth as future _____, planting the seed of his ambition.",
+        prompt:"All hail, Macbeth, that shalt be _____ hereafter!",
         blank:"king",
         options:["general","thane","king","emperor"],
         answerIndex:2,
@@ -798,7 +795,7 @@ const TEXTS = {
         act:"Act 3, Scene 4",
         quote:"Never shake / Thy gory locks at me",
         context:"Macbeth's outburst at Banquo's ghost during the banquet",
-        prompt:"Macbeth addresses Banquo's ghost, telling it to stop shaking its _____ locks at him.",
+        prompt:"Never shake / Thy _____ locks at me",
         blank:"gory",
         options:["bloody","gory","silver","tangled"],
         answerIndex:1,
@@ -811,7 +808,7 @@ const TEXTS = {
         act:"Act 1, Scene 7",
         quote:"Was the hope drunk / Wherein you dressed yourself?",
         context:"Lady Macbeth mocking Macbeth's cowardice when he wavers on the plan",
-        prompt:"Lady Macbeth shames Macbeth by asking whether his _____ was 'drunk' — implying his courage has now sobered into cowardice.",
+        prompt:"Was the _____ drunk / Wherein you dressed yourself?",
         blank:"hope",
         options:["pride","hope","courage","plan"],
         answerIndex:1,
@@ -824,7 +821,7 @@ const TEXTS = {
         act:"Act 5, Scene 7",
         quote:"Yet I will try the last",
         context:"Macbeth's final defiance before being killed by Macduff",
-        prompt:"Even as all prophecies collapse, Macbeth chooses to fight to the _____ rather than surrender.",
+        prompt:"Yet I will try the _____",
         blank:"last",
         options:["death","end","last","bitter"],
         answerIndex:2,
@@ -844,7 +841,7 @@ const TEXTS = {
         act:"Stave 1",
         quote:"Marley was dead, to begin with",
         context:"The novella's famous opening line",
-        prompt:"Dickens opens with the blunt declaration that _____ was dead — establishing mortality as a central concern from the first line.",
+        prompt:"_____ was dead, to begin with",
         blank:"Marley",
         options:["Scrooge","Marley","Christmas","Time"],
         answerIndex:1,
@@ -857,7 +854,7 @@ const TEXTS = {
         act:"Stave 1",
         quote:"Oh! But he was a tight-fisted hand at the grindstone, Scrooge! a squeezing, wrenching, grasping, scraping, clutching, covetous old sinner!",
         context:"The narrator's initial description of Scrooge",
-        prompt:"Dickens uses six consecutive present participles — squeezing, wrenching, grasping, scraping, _____, covetous — to establish Scrooge as the embodiment of greed.",
+        prompt:"Oh! But he was a tight-fisted hand at the grindstone, Scrooge! a squeezing, wrenching, grasping, scraping, _____, covetous old sinner!",
         blank:"clutching",
         options:["clinging","clutching","hoarding","seizing"],
         answerIndex:1,
@@ -870,7 +867,7 @@ const TEXTS = {
         act:"Stave 1",
         quote:"If they would rather die, they had better do it, and decrease the surplus population",
         context:"Scrooge dismissing the charity collectors who mention the poor who would rather die than go to workhouses",
-        prompt:"Scrooge quotes Malthusian economics — the poor should 'decrease the surplus _____' — revealing his dehumanisation of the poor.",
+        prompt:"If they would rather die, they had better do it, and decrease the surplus _____",
         blank:"population",
         options:["burden","suffering","population","numbers"],
         answerIndex:2,
@@ -883,9 +880,9 @@ const TEXTS = {
         act:"Stave 3",
         quote:"Are there no prisons? Are there no workhouses?",
         context:"The Ghost of Christmas Present repeating Scrooge's words back at him, suggesting Ignorance and Want are approaching death",
-        prompt:"The Ghost returns Scrooge's own cold words — 'Are there no prisons?' — to expose how _____ his earlier attitude was.",
-        blank:"cruel",
-        options:["foolish","cruel","illegal","unintended"],
+        prompt:"Are there no _____? Are there no workhouses?",
+        blank:"prisons",
+        options:["churches","prisons","markets","schools"],
         answerIndex:1,
         themes:["Social Responsibility","Class & Poverty","Redemption & Change"],
         analysis:"The reversal is one of Dickens' sharpest rhetorical moves. Scrooge's original words sounded like common sense; mirrored back, their cruelty is undeniable. The scene with Ignorance and Want — two skeletal children beneath the Ghost's robe — makes abstract poverty viscerally human."
@@ -896,7 +893,7 @@ const TEXTS = {
         act:"Stave 3",
         quote:"This boy is Ignorance. This girl is Want. Beware them both... but most of all beware this boy",
         context:"The Ghost of Christmas Present reveals the two children hidden beneath his robes",
-        prompt:"The Ghost names the children Ignorance and _____, warning Scrooge — and Victorian society — of their destructive power.",
+        prompt:"This boy is Ignorance. This girl is _____. Beware them both... but most of all beware this boy",
         blank:"Want",
         options:["Poverty","Greed","Want","Fear"],
         answerIndex:2,
@@ -909,10 +906,10 @@ const TEXTS = {
         act:"Stave 3",
         quote:"There was nothing very cheerful in the climate or the town, and yet was there an air of cheerfulness abroad that the clearest summer air and brightest summer sun might have endeavoured to diffuse in vain",
         context:"The miners and lighthouse keepers celebrating Christmas — visited by the Ghost of Christmas Present",
-        prompt:"The _____ and lighthouse keepers celebrate Christmas joyfully in bleak conditions — proving the spirit of Christmas needs no material wealth.",
-        blank:"miners",
-        options:["sailors","miners","fishermen","soldiers"],
-        answerIndex:1,
+        prompt:"There was nothing very cheerful in the climate or the town, and yet was there an air of _____ abroad that the clearest summer air and brightest summer sun might have endeavoured to diffuse in vain",
+        blank:"cheerfulness",
+        options:["kindness","warmth","cheerfulness","stillness"],
+        answerIndex:2,
         themes:["Christmas Spirit","Compassion","Class & Poverty"],
         analysis:"This is one of the novella's quietest but most powerful moments. People in the most isolated, inhospitable places on earth still find warmth and generosity at Christmas. It directly refutes Scrooge's implicit belief that goodness requires prosperity. The long, winding sentence itself mimics abundance despite the scarcity of the setting."
       },
@@ -922,7 +919,7 @@ const TEXTS = {
         act:"Stave 4",
         quote:"'What has he done with his money?' asked a red-faced gentleman",
         context:"Scrooge watches strangers discuss his death — and they care only about his money, not his person",
-        prompt:"After the Ghost of Christmas Yet to Come shows Scrooge men discussing his death, they reveal they only care about his _____, not about him.",
+        prompt:"'What has he done with his _____?' asked a red-faced gentleman",
         blank:"money",
         options:["house","secrets","money","will"],
         answerIndex:2,
@@ -935,7 +932,7 @@ const TEXTS = {
         act:"Stave 4",
         quote:"'He hasn't left it to me,' said Scrooge's charwoman. 'It's likely to be a very cheap funeral, for upon my life I don't know of anybody to go to it'",
         context:"The laundress, charwoman and undertaker's man sell Scrooge's possessions — one of them notes no one will attend his funeral",
-        prompt:"The charwoman's observation that no one will attend Scrooge's _____ is a devastating verdict on a life spent in isolation.",
+        prompt:"'It's likely to be a very cheap _____, for upon my life I don't know of anybody to go to it'",
         blank:"funeral",
         options:["wake","funeral","burial","death"],
         answerIndex:1,
@@ -948,7 +945,7 @@ const TEXTS = {
         act:"Stave 4",
         quote:"'Oh cold, cold, rigid, dreadful Death, set up thine altar here, and dress it with such terrors as thou hast at thy command: for this is thy dominion!'",
         context:"The narrator apostrophises death over Scrooge's shrouded corpse",
-        prompt:"The apostrophe to _____ Death over Scrooge's body is one of Dickens' most theatrical moments, heightening the horror of a life wasted.",
+        prompt:"'Oh _____, cold, rigid, dreadful Death, set up thine altar here, and dress it with such terrors as thou hast at thy command: for this is thy dominion!'",
         blank:"cold",
         options:["cold","grim","dark","pale"],
         answerIndex:0,
@@ -961,7 +958,7 @@ const TEXTS = {
         act:"Stave 4",
         quote:"'The phantom slowly, gravely, silently approached'",
         context:"The introduction of the Ghost of Christmas Yet to Come",
-        prompt:"The Ghost of the Future is introduced with three adverbs — slowly, gravely, _____ — suggesting death and inevitability rather than supernatural horror.",
+        prompt:"'The phantom slowly, gravely, _____ approached'",
         blank:"silently",
         options:["silently","darkly","heavily","coldly"],
         answerIndex:0,
@@ -974,10 +971,10 @@ const TEXTS = {
         act:"Stave 4",
         quote:"'We may sleep to-night with light hearts, Caroline!'",
         context:"Caroline's husband discovers that the debt they owed Scrooge dies with him — the family rejoices",
-        prompt:"When Scrooge's death means _____ and her husband no longer owe a debt, their relief is genuine joy — an indictment of what Scrooge's life meant to others.",
+        prompt:"'We may sleep to-night with light hearts, _____!'",
         blank:"Caroline",
         options:["Martha","Caroline","Emily","Helen"],
-        answerIndex:0,
+        answerIndex:1,
         themes:["Greed & Isolation","Social Responsibility","Compassion"],
         analysis:"Dickens makes this deliberately uncomfortable. These are good, loving people — yet they feel genuine relief at a man's death. Their joy is not callous; it is the rational response to being released from financial torment. Scrooge had been an abstract creditor to himself; here he sees his power over real lives — and its human cost."
       },
@@ -987,7 +984,7 @@ const TEXTS = {
         act:"Stave 1",
         quote:"I wear the chain I forged in life",
         context:"Marley explains the nature of his torment to Scrooge",
-        prompt:"Marley tells Scrooge he wears the _____ he forged in life — representing the moral weight of selfish choices.",
+        prompt:"I wear the _____ I forged in life",
         blank:"chain",
         options:["burden","chain","curse","weight"],
         answerIndex:1,
@@ -1000,7 +997,7 @@ const TEXTS = {
         act:"Stave 2",
         quote:"'There was a boy singing a Christmas Carol at my door last night. I should like to have given him something: that's all'",
         context:"The Ghost of Christmas Past shows Scrooge his lonely childhood — he begins to crack",
-        prompt:"Watching his past lonely self at school, Scrooge regrets not giving money to a _____ who sang at his door — his first flicker of compassion.",
+        prompt:"'There was a _____ singing a Christmas Carol at my door last night. I should like to have given him something: that's all'",
         blank:"boy",
         options:["beggar","boy","servant","caroler"],
         answerIndex:1,
@@ -1013,9 +1010,9 @@ const TEXTS = {
         act:"Stave 2",
         quote:"He has the power to render us happy or unhappy; to make our service light or burdensome",
         context:"Young Scrooge praises Fezziwig's kindness as an employer — the Ghost asks if Fezziwig deserves such praise",
-        prompt:"Young Scrooge's praise of _____ implicitly condemns his own future treatment of Bob Cratchit.",
-        blank:"Fezziwig",
-        options:["his father","Fezziwig","his master","Old Joe"],
+        prompt:"He has the power to render us happy or unhappy; to make our service _____ or burdensome",
+        blank:"light",
+        options:["hard","light","heavy","bitter"],
         answerIndex:1,
         themes:["Social Responsibility","Compassion","Redemption & Change","Class & Poverty"],
         analysis:"The Ghost catches Scrooge articulating a moral principle he has long since abandoned. Fezziwig spent very little money to make his workers happy — yet Scrooge remembers it with profound gratitude. This directly contrasts with how Scrooge treats Bob Cratchit. The scene is a gentle but devastating self-indictment."
@@ -1026,9 +1023,9 @@ const TEXTS = {
         act:"Stave 5",
         quote:"He became as good a friend, as good a master, and as good a man, as the good old city knew",
         context:"The novella's closing description of the transformed Scrooge",
-        prompt:"The triple repetition of 'as good' in the final description of Scrooge emphasises that his _____ is total and genuine.",
-        blank:"transformation",
-        options:["repentance","transformation","charity","goodness"],
+        prompt:"He became as good a _____, as good a master, and as good a man, as the good old city knew",
+        blank:"friend",
+        options:["neighbor","friend","citizen","partner"],
         answerIndex:1,
         themes:["Redemption & Change","Compassion","Christmas Spirit","Social Responsibility"],
         analysis:"The rhythm is triumphant — the same list structure used in his original damning description now praises him. Dickens mirrors his own language to show complete inversion. Crucially, Scrooge becomes 'good' in three roles: friend (personal), master (professional), man (universal). His transformation is comprehensive, not partial."
@@ -1039,7 +1036,7 @@ const TEXTS = {
         act:"Stave 5",
         quote:"'I don't know what to do!' cried Scrooge, laughing and crying in the same breath",
         context:"Scrooge wakes on Christmas morning, transformed",
-        prompt:"Scrooge's simultaneous laughing and _____ on Christmas morning shows an emotional thawing — he has recovered the capacity for feeling.",
+        prompt:"'I don't know what to do!' cried Scrooge, laughing and _____ in the same breath",
         blank:"crying",
         options:["sobbing","crying","shouting","praying"],
         answerIndex:1,
@@ -1052,10 +1049,10 @@ const TEXTS = {
         act:"Stave 1",
         quote:"External heat and cold had little influence on Scrooge. No warmth could warm, no wintry weather chill him",
         context:"The narrator's introduction of Scrooge — he is beyond normal human feeling",
-        prompt:"Dickens describes Scrooge as impervious to temperature — metaphorically, he has cut himself off from all _____ warmth.",
-        blank:"human",
-        options:["human","physical","seasonal","emotional"],
-        answerIndex:0,
+        prompt:"External heat and cold had little influence on Scrooge. No warmth could _____, no wintry weather chill him",
+        blank:"warm",
+        options:["burn","warm","stay","break"],
+        answerIndex:1,
         themes:["Greed & Isolation","Social Responsibility"],
         analysis:"The double negative structure ('no warmth could warm') creates a claustrophobic portrait of someone sealed against the world. Cold functions as both literal and moral description throughout the novella. Scrooge's transformation in Stave 5 is therefore marked by warmth — he feels, laughs, cries, and gives. The imagery is consistent and deliberate."
       },
@@ -1065,7 +1062,7 @@ const TEXTS = {
         act:"Stave 1",
         quote:"Darkness is cheap, and Scrooge liked it",
         context:"Scrooge's office is described as perpetually dark — he will not pay for candles",
-        prompt:"The observation that '_____ is cheap, and Scrooge liked it' works both literally (candles) and metaphorically (moral darkness).",
+        prompt:"_____ is cheap, and Scrooge liked it",
         blank:"Darkness",
         options:["Cold","Silence","Darkness","Poverty"],
         answerIndex:2,
@@ -1078,7 +1075,7 @@ const TEXTS = {
         act:"Stave 3",
         quote:"'God bless us, every one!' said Tiny Tim",
         context:"Tiny Tim's blessing at the end of the Cratchit Christmas dinner",
-        prompt:"Tiny Tim's blessing — 'God bless us, _____!' — is both the novella's moral centre and its most famous line.",
+        prompt:"'God bless us, _____!' said Tiny Tim",
         blank:"every one",
         options:["everyone","every one","us all","all"],
         answerIndex:1,
@@ -1091,7 +1088,7 @@ const TEXTS = {
         act:"Stave 3",
         quote:"And it was a very uncommon kind of torch, for once or twice when there were angry words between some men at dinner, he shed a few drops of his torch upon them, and their good humour was restored directly",
         context:"Description of the Ghost of Christmas Present's torch — it spreads good humour wherever it sprinkles",
-        prompt:"The Ghost of Christmas Present's _____ restores goodwill wherever it falls — it literally embodies the Christmas spirit.",
+        prompt:"And it was a very uncommon kind of _____, for once or twice when there were angry words between some men at dinner, he shed a few drops of his torch upon them, and their good humour was restored directly",
         blank:"torch",
         options:["robe","torch","laughter","hand"],
         answerIndex:1,
@@ -1104,7 +1101,7 @@ const TEXTS = {
         act:"Stave 2",
         quote:"Another idol has displaced me; and if it can cheer and comfort you in time to come, as I would have tried to do, I have no just cause to grieve",
         context:"Belle ends her engagement to young Scrooge — a golden idol (money) has replaced her in his affections",
-        prompt:"Belle tells young Scrooge that a 'golden _____' — money — has replaced her as the object of his devotion.",
+        prompt:"Another _____ has displaced me; and if it can cheer and comfort you in time to come, as I would have tried to do, I have no just cause to grieve",
         blank:"idol",
         options:["master","cage","idol","chain"],
         answerIndex:2,
@@ -1124,9 +1121,9 @@ const TEXTS = {
         act:"Ozymandias",
         quote:"My name is Ozymandias, King of Kings; / Look on my Works, ye Mighty, and despair!",
         context:"Words inscribed on the pedestal of the ruined statue in the desert",
-        prompt:"Ozymandias boasts of his power — but the command to 'Look on my Works' is now _____ irony, as nothing remains.",
-        blank:"devastating",
-        options:["sad","devastating","subtle","gentle"],
+        prompt:"My name is Ozymandias, King of Kings; / Look on my Works, ye Mighty, and _____!",
+        blank:"despair",
+        options:["honour","despair","glory","peace"],
         answerIndex:1,
         themes:["Power & Identity","Pride & Hubris","Destruction"],
         analysis:"The poem's central irony: the inscription survives but the works do not. 'King of Kings' is a biblical title (used for God and Jesus), making the hubris blasphemous. Shelley — a radical — uses the poem to argue all political power is temporary. Nothing can outlast time; the desert is the ultimate leveller."
@@ -1137,7 +1134,7 @@ const TEXTS = {
         act:"Ozymandias",
         quote:"Half sunk a shattered visage lies",
         context:"Description of the ruined statue of Ozymandias",
-        prompt:"The statue's 'shattered _____' — face — is half buried in sand, showing how completely power has been destroyed.",
+        prompt:"Half sunk a shattered _____ lies",
         blank:"visage",
         options:["statue","visage","body","crown"],
         answerIndex:1,
@@ -1150,10 +1147,10 @@ const TEXTS = {
         act:"Exposure",
         quote:"Our brains ache, in the merciless iced east winds that knive us",
         context:"Opening of Owen's poem — soldiers in the trenches",
-        prompt:"Owen's verb 'knive' transforms the east wind into an _____, showing nature as a weapon as lethal as the enemy.",
-        blank:"enemy",
-        options:["ice storm","enemy","blade","horror"],
-        answerIndex:1,
+        prompt:"Our brains ache, in the merciless iced east winds that _____ us",
+        blank:"knive",
+        options:["cut","slash","knive","tear"],
+        answerIndex:2,
         themes:["War & Conflict","Power of Nature","Suffering"],
         analysis:"The verb 'knive' is an invented word — Owen coins it to capture the unique sensation of cold as cutting violence. 'Merciless' personifies the wind as deliberately cruel. The soldiers face two enemies: the German lines and the weather. The poem argues the latter may be worse. Owen implicates nature itself in the war's horror."
       },
@@ -1163,7 +1160,7 @@ const TEXTS = {
         act:"Exposure",
         quote:"But nothing happens",
         context:"Repeated refrain throughout Exposure",
-        prompt:"Owen's refrain 'But nothing _____' captures the psychological torture of waiting — the trenches killed through inaction as well as combat.",
+        prompt:"But nothing _____",
         blank:"happens",
         options:["changes","moves","happens","comes"],
         answerIndex:2,
@@ -1176,7 +1173,7 @@ const TEXTS = {
         act:"Storm on the Island",
         quote:"We are prepared: we build our houses squat",
         context:"Opening line — the islanders' defiant preparedness against nature's violence",
-        prompt:"The plural 'we' and confident '_____ prepared' establish a community unified against nature — but the confidence proves fragile.",
+        prompt:"We _____ prepared: we build our houses squat",
         blank:"are",
         options:["were","are","stand","feel"],
         answerIndex:1,
@@ -1189,7 +1186,7 @@ const TEXTS = {
         act:"Bayonet Charge",
         quote:"In what cold clockwork of the stars and the nations / Was he the hand pointing that second?",
         context:"The soldier questions why he specifically must die",
-        prompt:"Hughes uses the metaphor of _____ to suggest the soldier is just a mechanical cog in the war machine — not a person but a component.",
+        prompt:"In what cold _____ of the stars and the nations / Was he the hand pointing that second?",
         blank:"clockwork",
         options:["machinery","clockwork","industry","weaponry"],
         answerIndex:1,
@@ -1202,9 +1199,9 @@ const TEXTS = {
         act:"Remains",
         quote:"his bloody life in my bloody hands",
         context:"The soldier relives shooting a looter — the word 'bloody' does double duty",
-        prompt:"Armitage's word 'bloody' works both as a literal description of _____ and as a British expletive — collapsing guilt into casual speech.",
-        blank:"blood",
-        options:["murder","blood","death","war"],
+        prompt:"his _____ life in my bloody hands",
+        blank:"bloody",
+        options:["broken","bloody","empty","wasted"],
         answerIndex:1,
         themes:["War & Conflict","Suffering","Loss & Memory"],
         analysis:"This is one of the most effective double-meanings in the anthology. The casual register of 'bloody hands' (swearing) sits alongside the literal image (blood). It shows how violence is absorbed into ordinary speech — and thus how trauma is buried in everyday language. The soldier cannot escape what he did even in casual thinking."
@@ -1215,7 +1212,7 @@ const TEXTS = {
         act:"War Photographer",
         quote:"A hundred agonies in black-and-white / from which his editor will pick out five or six / for Sunday's supplement",
         context:"The photographer reflects on how editors reduce mass suffering to a handful of images",
-        prompt:"Duffy shows that _____ agonies are reduced to 'five or six' by an editor — indicting media's trivialisation of war.",
+        prompt:"_____ agonies in black-and-white / from which his editor will pick out five or six / for Sunday's supplement",
         blank:"a hundred",
         options:["countless","a hundred","foreign","human"],
         answerIndex:1,
@@ -1228,7 +1225,7 @@ const TEXTS = {
         act:"Poppies",
         quote:"I was brave, as I walked / with you",
         context:"A mother describes holding herself together as she says goodbye to her son leaving for war",
-        prompt:"The mother says she 'was _____' — past tense, suggesting the bravery required enormous effort and may not have lasted.",
+        prompt:"I was _____, as I walked / with you",
         blank:"brave",
         options:["proud","brave","strong","still"],
         answerIndex:1,
@@ -1241,7 +1238,7 @@ const TEXTS = {
         act:"Tissue",
         quote:"Paper that lets the light / shine through",
         context:"Opening image — translucent tissue paper as a metaphor for what truly matters",
-        prompt:"Dharker's tissue paper 'lets the _____ shine through' — transparency and fragility are presented as strengths, not weaknesses.",
+        prompt:"Paper that lets the _____ / shine through",
         blank:"light",
         options:["truth","light","past","words"],
         answerIndex:1,
@@ -1254,10 +1251,10 @@ const TEXTS = {
         act:"The Prelude",
         quote:"Upreared its head from the lake, as if with voluntary power instinct",
         context:"The peak Wordsworth thought he was rowing past seems to rise and follow him",
-        prompt:"The mountain appears to rise with '_____ power' — as if it is alive and consciously pursuing the young Wordsworth.",
+        prompt:"Upreared its head from the lake, as if with _____ power instinct",
         blank:"voluntary",
         options:["terrifying","voluntary","natural","sudden"],
-        answerIndex:0,
+        answerIndex:1,
         themes:["Power of Nature","Power & Identity","Suffering"],
         analysis:"'Voluntary power' is the key phrase — the mountain acts with intent. Wordsworth cannot dismiss this as rational; the experience has genuinely terrified him. The sublime (beauty mixed with terror) is Wordsworth's subject. Nature corrects human pride not through argument but through overwhelming physical presence."
       },
@@ -1267,7 +1264,7 @@ const TEXTS = {
         act:"London",
         quote:"In every cry of every Man, / In every Infant's cry of fear",
         context:"Blake describes the sounds of London — universal suffering",
-        prompt:"The anaphora of '_____ every' emphasises that suffering in London is universal and inescapable.",
+        prompt:"_____ every cry of every Man, / In every Infant's cry of fear",
         blank:"In",
         options:["Through","In","From","Beneath"],
         answerIndex:1,
@@ -1280,7 +1277,7 @@ const TEXTS = {
         act:"Charge of the Light Brigade",
         quote:"Theirs not to reason why, / Theirs but to do and die",
         context:"Tennyson describes the soldiers following suicidal orders without question",
-        prompt:"Tennyson's 'theirs not to _____ why' shows soldiers as stripped of agency — they obey even lethal orders.",
+        prompt:"Theirs not to _____ why, / Theirs but to do and die",
         blank:"reason",
         options:["question","reason","wonder","know"],
         answerIndex:1,
@@ -1293,7 +1290,7 @@ const TEXTS = {
         act:"My Last Duchess",
         quote:"I gave commands; / Then all smiles stopped together",
         context:"The Duke's euphemistic admission that he had his wife killed",
-        prompt:"The Duke's chilling euphemism — 'all smiles stopped _____' — admits murder through understatement.",
+        prompt:"I gave commands; / Then all smiles stopped _____",
         blank:"together",
         options:["forever","together","then","suddenly"],
         answerIndex:1,
@@ -1306,7 +1303,7 @@ const TEXTS = {
         act:"Kamikaze",
         quote:"he must have looked far down at Pacific Islands / where fishermen… / …hauled / a net of kittiwakes",
         context:"The pilot, about to die for Japan, sees fishing boats and turns back — remembering life",
-        prompt:"The vision of fishermen and _____ (seabirds) reconnects the pilot to life — nature overcomes ideology.",
+        prompt:"he must have looked far down at Pacific Islands / where fishermen… / …hauled / a net of _____",
         blank:"kittiwakes",
         options:["gulls","kittiwakes","dolphins","nets"],
         answerIndex:1,
@@ -1326,7 +1323,7 @@ const TEXTS = {
         act:"Act 3",
         quote:"We are members of one body. We are responsible for each other.",
         context:"The Inspector's final speech before he leaves",
-        prompt:"The Inspector declares that humanity is one '_____ body' — his central socialist message about collective responsibility.",
+        prompt:"We are members of _____ body. We are responsible for each other.",
         blank:"one",
         options:["one","shared","human","living"],
         answerIndex:0,
@@ -1339,7 +1336,7 @@ const TEXTS = {
         act:"Act 3",
         quote:"If men will not learn that lesson, then they will be taught it in fire and blood and anguish",
         context:"The Inspector's warning at the end of his speech",
-        prompt:"The Inspector's warning of 'fire and blood and _____' foreshadows the two World Wars — Priestley wrote in 1945 with hindsight.",
+        prompt:"If men will not learn that lesson, then they will be taught it in fire and blood and _____",
         blank:"anguish",
         options:["terror","anguish","ruin","pain"],
         answerIndex:1,
@@ -1352,7 +1349,7 @@ const TEXTS = {
         act:"Act 1",
         quote:"The Titanic — she sails next week — unsinkable, absolutely unsinkable",
         context:"Arthur Birling's confident predictions at the dinner party",
-        prompt:"Birling's confident prediction that the Titanic is '___________' is deeply ironic — the audience knows it sinks.",
+        prompt:"The Titanic — she sails next week — _____, absolutely unsinkable",
         blank:"unsinkable",
         options:["safe","unsinkable","seaworthy","indestructible"],
         answerIndex:1,
@@ -1365,7 +1362,7 @@ const TEXTS = {
         act:"Act 1",
         quote:"A man has to mind his own business and look after himself and his own",
         context:"Birling's philosophy of life — spoken just before the Inspector arrives",
-        prompt:"Birling's individualist philosophy — 'mind his own _____ and look after himself' — is the worldview the Inspector directly dismantles.",
+        prompt:"A man has to mind his own _____ and look after himself and his own",
         blank:"business",
         options:["interests","business","money","affairs"],
         answerIndex:1,
@@ -1378,7 +1375,7 @@ const TEXTS = {
         act:"Act 1",
         quote:"But these girls aren't cheap labour — they're people",
         context:"Sheila, before she knows about Eva Smith, reacts to her father's dismissal of the workers",
-        prompt:"Sheila's objection — 'they're _____' — shows her moral instinct that her parents lack, even before the Inspector arrives.",
+        prompt:"But these girls aren't cheap labour — they're _____",
         blank:"people",
         options:["workers","people","women","human"],
         answerIndex:1,
@@ -1391,7 +1388,7 @@ const TEXTS = {
         act:"Act 3",
         quote:"(bitterly) I suppose we're all nice people now",
         context:"After Mr and Mrs Birling decide the Inspector was fake and resume normal life",
-        prompt:"Sheila's bitter sarcasm — 'I suppose we're all _____ people now' — exposes her parents' moral bankruptcy.",
+        prompt:"(bitterly) I suppose we're all _____ people now",
         blank:"nice",
         options:["good","nice","fine","right"],
         answerIndex:1,
@@ -1404,7 +1401,7 @@ const TEXTS = {
         act:"Act 2",
         quote:"I did nothing I'm ashamed of",
         context:"Sybil Birling defending her decision to turn away Eva Smith from the charity",
-        prompt:"Mrs Birling's refusal to feel shame — 'I did nothing I'm _____ of' — shows her complete moral blindness.",
+        prompt:"I did nothing I'm _____ of",
         blank:"ashamed",
         options:["ashamed","guilty","afraid","proud"],
         answerIndex:0,
@@ -1417,7 +1414,7 @@ const TEXTS = {
         act:"Act 3",
         quote:"(nearly at breaking point) You don't understand anything. You never did.",
         context:"Eric's confrontation with his mother after she unknowingly helped cause Eva's death",
-        prompt:"Eric's 'you never _____' is a generational indictment — his parents' wilful ignorance made them complicit without even knowing it.",
+        prompt:"(nearly at breaking point) You don't understand anything. You never _____.",
         blank:"did",
         options:["cared","did","saw","tried"],
         answerIndex:1,
@@ -1430,7 +1427,7 @@ const TEXTS = {
         act:"Act 2",
         quote:"Each of you helped to kill her",
         context:"The Inspector accuses the whole family of collective responsibility for Eva Smith's death",
-        prompt:"The Inspector's charge — 'each of you helped to _____ her' — distributes guilt across the family, making moral responsibility collective.",
+        prompt:"Each of you helped to _____ her",
         blank:"kill",
         options:["ruin","destroy","kill","harm"],
         answerIndex:2,
@@ -1443,10 +1440,10 @@ const TEXTS = {
         act:"Act 1",
         quote:"(massively) — I don't think I will",
         context:"The Inspector refuses to be hurried by Birling — his first demonstration of power",
-        prompt:"The stage direction '(massively)' shows the Inspector has a _____ that cannot be dominated by Birling's class authority.",
-        blank:"presence",
-        options:["calm","presence","authority","patience"],
-        answerIndex:1,
+        prompt:"(massively) — I don't think I _____",
+        blank:"will",
+        options:["can","must","will","shall"],
+        answerIndex:2,
         themes:["Class & Power","Social Responsibility","Guilt & Blame"],
         analysis:"The stage direction 'massively' is unusual — it describes not just a physical quality but a moral weight. The Inspector cannot be bribed, impressed by social status, or hurried. He represents a force outside the class system entirely — possibly conscience, possibly something supernatural. His physical 'massiveness' is Priestley externalising moral authority."
       },
@@ -1456,7 +1453,7 @@ const TEXTS = {
         act:"Act 2",
         quote:"I discovered she was desperately hard up and…I made her your mistress",
         context:"Gerald describes his relationship with Eva/Daisy in what he presents as a rescue",
-        prompt:"Gerald describes making Eva his _____ as if it were kindness — exposing how men of his class exercise power over women while believing they are helping.",
+        prompt:"I discovered she was desperately hard up and…I made her your _____",
         blank:"mistress",
         options:["friend","companion","mistress","dependent"],
         answerIndex:2,
@@ -1469,10 +1466,10 @@ const TEXTS = {
         act:"Act 1",
         quote:"(with sudden alarm) Mother — stop — stop!",
         context:"Sheila realises her mother is condemning the father of Eva's baby — who is Eric",
-        prompt:"Sheila's horrified 'Mother — stop!' is one of the play's most theatrical moments, as she realises Mrs Birling is _____ without knowing it.",
-        blank:"condemning Eric",
-        options:["lying","condemning Eric","exposing herself","helping the Inspector"],
-        answerIndex:1,
+        prompt:"(with sudden alarm) Mother — _____ — stop!",
+        blank:"stop",
+        options:["listen","wait","stop","go"],
+        answerIndex:2,
         themes:["Guilt & Blame","Generations & Change","Hypocrisy"],
         analysis:"Dramatic irony at its sharpest. Mrs Birling demands the father of Eva's baby should be made an example of — she is unknowingly condemning her own son. Sheila's horror is the audience's. Priestley shows how the Birlings' moral pronouncements collapse when applied to themselves — their ethics are not principles but social performance."
       }
@@ -1489,6 +1486,53 @@ let sessionCorrect = 0;
 let sessionWrong = 0;
 let streak = 0;
 let answered = false;
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+/** First case-insensitive match of the correct MC answer inside the quote (for cloze). */
+function findAnswerInQuote(quote, answer) {
+  if (!answer || !quote) return null;
+  const re = new RegExp(escapeRegExp(answer), "i");
+  const m = re.exec(quote);
+  if (!m) return null;
+  const i = m.index;
+  return { index: i, text: m[0] };
+}
+const CLOZE_MARKER = "_____";
+function buildQuoteClozeHtml(card) {
+  const p = card.prompt;
+  if (typeof p === "string" && p.includes(CLOZE_MARKER)) {
+    const parts = p.split(CLOZE_MARKER);
+    if (parts.length === 2) {
+      return `<span class="quote-cloze-wrap">“${escapeHtml(parts[0])}<span class="blank" id="quote-cloze-blank">${CLOZE_MARKER}</span>${escapeHtml(parts[1])}”</span>`;
+    }
+  }
+  const answer = card.options[card.answerIndex];
+  const hit = findAnswerInQuote(card.quote, answer);
+  const q = card.quote;
+  if (!hit) {
+    return `<span class="quote-cloze-wrap">“${escapeHtml(q)}”</span>`;
+  }
+  const before = escapeHtml(q.slice(0, hit.index));
+  const after = escapeHtml(q.slice(hit.index + hit.text.length));
+  return `<span class="quote-cloze-wrap">“${before}<span class="blank" id="quote-cloze-blank">${CLOZE_MARKER}</span>${after}”</span>`;
+}
+function revealQuoteClozeBlank(card) {
+  const el = document.getElementById("quote-cloze-blank");
+  if (!el) return;
+  const answer = card.options[card.answerIndex];
+  const hit = findAnswerInQuote(card.quote, answer);
+  el.textContent = hit ? hit.text : answer;
+  el.classList.add("revealed");
+}
 
 function getMastery() {
   try { return JSON.parse(localStorage.getItem("litrev_mastery") || "{}"); } catch { return {}; }
@@ -1610,7 +1654,7 @@ function showCard() {
   document.getElementById("streak-label").textContent = streak > 1 ? `🔥 ${streak}` : "";
   document.getElementById("card-meta").textContent = `${card.speaker} — ${card.act}`;
   document.getElementById("card-theme-tag").textContent = card.themes[0];
-  document.getElementById("card-prompt").textContent = card.prompt;
+  document.getElementById("card-prompt").innerHTML = buildQuoteClozeHtml(card);
   document.getElementById("card-hint").textContent = `"${card.context}"`;
 
   document.getElementById("analysis-panel").classList.remove("visible");
@@ -1701,8 +1745,9 @@ function handleReveal() {
 }
 
 function showAnalysis(card) {
+  revealQuoteClozeBlank(card);
   const panel = document.getElementById("analysis-panel");
-  document.getElementById("analysis-quote").textContent = `"${card.quote}"`;
+  document.getElementById("analysis-quote").textContent = "";
   document.getElementById("analysis-source").textContent = `${card.speaker} · ${card.act}`;
   document.getElementById("analysis-text").textContent = card.analysis;
   const tagsEl = document.getElementById("analysis-tags");
