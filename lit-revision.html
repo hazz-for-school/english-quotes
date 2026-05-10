@@ -327,19 +327,36 @@
 
   /* ── Type mode ── */
   .type-area { display: flex; flex-direction: column; gap: 0.6rem; }
+  .type-inputs-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    width: 100%;
+  }
+  .type-blank-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .type-blank-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
   .type-input {
     width: 100%;
-    min-height: 80px;
-    padding: 0.75rem;
+    min-height: 2.5rem;
+    padding: 0.65rem 0.75rem;
     background: white;
     border: 1.5px solid var(--cream-darker);
     border-radius: 10px;
     font-family: 'Source Serif 4', serif;
     font-size: 0.88rem;
     color: var(--text-primary);
-    resize: vertical;
     transition: border-color 0.15s;
     outline: none;
+    box-sizing: border-box;
   }
   .type-input:focus { border-color: var(--oak-light); }
   .type-input.correct-input { border-color: var(--correct); background: var(--correct-bg); }
@@ -527,7 +544,7 @@
     </div>
     <div id="mc-container" class="mc-options"></div>
     <div id="type-container" class="type-area" style="display:none">
-      <textarea class="type-input" id="type-input" placeholder="Type the missing word or phrase…"></textarea>
+      <div id="type-inputs-wrap" class="type-inputs-wrap" aria-live="polite"></div>
       <button class="submit-btn" id="submit-type-btn">Check Answer</button>
       <button class="reveal-btn" id="reveal-btn">Show Answer</button>
     </div>
@@ -1507,12 +1524,90 @@ function findAnswerInQuote(quote, answer) {
   return { index: i, text: m[0] };
 }
 const CLOZE_MARKER = "_____";
+/** Short words skipped when auto-picking extra type-mode blanks (MC wording unchanged). */
+const TYPE_STOP = new Set([
+  "the","a","an","and","or","but","if","so","as","at","to","in","on","of","for","with","by","from","up","out","off","over",
+  "i","me","my","we","us","our","you","your","he","him","his","she","her","it","its","they","them","their","what","which","who","whom",
+  "this","that","these","those","am","is","are","was","were","be","been","being","have","has","had","do","does","did","will","would",
+  "shall","should","may","might","must","can","could","not","no","nor","too","very","just","only","own","same","such","than","then",
+  "there","here","when","where","why","how","all","each","every","both","few","more","most","other","some","any","into","through",
+  "before","after","again","once","o","oh","ay","yes","no"
+]);
+
+function mergeNonOverlappingHits(hits) {
+  const out = [];
+  let lastEnd = -1;
+  for (const h of hits) {
+    if (h.index < lastEnd) continue;
+    out.push(h);
+    lastEnd = h.index + h.text.length;
+  }
+  return out;
+}
+
+/** Strings to blank in Type mode: optional card.typeAnswers (2+), else primary + auto-picked words from the quote (up to 3 blanks). */
+function getTypeClozeAnswerKeys(card) {
+  if (Array.isArray(card.typeAnswers) && card.typeAnswers.length >= 2)
+    return card.typeAnswers.slice(0, 3);
+  const primary = card.options[card.answerIndex];
+  const quote = card.quote;
+  const keys = [primary];
+  const pHit = findAnswerInQuote(quote, primary);
+
+  function overlapsPrimary(start, end) {
+    if (!pHit) return false;
+    return !(end <= pHit.index || start >= pHit.index + pHit.text.length);
+  }
+
+  function collect(minLen) {
+    const re = /[\w']+/g;
+    const seen = new Set([primary.toLowerCase()]);
+    const found = [];
+    let m;
+    while ((m = re.exec(quote)) !== null) {
+      const raw = m[0];
+      const start = m.index;
+      const end = start + raw.length;
+      if (overlapsPrimary(start, end)) continue;
+      const norm = raw.replace(/^['']+|['']+$/g, "").toLowerCase();
+      if (norm.length < minLen) continue;
+      if (TYPE_STOP.has(norm)) continue;
+      if (seen.has(norm)) continue;
+      const h = findAnswerInQuote(quote, raw);
+      if (!h || h.index !== start) continue;
+      seen.add(norm);
+      found.push(h);
+    }
+    found.sort((a, b) => a.index - b.index);
+    return found;
+  }
+
+  let extra = collect(4);
+  if (extra.length < 2) extra = collect(3);
+  for (const h of extra) {
+    if (keys.length >= 3) break;
+    keys.push(h.text);
+  }
+  return keys;
+}
+
+function getTypeClozeHits(card) {
+  const quote = card.quote;
+  const hits = [];
+  for (const t of getTypeClozeAnswerKeys(card)) {
+    const h = findAnswerInQuote(quote, t);
+    if (h) hits.push(h);
+  }
+  hits.sort((a, b) => a.index - b.index);
+  return mergeNonOverlappingHits(hits);
+}
+
 function buildQuoteClozeHtml(card) {
   const p = card.prompt;
   if (typeof p === "string" && p.includes(CLOZE_MARKER)) {
     const parts = p.split(CLOZE_MARKER);
     if (parts.length === 2) {
-      return `<span class="quote-cloze-wrap">“${escapeHtml(parts[0])}<span class="blank" id="quote-cloze-blank">${CLOZE_MARKER}</span>${escapeHtml(parts[1])}”</span>`;
+      return `<span class="quote-cloze-wrap">“${escapeHtml(parts[0])}<span class="blank quote-cloze-blank">${CLOZE_MARKER}</span>${escapeHtml(parts[1])}”</span>`;
     }
   }
   const answer = card.options[card.answerIndex];
@@ -1523,15 +1618,95 @@ function buildQuoteClozeHtml(card) {
   }
   const before = escapeHtml(q.slice(0, hit.index));
   const after = escapeHtml(q.slice(hit.index + hit.text.length));
-  return `<span class="quote-cloze-wrap">“${before}<span class="blank" id="quote-cloze-blank">${CLOZE_MARKER}</span>${after}”</span>`;
+  return `<span class="quote-cloze-wrap">“${before}<span class="blank quote-cloze-blank">${CLOZE_MARKER}</span>${after}”</span>`;
 }
-function revealQuoteClozeBlank(card) {
-  const el = document.getElementById("quote-cloze-blank");
-  if (!el) return;
-  const answer = card.options[card.answerIndex];
-  const hit = findAnswerInQuote(card.quote, answer);
-  el.textContent = hit ? hit.text : answer;
-  el.classList.add("revealed");
+
+function buildTypeClozeHtml(card) {
+  const hits = getTypeClozeHits(card);
+  const q = card.quote;
+  if (!hits.length) {
+    return `<span class="quote-cloze-wrap">“${escapeHtml(q)}”</span>`;
+  }
+  let out = "";
+  let pos = 0;
+  for (const h of hits) {
+    out += escapeHtml(q.slice(pos, h.index));
+    out += `<span class="blank quote-cloze-blank">${CLOZE_MARKER}</span>`;
+    pos = h.index + h.text.length;
+  }
+  out += escapeHtml(q.slice(pos));
+  return `<span class="quote-cloze-wrap">“${out}”</span>`;
+}
+
+function revealClozeBlanks(card) {
+  const els = document.querySelectorAll("#card-prompt .quote-cloze-blank");
+  if (currentMode === MODE_TYPE) {
+    const hits = getTypeClozeHits(card);
+    els.forEach((el, i) => {
+      const h = hits[i];
+      if (h) {
+        el.textContent = h.text;
+        el.classList.add("revealed");
+      }
+    });
+  } else if (els[0]) {
+    const answer = card.options[card.answerIndex];
+    const hit = findAnswerInQuote(card.quote, answer);
+    els[0].textContent = hit ? hit.text : answer;
+    els[0].classList.add("revealed");
+  }
+}
+
+function typeBlankPairOk(lineVal, hitText) {
+  const val = String(lineVal ?? "").trim().toLowerCase();
+  const target = hitText.toLowerCase();
+  return val.includes(target) || target.includes(val) || levenshtein(val, target) <= 2;
+}
+
+function typeModeLinesMatch(lines, hits) {
+  if (lines.length !== hits.length) return false;
+  for (let i = 0; i < hits.length; i++) {
+    if (!typeBlankPairOk(lines[i], hits[i].text)) return false;
+  }
+  return true;
+}
+
+function renderTypeInputs(card) {
+  const wrap = document.getElementById("type-inputs-wrap");
+  wrap.innerHTML = "";
+  const hits = getTypeClozeHits(card);
+  const makeRow = (labelText, placeholder) => {
+    const row = document.createElement("div");
+    row.className = "type-blank-row";
+    const lab = document.createElement("span");
+    lab.className = "type-blank-label";
+    lab.textContent = labelText;
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "type-input type-blank-input";
+    inp.placeholder = placeholder;
+    inp.autocomplete = "off";
+    inp.spellcheck = false;
+    row.appendChild(lab);
+    row.appendChild(inp);
+    wrap.appendChild(row);
+    return inp;
+  };
+
+  if (!hits.length) {
+    makeRow("Answer", "Type the missing word or phrase…");
+    return;
+  }
+
+  const multi = hits.length > 1;
+  hits.forEach((_, i) => {
+    const label = multi ? `Blank ${i + 1}` : "Answer";
+    makeRow(label, "Missing word or phrase…");
+  });
+}
+
+function getTypeBlankInputs() {
+  return [...document.querySelectorAll("#type-inputs-wrap .type-blank-input")];
 }
 
 function getMastery() {
@@ -1654,7 +1829,8 @@ function showCard() {
   document.getElementById("streak-label").textContent = streak > 1 ? `🔥 ${streak}` : "";
   document.getElementById("card-meta").textContent = `${card.speaker} — ${card.act}`;
   document.getElementById("card-theme-tag").textContent = card.themes[0];
-  document.getElementById("card-prompt").innerHTML = buildQuoteClozeHtml(card);
+  document.getElementById("card-prompt").innerHTML =
+    currentMode === MODE_TYPE ? buildTypeClozeHtml(card) : buildQuoteClozeHtml(card);
   document.getElementById("card-hint").textContent = `"${card.context}"`;
 
   document.getElementById("analysis-panel").classList.remove("visible");
@@ -1668,9 +1844,8 @@ function showCard() {
   } else {
     document.getElementById("mc-container").style.display = "none";
     document.getElementById("type-container").style.display = "flex";
-    document.getElementById("type-input").value = "";
-    document.getElementById("type-input").className = "type-input";
     document.getElementById("self-mark-row").classList.remove("visible");
+    renderTypeInputs(card);
   }
 }
 
@@ -1706,10 +1881,28 @@ function handleMCAnswer(card, chosen, btn, container) {
 function handleTypeSubmit() {
   if (answered) return;
   const card = currentQueue[currentIndex];
-  const val = document.getElementById("type-input").value.trim().toLowerCase();
-  const target = card.options[card.answerIndex].toLowerCase();
-  const close = val.includes(target) || target.includes(val) || levenshtein(val, target) <= 2;
-  document.getElementById("type-input").classList.add(close ? "correct-input" : "wrong-input");
+  const hits = getTypeClozeHits(card);
+  const inputs = getTypeBlankInputs();
+  let close;
+
+  if (!hits.length) {
+    const val = (inputs[0]?.value ?? "").trim().toLowerCase();
+    const target = card.options[card.answerIndex].toLowerCase();
+    close = val.includes(target) || target.includes(val) || levenshtein(val, target) <= 2;
+    inputs.forEach(inp => {
+      inp.classList.remove("correct-input", "wrong-input");
+      inp.classList.add(close ? "correct-input" : "wrong-input");
+    });
+  } else {
+    const lines = inputs.map(inp => inp.value.trim());
+    close = typeModeLinesMatch(lines, hits);
+    inputs.forEach((inp, i) => {
+      inp.classList.remove("correct-input", "wrong-input");
+      const ok = i < hits.length && typeBlankPairOk(lines[i], hits[i].text);
+      inp.classList.add(ok ? "correct-input" : "wrong-input");
+    });
+  }
+
   answered = true;
   if (close) { sessionCorrect++; streak++; } else { sessionWrong++; streak = 0; }
   markCard(card.id, close);
@@ -1737,15 +1930,28 @@ function handleReveal() {
   sessionWrong++;
   streak = 0;
   markCard(card.id, false);
-  document.getElementById("type-input").value = card.options[card.answerIndex];
-  document.getElementById("type-input").classList.add("wrong-input");
+  const hits = getTypeClozeHits(card);
+  const inputs = getTypeBlankInputs();
+  if (!hits.length) {
+    if (inputs[0]) {
+      inputs[0].value = card.options[card.answerIndex];
+      inputs[0].classList.add("wrong-input");
+    }
+  } else {
+    hits.forEach((h, i) => {
+      if (inputs[i]) {
+        inputs[i].value = h.text;
+        inputs[i].classList.add("wrong-input");
+      }
+    });
+  }
   showAnalysis(card);
   document.getElementById("next-btn").classList.add("visible");
   updateHeaderStats();
 }
 
 function showAnalysis(card) {
-  revealQuoteClozeBlank(card);
+  revealClozeBlanks(card);
   const panel = document.getElementById("analysis-panel");
   document.getElementById("analysis-quote").textContent = "";
   document.getElementById("analysis-source").textContent = `${card.speaker} · ${card.act}`;
@@ -1809,7 +2015,8 @@ document.getElementById("mode-type").addEventListener("click", () => {
 
 document.getElementById("submit-type-btn").addEventListener("click", handleTypeSubmit);
 document.getElementById("reveal-btn").addEventListener("click", handleReveal);
-document.getElementById("type-input").addEventListener("keydown", e => {
+document.getElementById("type-container").addEventListener("keydown", e => {
+  if (!e.target.classList.contains("type-blank-input")) return;
   if (e.key === "Enter" && e.ctrlKey) handleTypeSubmit();
 });
 
