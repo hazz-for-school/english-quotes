@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lit Revision — AQA English Literature</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE7D9;
+    --cream-darker: #E0D8C8;
+    --oak: #8B5E3C;
+    --oak-light: #A8723F;
+    --oak-dark: #5C3D22;
+    --amber: #C4832A;
+    --amber-light: #E8A84A;
+    --amber-pale: #F5D9A8;
+    --text-primary: #2C1810;
+    --text-secondary: #5C4030;
+    --text-muted: #8B7060;
+    --correct: #4A7C59;
+    --correct-bg: #E8F3EC;
+    --wrong: #8B3A3A;
+    --wrong-bg: #F3E8E8;
+    --card-shadow: 0 2px 12px rgba(44,24,16,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--oak-dark);
+    color: #F5F0E8;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(44,24,16,0.25);
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  header .subtitle { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; font-style: italic; }
+  .header-stats {
+    display: flex;
+    gap: 1.2rem;
+    font-size: 0.78rem;
+    opacity: 0.85;
+  }
+  .header-stats span { display: flex; flex-direction: column; align-items: center; }
+  .header-stats strong { font-size: 1.1rem; font-weight: 600; font-family: 'Playfair Display', serif; }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--cream-dark);
+    border-bottom: 1.5px solid var(--cream-darker);
+    padding: 0 1rem;
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 0.75rem 1rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .nav-tab:hover { color: var(--oak); }
+  .nav-tab.active {
+    color: var(--oak-dark);
+    border-bottom-color: var(--oak);
+    font-weight: 600;
+  }
+  .nav-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--amber-light);
+    opacity: 0.5;
+  }
+  .nav-dot.has-mastery { opacity: 1; }
+
+  /* ── Main ── */
+  main {
+    flex: 1;
+    padding: 1.2rem 1rem;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ── Home screen ── */
+  #home-screen { display: none; }
+  #home-screen.visible { display: block; }
+
+  .text-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem 1rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--cream-darker);
+    box-shadow: var(--card-shadow);
+  }
+  .text-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--oak-dark);
+    margin-bottom: 0.25rem;
+  }
+  .text-header .author { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+  .text-header .mastery-bar-wrap { margin-top: 0.8rem; }
+  .mastery-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+  .mastery-bar {
+    height: 6px;
+    background: var(--cream-darker);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .mastery-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber), var(--oak));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .theme-btn {
+    padding: 0.75rem 0.6rem;
+    background: white;
+    border: 1.5px solid var(--cream-darker);
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: all 0.15s;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .theme-btn:hover { border-color: var(--oak-light); color: var(--oak-dark); transform: translateY(-1px); }
+  .theme-btn .count { font-size: 0.7rem; color: var(--text-muted); }
+  .theme-btn .mini-bar { width: 100%; height: 3px; background: var(--cream-darker); border-radius: 2px; overflow: hidden; margin-top: 2px; }
+  .theme-btn .mini-bar-fill { height: 100%; background: var(--amber); border-radius: 2px; }
+
+  .start-all-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--oak);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+  .start-all-btn:hover { background: var(--oak-dark); transform: translateY(-1px); }
+  .start-all-btn:active { transform: scale(0.99); }
+
+  /* ── Flashcard screen ── */
+  #card-screen { display: none; }
+  #card-screen.visible { display: block; }
+
+  .card-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--cream-darker);
+    border-radius: 2px;
+    margin: 0 0.75rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--oak);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--cream-darker);
+    box-shadow: var(--card-shadow);
+    padding: 1.4rem 1.2rem;
+    margin-bottom: 0.9rem;
+    min-height: 130px;
+  }
+  .card-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .card-theme-tag {
+    display: inline-block;
+    background: var(--amber-pale);
+    color: var(--oak-dark);
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-style: italic;
+    margin-bottom: 0.6rem;
+  }
+  .card-prompt {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  .card-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--oak);
+    color: transparent;
+    background: var(--amber-pale);
+    border-radius: 3px;
+    padding: 0 6px;
+    user-select: none;
+  }
+  .blank.revealed {
+    color: var(--oak-dark);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* ── Mode toggle ── */
+  .mode-toggle {
+    display: flex;
+    background: var(--cream-dark);
+    border-radius: 8px;
+    padding: 3px;
+    width: fit-content;
+    margin: 0 auto 0.9rem;
+    gap: 2px;
+  }
+  .mode-btn {
+    padding: 0.35rem 0.85rem;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mode-btn.active { background: white; color: var(--oak-dark); font-weight: 600; box-shadow: 0 1px 4px rgba(44,24,16,0.12); }
+
+  /* ── Multiple choice ── */
+  .mc-options { display: flex; flex-direction: column; gap: 0.55rem; }
+  .mc-opt {
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 1.5px solid var(--cream-darker);
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    text-align: left;
+    line-height: 1.45;
+  }
+  .mc-opt:hover:not(:disabled) { border-color: var(--oak-light); color: var(--oak-dark); background: var(--cream); }
+  .mc-opt.correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .mc-opt.wrong { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
+  .mc-opt:disabled { cursor: default; }
+
+  /* ── Type mode ── */
+  .type-area { display: flex; flex-direction: column; gap: 0.6rem; }
+  .type-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    background: white;
+    border: 1.5px solid var(--cream-darker);
+    border-radius: 10px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    resize: vertical;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .type-input:focus { border-color: var(--oak-light); }
+  .type-input.correct-input { border-color: var(--correct); background: var(--correct-bg); }
+  .type-input.wrong-input { border-color: var(--wrong); background: var(--wrong-bg); }
+  .submit-btn {
+    padding: 0.65rem;
+    background: var(--oak);
+    color: var(--cream);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--oak-dark); }
+  .reveal-btn {
+    padding: 0.5rem;
+    background: none;
+    color: var(--text-muted);
+    border: 1px solid var(--cream-darker);
+    border-radius: 8px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reveal-btn:hover { color: var(--oak); border-color: var(--oak-light); }
+
+  /* ── Analysis panel ── */
+  .analysis-panel {
+    background: var(--oak-dark);
+    color: #F5EFE0;
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 0.9rem;
+    display: none;
+    animation: slideUp 0.25s ease;
+  }
+  .analysis-panel.visible { display: block; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .analysis-panel .full-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.55;
+    border-left: 3px solid var(--amber-light);
+    padding-left: 0.8rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.95;
+  }
+  .analysis-panel .source { font-size: 0.72rem; opacity: 0.6; margin-bottom: 0.6rem; }
+  .analysis-panel .analysis-text {
+    font-size: 0.83rem;
+    line-height: 1.6;
+    opacity: 0.88;
+  }
+  .analysis-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.65rem; }
+  .analysis-tag {
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 0.7rem;
+    opacity: 0.85;
+    font-style: italic;
+  }
+
+  .next-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--oak);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: none;
+  }
+  .next-btn.visible { display: block; }
+  .next-btn:hover { background: var(--oak-dark); }
+
+  .self-mark-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+    display: none;
+  }
+  .self-mark-row.visible { display: flex; }
+  .self-mark-yes, .self-mark-no {
+    flex: 1;
+    padding: 0.55rem;
+    border: 1.5px solid;
+    border-radius: 8px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: white;
+  }
+  .self-mark-yes { border-color: var(--correct); color: var(--correct); }
+  .self-mark-yes:hover { background: var(--correct-bg); }
+  .self-mark-no { border-color: var(--wrong); color: var(--wrong); }
+  .self-mark-no:hover { background: var(--wrong-bg); }
+
+  /* ── Results screen ── */
+  #results-screen { display: none; text-align: center; }
+  #results-screen.visible { display: block; }
+  .results-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--cream-darker);
+    box-shadow: var(--card-shadow);
+    padding: 2rem 1.5rem;
+  }
+  .results-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--oak-dark);
+  }
+  .results-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+  .results-breakdown { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin: 1.2rem 0; }
+  .breakdown-stat { background: var(--cream); border-radius: 8px; padding: 0.7rem 0.5rem; }
+  .breakdown-stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--oak-dark); }
+  .breakdown-stat span { font-size: 0.72rem; color: var(--text-muted); }
+
+  footer { text-align: center; padding: 1rem; font-size: 0.72rem; color: var(--text-muted); font-style: italic; border-top: 1px solid var(--cream-darker); margin-top: auto; }
+
+  @media (max-width: 480px) {
+    main { padding: 0.9rem 0.75rem; }
+    .card { padding: 1.1rem; }
+    .card-prompt { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Lit Revision</h1>
+    <div class="subtitle">AQA English Literature — Paper 1 &amp; Anthology</div>
+  </div>
+  <div class="header-stats">
+    <span><strong id="hdr-total">0</strong>cards</span>
+    <span><strong id="hdr-mastered">0</strong>mastered</span>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="nav-tab active" data-text="macbeth">
+    <span class="nav-dot" id="dot-macbeth"></span>Macbeth
+  </button>
+  <button class="nav-tab" data-text="acc">
+    <span class="nav-dot" id="dot-acc"></span>A Christmas Carol
+  </button>
+  <button class="nav-tab" data-text="poetry">
+    <span class="nav-dot" id="dot-poetry"></span>Power &amp; Conflict
+  </button>
+  <button class="nav-tab" data-text="aic">
+    <span class="nav-dot" id="dot-aic"></span>An Inspector Calls
+  </button>
+</nav>
+
+<main>
+  <div id="home-screen" class="visible">
+    <div class="text-header" id="text-header-display"></div>
+    <div id="theme-grid-container"></div>
+    <button class="start-all-btn" id="start-all-btn">Start All Cards</button>
+  </div>
+
+  <div id="card-screen">
+    <div class="card-progress">
+      <span id="prog-label">1 / 20</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+      <span id="streak-label">🔥 0</span>
+    </div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="mode-mc">Multiple Choice</button>
+      <button class="mode-btn" id="mode-type">Type It</button>
+    </div>
+    <div class="card" id="main-card">
+      <div class="card-meta" id="card-meta"></div>
+      <div class="card-theme-tag" id="card-theme-tag"></div>
+      <div class="card-prompt" id="card-prompt"></div>
+      <div class="card-hint" id="card-hint"></div>
+    </div>
+    <div id="mc-container" class="mc-options"></div>
+    <div id="type-container" class="type-area" style="display:none">
+      <textarea class="type-input" id="type-input" placeholder="Type the quote here…"></textarea>
+      <button class="submit-btn" id="submit-type-btn">Check Answer</button>
+      <button class="reveal-btn" id="reveal-btn">Show Answer</button>
+    </div>
+    <div class="self-mark-row" id="self-mark-row">
+      <button class="self-mark-yes" id="self-yes">✓ Got it</button>
+      <button class="self-mark-no" id="self-no">✗ Not quite</button>
+    </div>
+    <div class="analysis-panel" id="analysis-panel">
+      <div class="full-quote" id="analysis-quote"></div>
+      <div class="source" id="analysis-source"></div>
+      <div class="analysis-text" id="analysis-text"></div>
+      <div class="analysis-tags" id="analysis-tags"></div>
+    </div>
+    <button class="next-btn" id="next-btn">Next Card →</button>
+  </div>
+
+  <div id="results-screen">
+    <div class="results-card">
+      <div class="results-score" id="res-score">—</div>
+      <div class="results-label">Round complete</div>
+      <div class="results-breakdown">
+        <div class="breakdown-stat"><strong id="res-correct">—</strong><span>Correct</span></div>
+        <div class="breakdown-stat"><strong id="res-wrong">—</strong><span>Wrong</span></div>
+        <div class="breakdown-stat"><strong id="res-mastered">—</strong><span>Mastered</span></div>
+      </div>
+      <button class="start-all-btn" id="restart-btn" style="margin-bottom:0.5rem">Try Again</button>
+      <button class="start-all-btn" id="home-btn" style="background: var(--oak-dark)">Back to Menu</button>
+    </div>
+  </div>
+</main>
+
+<footer>Best of luck on Paper 1 ✦ Quotes for AQA GCSE English Literature</footer>
+
+<script>
+const TEXTS = {
+  macbeth: {
+    title: "Macbeth",
+    author: "William Shakespeare",
+    themes: ["Power & Ambition","The Supernatural","Gender & Manipulation","Guilt & Conscience","Appearance vs Reality","Fate & Free Will","Violence & Tyranny"],
+    cards: [
+      {
+        id:"mac1",
+        speaker:"Lady Macbeth",
+        act:"Act 1, Scene 5",
+        quote:"Come, you spirits / That tend on mortal thoughts, unsex me here",
+        context:"Lady Macbeth's soliloquy after reading Macbeth's letter",
+        prompt:"Lady Macbeth calls upon spirits to _____ her of her femininity so she can commit regicide.",
+        blank:"strip",
+        options:["fill","strip","remind","cure"],
+        answerIndex:1,
+        themes:["Gender & Manipulation","The Supernatural","Power & Ambition"],
+        analysis:"Lady Macbeth actively rejects femininity, which Shakespeare's audience equated with weakness. The imperative 'unsex me here' is shocking — she invites demonic possession to harden herself. This is the most explicit example of gender as a construct in the play, and links to the Witches' androgynous appearance."
+      },
+      {
+        id:"mac2",
+        speaker:"Lady Macbeth",
+        act:"Act 1, Scene 5",
+        quote:"Stop up the access and passage to remorse",
+        context:"Lady Macbeth's soliloquy — she demands her conscience be blocked",
+        prompt:"Lady Macbeth asks spirits to 'stop up the access and passage to _____'.",
+        blank:"remorse",
+        options:["guilt","remorse","heaven","feeling"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","Power & Ambition","Gender & Manipulation"],
+        analysis:"Ironically prefigures her complete psychological collapse in Act 5. The word 'remorse' is key — she recognises remorse would prevent regicide, yet it is ultimately remorse that destroys her. Shakespeare structures this as a tragic irony the audience can see from the opening."
+      },
+      {
+        id:"mac3",
+        speaker:"Macbeth",
+        act:"Act 1, Scene 7",
+        quote:"I have no spur / To prick the sides of my intent, but only / Vaulting ambition, which o'erleaps itself / And falls on th'other side",
+        context:"Macbeth's soliloquy as he weighs up murdering Duncan",
+        prompt:"Macbeth admits his only motive is 'vaulting _____' — which he knows will cause his downfall.",
+        blank:"ambition",
+        options:["desire","hatred","ambition","greed"],
+        answerIndex:2,
+        themes:["Power & Ambition","Fate & Free Will","Guilt & Conscience"],
+        analysis:"The equestrian metaphor ('spur', 'prick') reduces regicide to horsemanship, then shows it collapsing. Macbeth diagnoses his own fatal flaw here — he knows ambition is irrational yet proceeds. This makes him a tragic hero in the classical sense: self-aware but unable to stop."
+      },
+      {
+        id:"mac4",
+        speaker:"Witches",
+        act:"Act 1, Scene 1",
+        quote:"Fair is foul, and foul is fair",
+        context:"The Witches' opening chant",
+        prompt:"The Witches' paradox '_____ is foul, and foul is fair' establishes the play's theme of moral inversion.",
+        blank:"Fair",
+        options:["Good","Fair","Truth","Light"],
+        answerIndex:1,
+        themes:["Appearance vs Reality","The Supernatural","Fate & Free Will"],
+        analysis:"This chiastic paradox immediately disrupts moral certainty. It functions as the play's thesis statement: nothing is as it appears. Macbeth echoes this exact phrasing when he first appears — 'So foul and fair a day' — subtly linking him to the Witches before they even meet."
+      },
+      {
+        id:"mac5",
+        speaker:"Macbeth",
+        act:"Act 1, Scene 3",
+        quote:"So foul and fair a day I have not seen",
+        context:"Macbeth's first words in the play, unknowingly echoing the Witches",
+        prompt:"Macbeth's first line unconsciously mirrors the Witches, hinting at his link to evil from the very start.",
+        blank:"Witches",
+        options:["King","Witches","Banquo","heavens"],
+        answerIndex:1,
+        themes:["Appearance vs Reality","The Supernatural","Fate & Free Will"],
+        analysis:"This is one of Shakespeare's subtlest dramatic ironies. The audience has just heard the Witches' chant; Macbeth repeats their language without knowing. It suggests his corruption may be innate, not simply caused by the prophecy — a key debate point for essays on free will vs fate."
+      },
+      {
+        id:"mac6",
+        speaker:"Duncan",
+        act:"Act 1, Scene 4",
+        quote:"There's no art / To find the mind's construction in the face",
+        context:"Duncan speaking about the treacherous Thane of Cawdor — moments before trusting Macbeth",
+        prompt:"Duncan laments that there is no way to read a person's character from their _____.",
+        blank:"face",
+        options:["words","face","rank","loyalty"],
+        answerIndex:1,
+        themes:["Appearance vs Reality","Fate & Free Will"],
+        analysis:"Exquisite dramatic irony — Duncan says this, then immediately praises Macbeth. It underlines Duncan's naïve trust and Macbeth's skill at deception. Shakespeare uses Duncan's own words to condemn his judgment, making his murder feel both inevitable and tragic."
+      },
+      {
+        id:"mac7",
+        speaker:"Macbeth",
+        act:"Act 2, Scene 1",
+        quote:"Is this a dagger which I see before me, / The handle toward my hand?",
+        context:"Macbeth's hallucination before murdering Duncan",
+        prompt:"Macbeth sees a _____ leading him toward Duncan's chamber — his first supernatural hallucination.",
+        blank:"dagger",
+        options:["ghost","crown","dagger","shadow"],
+        answerIndex:2,
+        themes:["The Supernatural","Guilt & Conscience","Power & Ambition"],
+        analysis:"The dagger exists on the boundary between real and imagined — Macbeth himself cannot tell. It externalises his murderous intent, suggesting his subconscious is driving him toward the act even as his conscious mind hesitates. The question form ('Is this a dagger…?') captures his psychological fracture."
+      },
+      {
+        id:"mac8",
+        speaker:"Macbeth",
+        act:"Act 2, Scene 2",
+        quote:"Will all great Neptune's ocean wash this blood / Clean from my hand?",
+        context:"Immediately after murdering Duncan — Macbeth cannot wash away the metaphorical guilt",
+        prompt:"Macbeth asks whether even the ocean of _____ can cleanse his guilt — suggesting it cannot.",
+        blank:"Neptune",
+        options:["God","Neptune","time","Heaven"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","Violence & Tyranny"],
+        analysis:"Neptune (god of the sea) represents every drop of water in existence — Macbeth says even that is insufficient. Compare with Lady Macbeth's 'A little water clears us of this deed' — her dismissal of guilt makes her later breakdown far more powerful. This contrast is an excellent pair for essays."
+      },
+      {
+        id:"mac9",
+        speaker:"Lady Macbeth",
+        act:"Act 2, Scene 2",
+        quote:"A little water clears us of this deed",
+        context:"Lady Macbeth dismissing Macbeth's guilt immediately after Duncan's murder",
+        prompt:"Lady Macbeth coldly tells Macbeth 'A little _____ clears us of this deed', contrasting his horror with her apparent ease.",
+        blank:"water",
+        options:["prayer","water","time","thought"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","Gender & Manipulation","Appearance vs Reality"],
+        analysis:"The brutal simplicity is deliberate. Yet Act 5's sleepwalking scene brutally reverses this — 'Out, damned spot!' shows water cannot cleanse conscience after all. Shakespeare ensures Lady Macbeth's most confident line becomes her most ironic."
+      },
+      {
+        id:"mac10",
+        speaker:"Macbeth",
+        act:"Act 3, Scene 4",
+        quote:"I am in blood / Stepped in so far that, should I wade no more, / Returning were as tedious as go o'er",
+        context:"Macbeth acknowledges he cannot turn back from tyranny",
+        prompt:"Macbeth uses the metaphor of wading through _____ to describe how his crimes trap him.",
+        blank:"blood",
+        options:["water","shadow","blood","darkness"],
+        answerIndex:2,
+        themes:["Violence & Tyranny","Guilt & Conscience","Power & Ambition"],
+        analysis:"This is Macbeth's point of no return. The river metaphor turns blood into an ocean he is halfway across — retreat and advance are equally costly. It shows him fully aware of his moral corruption yet psychologically incapable of stopping. Excellent for essays on tragedy and inevitability."
+      },
+      {
+        id:"mac11",
+        speaker:"Macbeth",
+        act:"Act 3, Scene 1",
+        quote:"To be thus is nothing, but to be safely thus",
+        context:"Macbeth's soliloquy — he has the crown but fears Banquo",
+        prompt:"Macbeth realises that simply _____ king is meaningless without security — so he orders Banquo's murder.",
+        blank:"being",
+        options:["being","becoming","seeming","remaining"],
+        answerIndex:0,
+        themes:["Power & Ambition","Fate & Free Will","Violence & Tyranny"],
+        analysis:"Shows how ambition is self-consuming. The crown does not satisfy — Macbeth immediately fears its loss. This is one of the play's central ironies: the thing he murders for brings no peace. His tyranny escalates not from pleasure in power but from paranoia."
+      },
+      {
+        id:"mac12",
+        speaker:"Macbeth",
+        act:"Act 5, Scene 5",
+        quote:"She should have died hereafter; / There would have been a time for such a word",
+        context:"Macbeth's reaction to Lady Macbeth's death — hollow and detached",
+        prompt:"On hearing of Lady Macbeth's death, Macbeth responds with _____ rather than grief.",
+        blank:"nihilism",
+        options:["weeping","nihilism","anger","relief"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","Violence & Tyranny","Power & Ambition"],
+        analysis:"His emotional numbness is total — he cannot grieve. This leads into the 'Tomorrow, and tomorrow, and tomorrow' soliloquy, his bleakest expression of nihilism. Together they show how tyranny has consumed him from the inside, destroying his capacity for human feeling long before his death."
+      },
+      {
+        id:"mac13",
+        speaker:"Macbeth",
+        act:"Act 5, Scene 5",
+        quote:"Tomorrow, and tomorrow, and tomorrow / Creeps in this petty pace from day to day",
+        context:"Macbeth's nihilistic soliloquy on hearing of Lady Macbeth's death",
+        prompt:"The triple repetition of '___________' conveys the meaningless tedium Macbeth sees in existence.",
+        blank:"Tomorrow",
+        options:["Tomorrow","Yesterday","Sorrow","Darkness"],
+        answerIndex:0,
+        themes:["Guilt & Conscience","Violence & Tyranny","Fate & Free Will"],
+        analysis:"The metre itself drags — eleven syllables create a limping beat that enacts the 'petty pace'. The life Macbeth has won is revealed as utterly hollow. This is arguably the play's philosophical heart: power, achieved through murder, leads not to fulfilment but to a universe emptied of meaning."
+      },
+      {
+        id:"mac14",
+        speaker:"Lady Macbeth",
+        act:"Act 5, Scene 1",
+        quote:"Out, damned spot! Out, I say!",
+        context:"Lady Macbeth's sleepwalking scene — she relives the murders",
+        prompt:"In the sleepwalking scene, Lady Macbeth's repeated 'Out, damned _____!' shows guilt has finally broken her.",
+        blank:"spot",
+        options:["hand","spot","dream","ghost"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","Gender & Manipulation","The Supernatural"],
+        analysis:"The exclamation marks and short sentences capture her fractured mental state. 'Spot' reduces the murder to a stain she cannot remove — inverting her Act 2 claim about water. The sleepwalking itself is significant: she commits her crimes fully awake but her guilt only surfaces unconsciously."
+      },
+      {
+        id:"mac15",
+        speaker:"Malcolm / Doctor",
+        act:"Act 4, Scene 3 / Act 5, Scene 1",
+        quote:"Angels are bright still, though the brightest fell",
+        context:"Malcolm testing Macduff — warning that even good-looking things can be corrupt",
+        prompt:"Malcolm warns Macduff that even angels remain bright, yet the 'brightest' — _____ — fell. This implies Macbeth was once glorious.",
+        blank:"Lucifer",
+        options:["Macbeth","Duncan","Lucifer","Banquo"],
+        answerIndex:2,
+        themes:["Appearance vs Reality","Power & Ambition","The Supernatural"],
+        analysis:"The allusion to Lucifer (the fallen angel) frames Macbeth in theological terms. It also suggests Macbeth was once Scotland's brightest figure — his fall is thus all the more tragic. Malcolm is ironically also testing whether Macduff can see through appearances, the very skill Macbeth has exploited."
+      },
+      {
+        id:"mac16",
+        speaker:"Banquo",
+        act:"Act 1, Scene 3",
+        quote:"What, can the devil speak true?",
+        context:"Banquo reacting to Macbeth's promotion confirming the Witches' prophecy",
+        prompt:"Banquo's question 'can the devil speak _____?' warns that truth and evil can coexist — a warning Macbeth ignores.",
+        blank:"true",
+        options:["loud","true","softly","freely"],
+        answerIndex:1,
+        themes:["The Supernatural","Appearance vs Reality","Fate & Free Will"],
+        analysis:"Banquo immediately suspects the Witches use truth as a lure — he later says they 'win us with honest trifles to betray us in deepest consequence'. His suspicion makes his moral counterpoint to Macbeth clear: both receive prophecies, but only Macbeth acts on them corruptly."
+      },
+      {
+        id:"mac17",
+        speaker:"Witches",
+        act:"Act 1, Scene 3",
+        quote:"All hail, Macbeth, that shalt be king hereafter!",
+        context:"The Witches' prophecy to Macbeth on the heath",
+        prompt:"The Witches hail Macbeth as future _____, planting the seed of his ambition.",
+        blank:"king",
+        options:["general","thane","king","emperor"],
+        answerIndex:2,
+        themes:["The Supernatural","Fate & Free Will","Power & Ambition"],
+        analysis:"The prophecy functions as a mirror — it shows Macbeth what he already wants. The Witches do not create his ambition; they reveal it. This is key to the free will debate: does the prophecy cause the regicide, or does Macbeth's pre-existing desire? Either reading is valid for an exam essay."
+      },
+      {
+        id:"mac18",
+        speaker:"Macbeth",
+        act:"Act 3, Scene 4",
+        quote:"Never shake / Thy gory locks at me",
+        context:"Macbeth's outburst at Banquo's ghost during the banquet",
+        prompt:"Macbeth addresses Banquo's ghost, telling it to stop shaking its _____ locks at him.",
+        blank:"gory",
+        options:["bloody","gory","silver","tangled"],
+        answerIndex:1,
+        themes:["Guilt & Conscience","The Supernatural","Violence & Tyranny"],
+        analysis:"The banquet scene is Macbeth's public breakdown — he destroys his own political image. 'Gory locks' is viscerally specific: he sees not a ghostly Banquo but the physical evidence of his crime. Only Macbeth sees the ghost, which raises the question (as with the dagger) of whether it is supernatural or psychological."
+      },
+      {
+        id:"mac19",
+        speaker:"Lady Macbeth",
+        act:"Act 1, Scene 7",
+        quote:"Was the hope drunk / Wherein you dressed yourself?",
+        context:"Lady Macbeth mocking Macbeth's cowardice when he wavers on the plan",
+        prompt:"Lady Macbeth shames Macbeth by asking whether his _____ was 'drunk' — implying his courage has now sobered into cowardice.",
+        blank:"hope",
+        options:["pride","hope","courage","plan"],
+        answerIndex:1,
+        themes:["Gender & Manipulation","Power & Ambition","Guilt & Conscience"],
+        analysis:"Lady Macbeth weaponises gender — calling him cowardly is the most effective manipulation available to her because masculinity is how Macbeth defines himself. 'Dressed yourself' implies his ambition was performative costume, not genuine conviction. Her manipulation here is arguably the decisive push toward murder."
+      },
+      {
+        id:"mac20",
+        speaker:"Macbeth",
+        act:"Act 5, Scene 7",
+        quote:"Yet I will try the last",
+        context:"Macbeth's final defiance before being killed by Macduff",
+        prompt:"Even as all prophecies collapse, Macbeth chooses to fight to the _____ rather than surrender.",
+        blank:"last",
+        options:["death","end","last","bitter"],
+        answerIndex:2,
+        themes:["Power & Ambition","Violence & Tyranny","Fate & Free Will"],
+        analysis:"His final moments restore a trace of the heroic Macbeth from Act 1. He chooses death over surrender, which preserves his martial identity even as his political one collapses. For examiners, this complicates Macbeth as a villain: he retains courage even when he has lost everything else."
+      }
+    ]
+  },
+  acc: {
+    title: "A Christmas Carol",
+    author: "Charles Dickens",
+    themes:["Redemption & Change","Social Responsibility","Greed & Isolation","Christmas Spirit","The Past & Memory","Compassion","Class & Poverty"],
+    cards: [
+      {
+        id:"acc1",
+        speaker:"Narrator",
+        act:"Stave 1",
+        quote:"Marley was dead, to begin with",
+        context:"The novella's famous opening line",
+        prompt:"Dickens opens with the blunt declaration that _____ was dead — establishing mortality as a central concern from the first line.",
+        blank:"Marley",
+        options:["Scrooge","Marley","Christmas","Time"],
+        answerIndex:1,
+        themes:["Redemption & Change","The Past & Memory"],
+        analysis:"The casual certainty of 'to begin with' is darkly comic but purposeful — it removes any doubt about Marley's ghost's supernatural status. It also immediately frames the novella around death and what follows it. Dickens' narrative voice is intimate and knowing, almost like a storyteller at a fireside."
+      },
+      {
+        id:"acc2",
+        speaker:"Narrator",
+        act:"Stave 1",
+        quote:"Oh! But he was a tight-fisted hand at the grindstone, Scrooge! a squeezing, wrenching, grasping, scraping, clutching, covetous old sinner!",
+        context:"The narrator's initial description of Scrooge",
+        prompt:"Dickens uses six consecutive present participles — squeezing, wrenching, grasping, scraping, _____, covetous — to establish Scrooge as the embodiment of greed.",
+        blank:"clutching",
+        options:["clinging","clutching","hoarding","seizing"],
+        answerIndex:1,
+        themes:["Greed & Isolation","Social Responsibility","Class & Poverty"],
+        analysis:"The list accelerates — each word more physically violent than the last. 'Covetous' is the Bible's word for greed (10th commandment), placing Scrooge in a moral and religious framework from the outset. This description invites readers to judge Scrooge while also setting up his transformation as genuinely remarkable."
+      },
+      {
+        id:"acc3",
+        speaker:"Scrooge",
+        act:"Stave 1",
+        quote:"If they would rather die, they had better do it, and decrease the surplus population",
+        context:"Scrooge dismissing the charity collectors who mention the poor who would rather die than go to workhouses",
+        prompt:"Scrooge quotes Malthusian economics — the poor should 'decrease the surplus _____' — revealing his dehumanisation of the poor.",
+        blank:"population",
+        options:["burden","suffering","population","numbers"],
+        answerIndex:2,
+        themes:["Social Responsibility","Greed & Isolation","Class & Poverty"],
+        analysis:"Dickens is directly attacking Malthusian economics, which justified poverty as natural. Scrooge literally uses the language of economic theory to deny human beings their humanity. The Ghost of Christmas Present throws this back at him — 'the words are used by those I find in the streets'; Scrooge's cruelty is systemic, not merely personal."
+      },
+      {
+        id:"acc4",
+        speaker:"Narrator / Ghost",
+        act:"Stave 3",
+        quote:"Are there no prisons? Are there no workhouses?",
+        context:"The Ghost of Christmas Present repeating Scrooge's words back at him, suggesting Ignorance and Want are approaching death",
+        prompt:"The Ghost returns Scrooge's own cold words — 'Are there no prisons?' — to expose how _____ his earlier attitude was.",
+        blank:"cruel",
+        options:["foolish","cruel","illegal","unintended"],
+        answerIndex:1,
+        themes:["Social Responsibility","Class & Poverty","Redemption & Change"],
+        analysis:"The reversal is one of Dickens' sharpest rhetorical moves. Scrooge's original words sounded like common sense; mirrored back, their cruelty is undeniable. The scene with Ignorance and Want — two skeletal children beneath the Ghost's robe — makes abstract poverty viscerally human."
+      },
+      {
+        id:"acc5",
+        speaker:"Narrator",
+        act:"Stave 3",
+        quote:"This boy is Ignorance. This girl is Want. Beware them both... but most of all beware this boy",
+        context:"The Ghost of Christmas Present reveals the two children hidden beneath his robes",
+        prompt:"The Ghost names the children Ignorance and _____, warning Scrooge — and Victorian society — of their destructive power.",
+        blank:"Want",
+        options:["Poverty","Greed","Want","Fear"],
+        answerIndex:2,
+        themes:["Social Responsibility","Class & Poverty","Compassion"],
+        analysis:"Dickens personifies political abstractions as starving children — it is viscerally effective. 'Beware this boy' (Ignorance) most of all suggests that not knowing — or choosing not to know — about poverty is the greater social crime. This is a direct message to Dickens' middle-class readership."
+      },
+      {
+        id:"acc6",
+        speaker:"Narrator",
+        act:"Stave 3",
+        quote:"There was nothing very cheerful in the climate or the town, and yet was there an air of cheerfulness abroad that the clearest summer air and brightest summer sun might have endeavoured to diffuse in vain",
+        context:"The miners and lighthouse keepers celebrating Christmas — visited by the Ghost of Christmas Present",
+        prompt:"The _____ and lighthouse keepers celebrate Christmas joyfully in bleak conditions — proving the spirit of Christmas needs no material wealth.",
+        blank:"miners",
+        options:["sailors","miners","fishermen","soldiers"],
+        answerIndex:1,
+        themes:["Christmas Spirit","Compassion","Class & Poverty"],
+        analysis:"This is one of the novella's quietest but most powerful moments. People in the most isolated, inhospitable places on earth still find warmth and generosity at Christmas. It directly refutes Scrooge's implicit belief that goodness requires prosperity. The long, winding sentence itself mimics abundance despite the scarcity of the setting."
+      },
+      {
+        id:"acc7",
+        speaker:"Narrator",
+        act:"Stave 4",
+        quote:"'What has he done with his money?' asked a red-faced gentleman",
+        context:"Scrooge watches strangers discuss his death — and they care only about his money, not his person",
+        prompt:"After the Ghost of Christmas Yet to Come shows Scrooge men discussing his death, they reveal they only care about his _____, not about him.",
+        blank:"money",
+        options:["house","secrets","money","will"],
+        answerIndex:2,
+        themes:["Greed & Isolation","The Past & Memory","Redemption & Change"],
+        analysis:"This is the moment Scrooge requested — he asked the Ghost to show him someone who felt emotion from his death, assuming it would be grief. The bitter irony is that the emotion these men feel is merely financial curiosity and low-level glee. Scrooge sees his own life reflected back as utterly loveless."
+      },
+      {
+        id:"acc8",
+        speaker:"Narrator",
+        act:"Stave 4",
+        quote:"'He hasn't left it to me,' said Scrooge's charwoman. 'It's likely to be a very cheap funeral, for upon my life I don't know of anybody to go to it'",
+        context:"The laundress, charwoman and undertaker's man sell Scrooge's possessions — one of them notes no one will attend his funeral",
+        prompt:"The charwoman's observation that no one will attend Scrooge's _____ is a devastating verdict on a life spent in isolation.",
+        blank:"funeral",
+        options:["wake","funeral","burial","death"],
+        answerIndex:1,
+        themes:["Greed & Isolation","Social Responsibility","Redemption & Change"],
+        analysis:"Dickens ensures the people who should mourn Scrooge instead rob his corpse and sneer at his memory. The black comedy of 'cheap funeral' lands as genuine horror — a man of wealth who cannot even secure mourners. This is the logical endpoint of Scrooge's philosophy: money hoarded becomes meaningless in death."
+      },
+      {
+        id:"acc9",
+        speaker:"Narrator",
+        act:"Stave 4",
+        quote:"'Oh cold, cold, rigid, dreadful Death, set up thine altar here, and dress it with such terrors as thou hast at thy command: for this is thy dominion!'",
+        context:"The narrator apostrophises death over Scrooge's shrouded corpse",
+        prompt:"The apostrophe to _____ Death over Scrooge's body is one of Dickens' most theatrical moments, heightening the horror of a life wasted.",
+        blank:"cold",
+        options:["cold","grim","dark","pale"],
+        answerIndex:0,
+        themes:["Redemption & Change","Greed & Isolation","The Past & Memory"],
+        analysis:"Dickens breaks into direct address (apostrophe), a rare moment where the narrative voice speaks to an abstraction. The triple adjective 'cold, cold, rigid, dreadful' accumulates dread. This heightened register tells the reader: this is what Scrooge's death will be if he does not change. The scene functions as a moral ultimatum."
+      },
+      {
+        id:"acc10",
+        speaker:"Narrator",
+        act:"Stave 4",
+        quote:"'The phantom slowly, gravely, silently approached'",
+        context:"The introduction of the Ghost of Christmas Yet to Come",
+        prompt:"The Ghost of the Future is introduced with three adverbs — slowly, gravely, _____ — suggesting death and inevitability rather than supernatural horror.",
+        blank:"silently",
+        options:["silently","darkly","heavily","coldly"],
+        answerIndex:0,
+        themes:["The Past & Memory","Redemption & Change","Greed & Isolation"],
+        analysis:"Unlike the earlier Ghosts, this one never speaks. Its silence is its power — it cannot be reasoned with, questioned, or charmed. The three adverbs create a relentless, inevitable movement: this Ghost is Time itself. Scrooge's fear of it is more visceral than any previous scene."
+      },
+      {
+        id:"acc11",
+        speaker:"Caroline",
+        act:"Stave 4",
+        quote:"'We may sleep to-night with light hearts, Caroline!'",
+        context:"Caroline's husband discovers that the debt they owed Scrooge dies with him — the family rejoices",
+        prompt:"When Scrooge's death means _____ and her husband no longer owe a debt, their relief is genuine joy — an indictment of what Scrooge's life meant to others.",
+        blank:"Caroline",
+        options:["Martha","Caroline","Emily","Helen"],
+        answerIndex:0,
+        themes:["Greed & Isolation","Social Responsibility","Compassion"],
+        analysis:"Dickens makes this deliberately uncomfortable. These are good, loving people — yet they feel genuine relief at a man's death. Their joy is not callous; it is the rational response to being released from financial torment. Scrooge had been an abstract creditor to himself; here he sees his power over real lives — and its human cost."
+      },
+      {
+        id:"acc12",
+        speaker:"Marley's Ghost",
+        act:"Stave 1",
+        quote:"I wear the chain I forged in life",
+        context:"Marley explains the nature of his torment to Scrooge",
+        prompt:"Marley tells Scrooge he wears the _____ he forged in life — representing the moral weight of selfish choices.",
+        blank:"chain",
+        options:["burden","chain","curse","weight"],
+        answerIndex:1,
+        themes:["Greed & Isolation","Redemption & Change","Social Responsibility"],
+        analysis:"The chain is made of 'cash-boxes, keys, padlocks, ledgers, deeds, and heavy purses wrought in steel' — every link is a business transaction, a choice made for money over humanity. It is Dickens' most explicit symbol: wealth accumulated at others' expense becomes a literal imprisonment after death. Marley is Scrooge's possible future."
+      },
+      {
+        id:"acc13",
+        speaker:"Scrooge",
+        act:"Stave 2",
+        quote:"'There was a boy singing a Christmas Carol at my door last night. I should like to have given him something: that's all'",
+        context:"The Ghost of Christmas Past shows Scrooge his lonely childhood — he begins to crack",
+        prompt:"Watching his past lonely self at school, Scrooge regrets not giving money to a _____ who sang at his door — his first flicker of compassion.",
+        blank:"boy",
+        options:["beggar","boy","servant","caroler"],
+        answerIndex:1,
+        themes:["Redemption & Change","The Past & Memory","Compassion"],
+        analysis:"This is the first genuine moment of empathy in the novella. The memory unlocks something — Scrooge's hardness begins to crack because the Ghost reconnects him to his own past vulnerability. The detail of the carol singer is small but precise; Dickens shows redemption beginning in tiny impulses, not grand gestures."
+      },
+      {
+        id:"acc14",
+        speaker:"Fezziwig",
+        act:"Stave 2",
+        quote:"He has the power to render us happy or unhappy; to make our service light or burdensome",
+        context:"Young Scrooge praises Fezziwig's kindness as an employer — the Ghost asks if Fezziwig deserves such praise",
+        prompt:"Young Scrooge's praise of _____ implicitly condemns his own future treatment of Bob Cratchit.",
+        blank:"Fezziwig",
+        options:["his father","Fezziwig","his master","Old Joe"],
+        answerIndex:1,
+        themes:["Social Responsibility","Compassion","Redemption & Change","Class & Poverty"],
+        analysis:"The Ghost catches Scrooge articulating a moral principle he has long since abandoned. Fezziwig spent very little money to make his workers happy — yet Scrooge remembers it with profound gratitude. This directly contrasts with how Scrooge treats Bob Cratchit. The scene is a gentle but devastating self-indictment."
+      },
+      {
+        id:"acc15",
+        speaker:"Narrator",
+        act:"Stave 5",
+        quote:"He became as good a friend, as good a master, and as good a man, as the good old city knew",
+        context:"The novella's closing description of the transformed Scrooge",
+        prompt:"The triple repetition of 'as good' in the final description of Scrooge emphasises that his _____ is total and genuine.",
+        blank:"transformation",
+        options:["repentance","transformation","charity","goodness"],
+        answerIndex:1,
+        themes:["Redemption & Change","Compassion","Christmas Spirit","Social Responsibility"],
+        analysis:"The rhythm is triumphant — the same list structure used in his original damning description now praises him. Dickens mirrors his own language to show complete inversion. Crucially, Scrooge becomes 'good' in three roles: friend (personal), master (professional), man (universal). His transformation is comprehensive, not partial."
+      },
+      {
+        id:"acc16",
+        speaker:"Scrooge",
+        act:"Stave 5",
+        quote:"'I don't know what to do!' cried Scrooge, laughing and crying in the same breath",
+        context:"Scrooge wakes on Christmas morning, transformed",
+        prompt:"Scrooge's simultaneous laughing and _____ on Christmas morning shows an emotional thawing — he has recovered the capacity for feeling.",
+        blank:"crying",
+        options:["sobbing","crying","shouting","praying"],
+        answerIndex:1,
+        themes:["Redemption & Change","Christmas Spirit","Compassion"],
+        analysis:"This is one of Dickens' most joyful images. Scrooge has spent the whole novella suppressing feeling; now he cannot control two contradictory emotions at once. It reads as almost childlike — and that is deliberate. He is being reborn. The laughter-and-tears combination appears in only the most intense human moments."
+      },
+      {
+        id:"acc17",
+        speaker:"Narrator",
+        act:"Stave 1",
+        quote:"External heat and cold had little influence on Scrooge. No warmth could warm, no wintry weather chill him",
+        context:"The narrator's introduction of Scrooge — he is beyond normal human feeling",
+        prompt:"Dickens describes Scrooge as impervious to temperature — metaphorically, he has cut himself off from all _____ warmth.",
+        blank:"human",
+        options:["human","physical","seasonal","emotional"],
+        answerIndex:0,
+        themes:["Greed & Isolation","Social Responsibility"],
+        analysis:"The double negative structure ('no warmth could warm') creates a claustrophobic portrait of someone sealed against the world. Cold functions as both literal and moral description throughout the novella. Scrooge's transformation in Stave 5 is therefore marked by warmth — he feels, laughs, cries, and gives. The imagery is consistent and deliberate."
+      },
+      {
+        id:"acc18",
+        speaker:"Narrator",
+        act:"Stave 1",
+        quote:"Darkness is cheap, and Scrooge liked it",
+        context:"Scrooge's office is described as perpetually dark — he will not pay for candles",
+        prompt:"The observation that '_____ is cheap, and Scrooge liked it' works both literally (candles) and metaphorically (moral darkness).",
+        blank:"Darkness",
+        options:["Cold","Silence","Darkness","Poverty"],
+        answerIndex:2,
+        themes:["Greed & Isolation","Class & Poverty"],
+        analysis:"Four words, but Dickens packs extraordinary density into them. 'Cheap' is the key word — Scrooge's every choice is filtered through cost. The sentence is ironic: darkness is cheap materially, but its moral cost is immense. It also sets up light as a symbol of transformation — the novella ends with the warmth of Scrooge's fire and his open door."
+      },
+      {
+        id:"acc19",
+        speaker:"Tiny Tim / Bob Cratchit",
+        act:"Stave 3",
+        quote:"'God bless us, every one!' said Tiny Tim",
+        context:"Tiny Tim's blessing at the end of the Cratchit Christmas dinner",
+        prompt:"Tiny Tim's blessing — 'God bless us, _____!' — is both the novella's moral centre and its most famous line.",
+        blank:"every one",
+        options:["everyone","every one","us all","all"],
+        answerIndex:1,
+        themes:["Christmas Spirit","Compassion","Social Responsibility","Class & Poverty"],
+        analysis:"'Every one' (two words) is universal — not 'all of us here' but everyone. Tim, the most vulnerable character, offers the most expansive blessing. Dickens uses him as a figure of moral purity whose goodness shames Scrooge's selfishness. The line also closes the novella — its placement gives it the weight of a final verdict."
+      },
+      {
+        id:"acc20",
+        speaker:"Narrator",
+        act:"Stave 3",
+        quote:"And it was a very uncommon kind of torch, for once or twice when there were angry words between some men at dinner, he shed a few drops of his torch upon them, and their good humour was restored directly",
+        context:"Description of the Ghost of Christmas Present's torch — it spreads good humour wherever it sprinkles",
+        prompt:"The Ghost of Christmas Present's _____ restores goodwill wherever it falls — it literally embodies the Christmas spirit.",
+        blank:"torch",
+        options:["robe","torch","laughter","hand"],
+        answerIndex:1,
+        themes:["Christmas Spirit","Compassion","Redemption & Change"],
+        analysis:"The torch is a magical object that physically enacts the power of goodwill. Dickens suggests Christmas spirit is transformative in a quasi-supernatural way — not unlike the three Ghosts. That the torch exists at all shows Dickens believes in the genuine power of seasonal generosity to heal social tensions. A subtle but beautiful image."
+      },
+      {
+        id:"acc21",
+        speaker:"Belle",
+        act:"Stave 2",
+        quote:"Another idol has displaced me; and if it can cheer and comfort you in time to come, as I would have tried to do, I have no just cause to grieve",
+        context:"Belle ends her engagement to young Scrooge — a golden idol (money) has replaced her in his affections",
+        prompt:"Belle tells young Scrooge that a 'golden _____' — money — has replaced her as the object of his devotion.",
+        blank:"idol",
+        options:["master","cage","idol","chain"],
+        answerIndex:2,
+        themes:["Greed & Isolation","The Past & Memory","Redemption & Change"],
+        analysis:"'Idol' has religious connotations — worshipping money as a false god. Belle does not accuse Scrooge bitterly; she is dignified and sad. Her dignity makes the loss more devastating. The scene shows Scrooge chose greed over love at the specific moment when his character hardened — it is the psychological origin of his isolation."
+      }
+    ]
+  },
+  poetry: {
+    title: "Power & Conflict Poetry",
+    author: "AQA Anthology",
+    themes:["Power of Nature","War & Conflict","Power & Identity","Loss & Memory","Destruction","Pride & Hubris","Suffering"],
+    cards: [
+      {
+        id:"po1",
+        speaker:"Ozymandias (Shelley)",
+        act:"Ozymandias",
+        quote:"My name is Ozymandias, King of Kings; / Look on my Works, ye Mighty, and despair!",
+        context:"Words inscribed on the pedestal of the ruined statue in the desert",
+        prompt:"Ozymandias boasts of his power — but the command to 'Look on my Works' is now _____ irony, as nothing remains.",
+        blank:"devastating",
+        options:["sad","devastating","subtle","gentle"],
+        answerIndex:1,
+        themes:["Power & Identity","Pride & Hubris","Destruction"],
+        analysis:"The poem's central irony: the inscription survives but the works do not. 'King of Kings' is a biblical title (used for God and Jesus), making the hubris blasphemous. Shelley — a radical — uses the poem to argue all political power is temporary. Nothing can outlast time; the desert is the ultimate leveller."
+      },
+      {
+        id:"po2",
+        speaker:"Ozymandias (Shelley)",
+        act:"Ozymandias",
+        quote:"Half sunk a shattered visage lies",
+        context:"Description of the ruined statue of Ozymandias",
+        prompt:"The statue's 'shattered _____' — face — is half buried in sand, showing how completely power has been destroyed.",
+        blank:"visage",
+        options:["statue","visage","body","crown"],
+        answerIndex:1,
+        themes:["Pride & Hubris","Destruction","Power & Identity"],
+        analysis:"'Visage' (face) is deliberately formal — it elevates what is also a broken lump of stone. The alliterative 'shattered visage' sounds violent. The face that once commanded awe is now fragmented and buried. Physical decay mirrors political decay; Shelley suggests power always ends this way."
+      },
+      {
+        id:"po3",
+        speaker:"Exposure (Owen)",
+        act:"Exposure",
+        quote:"Our brains ache, in the merciless iced east winds that knive us",
+        context:"Opening of Owen's poem — soldiers in the trenches",
+        prompt:"Owen's verb 'knive' transforms the east wind into an _____, showing nature as a weapon as lethal as the enemy.",
+        blank:"enemy",
+        options:["ice storm","enemy","blade","horror"],
+        answerIndex:1,
+        themes:["War & Conflict","Power of Nature","Suffering"],
+        analysis:"The verb 'knive' is an invented word — Owen coins it to capture the unique sensation of cold as cutting violence. 'Merciless' personifies the wind as deliberately cruel. The soldiers face two enemies: the German lines and the weather. The poem argues the latter may be worse. Owen implicates nature itself in the war's horror."
+      },
+      {
+        id:"po4",
+        speaker:"Exposure (Owen)",
+        act:"Exposure",
+        quote:"But nothing happens",
+        context:"Repeated refrain throughout Exposure",
+        prompt:"Owen's refrain 'But nothing _____' captures the psychological torture of waiting — the trenches killed through inaction as well as combat.",
+        blank:"happens",
+        options:["changes","moves","happens","comes"],
+        answerIndex:2,
+        themes:["War & Conflict","Suffering","Loss & Memory"],
+        analysis:"The refrain's repetition is structurally enacting the poem's subject: nothing changes, nothing resolves. After intense imagery, this plain sentence lands as brutal anticlimax. The 'but' creates contradiction — something should happen, but doesn't. This captures the specific psychological cruelty of attrition warfare."
+      },
+      {
+        id:"po5",
+        speaker:"Storm on the Island (Heaney)",
+        act:"Storm on the Island",
+        quote:"We are prepared: we build our houses squat",
+        context:"Opening line — the islanders' defiant preparedness against nature's violence",
+        prompt:"The plural 'we' and confident '_____ prepared' establish a community unified against nature — but the confidence proves fragile.",
+        blank:"are",
+        options:["were","are","stand","feel"],
+        answerIndex:1,
+        themes:["Power of Nature","Power & Identity","Destruction"],
+        analysis:"'We are prepared' is immediately undercut by the entire rest of the poem. Heaney builds the poem as the dismantling of this opening confidence. By the end — 'it is a huge nothing that we fear' — the collective 'we' is terrified rather than prepared. The opening false certainty is the poem's central irony."
+      },
+      {
+        id:"po6",
+        speaker:"Bayonet Charge (Hughes)",
+        act:"Bayonet Charge",
+        quote:"In what cold clockwork of the stars and the nations / Was he the hand pointing that second?",
+        context:"The soldier questions why he specifically must die",
+        prompt:"Hughes uses the metaphor of _____ to suggest the soldier is just a mechanical cog in the war machine — not a person but a component.",
+        blank:"clockwork",
+        options:["machinery","clockwork","industry","weaponry"],
+        answerIndex:1,
+        themes:["War & Conflict","Power & Identity","Suffering"],
+        analysis:"'Cold clockwork' removes human agency: the soldier is a hand on a clock, moved by vast impersonal forces. The word 'cold' echoes Owen's cold east wind — war is mechanical and inhuman. Hughes asks who designed this clockwork (stars = fate? nations = politics?) — the soldier gets no answer."
+      },
+      {
+        id:"po7",
+        speaker:"Remains (Armitage)",
+        act:"Remains",
+        quote:"his bloody life in my bloody hands",
+        context:"The soldier relives shooting a looter — the word 'bloody' does double duty",
+        prompt:"Armitage's word 'bloody' works both as a literal description of _____ and as a British expletive — collapsing guilt into casual speech.",
+        blank:"blood",
+        options:["murder","blood","death","war"],
+        answerIndex:1,
+        themes:["War & Conflict","Suffering","Loss & Memory"],
+        analysis:"This is one of the most effective double-meanings in the anthology. The casual register of 'bloody hands' (swearing) sits alongside the literal image (blood). It shows how violence is absorbed into ordinary speech — and thus how trauma is buried in everyday language. The soldier cannot escape what he did even in casual thinking."
+      },
+      {
+        id:"po8",
+        speaker:"War Photographer (Duffy)",
+        act:"War Photographer",
+        quote:"A hundred agonies in black-and-white / from which his editor will pick out five or six / for Sunday's supplement",
+        context:"The photographer reflects on how editors reduce mass suffering to a handful of images",
+        prompt:"Duffy shows that _____ agonies are reduced to 'five or six' by an editor — indicting media's trivialisation of war.",
+        blank:"a hundred",
+        options:["countless","a hundred","foreign","human"],
+        answerIndex:1,
+        themes:["War & Conflict","Suffering","Power & Identity"],
+        analysis:"The arithmetic is damning. One hundred lives reduced to a handful of images selected for aesthetic impact. 'Sunday's supplement' places extreme violence next to recipes and lifestyle articles — the mundane context intensifies the horror. Duffy argues the Western media-consuming public is complicit in this trivialisation."
+      },
+      {
+        id:"po9",
+        speaker:"Poppies (Weir)",
+        act:"Poppies",
+        quote:"I was brave, as I walked / with you",
+        context:"A mother describes holding herself together as she says goodbye to her son leaving for war",
+        prompt:"The mother says she 'was _____' — past tense, suggesting the bravery required enormous effort and may not have lasted.",
+        blank:"brave",
+        options:["proud","brave","strong","still"],
+        answerIndex:1,
+        themes:["War & Conflict","Loss & Memory","Suffering"],
+        analysis:"The past tense is crucial — 'I was brave' implies she is no longer. The poem is retrospective, written in grief. Her bravery in the moment was a performance for her son's benefit. Weir focuses on the domestic, maternal experience of war — a perspective often absent from war poetry, which traditionally centres male combatants."
+      },
+      {
+        id:"po10",
+        speaker:"Tissue (Dharker)",
+        act:"Tissue",
+        quote:"Paper that lets the light / shine through",
+        context:"Opening image — translucent tissue paper as a metaphor for what truly matters",
+        prompt:"Dharker's tissue paper 'lets the _____ shine through' — transparency and fragility are presented as strengths, not weaknesses.",
+        blank:"light",
+        options:["truth","light","past","words"],
+        answerIndex:1,
+        themes:["Power & Identity","Destruction","Power of Nature"],
+        analysis:"Light shining through paper suggests vulnerability that enables transcendence. Dharker argues that what is thin and fragile — human life, relationships, time — is more real and more lasting than stone monuments or legal documents. The poem inverts conventional ideas of power: fragility as strength."
+      },
+      {
+        id:"po11",
+        speaker:"The Prelude (Wordsworth)",
+        act:"The Prelude",
+        quote:"Upreared its head from the lake, as if with voluntary power instinct",
+        context:"The peak Wordsworth thought he was rowing past seems to rise and follow him",
+        prompt:"The mountain appears to rise with '_____ power' — as if it is alive and consciously pursuing the young Wordsworth.",
+        blank:"voluntary",
+        options:["terrifying","voluntary","natural","sudden"],
+        answerIndex:0,
+        themes:["Power of Nature","Power & Identity","Suffering"],
+        analysis:"'Voluntary power' is the key phrase — the mountain acts with intent. Wordsworth cannot dismiss this as rational; the experience has genuinely terrified him. The sublime (beauty mixed with terror) is Wordsworth's subject. Nature corrects human pride not through argument but through overwhelming physical presence."
+      },
+      {
+        id:"po12",
+        speaker:"London (Blake)",
+        act:"London",
+        quote:"In every cry of every Man, / In every Infant's cry of fear",
+        context:"Blake describes the sounds of London — universal suffering",
+        prompt:"The anaphora of '_____ every' emphasises that suffering in London is universal and inescapable.",
+        blank:"In",
+        options:["Through","In","From","Beneath"],
+        answerIndex:1,
+        themes:["Suffering","Power & Identity","Destruction"],
+        analysis:"'Every' is repeated six times in the stanza — no one escapes. Blake's London is a city of universal suffering, from infants to soldiers to chimney-sweeps. The repetition is both musical (it creates a tolling rhythm) and ideological: Blake argues oppression is systemic, not individual. Written during the French Revolution, it is politically charged."
+      },
+      {
+        id:"po13",
+        speaker:"Charge of the Light Brigade (Tennyson)",
+        act:"Charge of the Light Brigade",
+        quote:"Theirs not to reason why, / Theirs but to do and die",
+        context:"Tennyson describes the soldiers following suicidal orders without question",
+        prompt:"Tennyson's 'theirs not to _____ why' shows soldiers as stripped of agency — they obey even lethal orders.",
+        blank:"reason",
+        options:["question","reason","wonder","know"],
+        answerIndex:1,
+        themes:["War & Conflict","Power & Identity","Suffering"],
+        analysis:"The rhyme of 'why/die' makes the soldiers' lack of agency feel inevitable — even the poem's sound structure cannot escape it. Tennyson glorifies their obedience while implicitly critiquing the command that sent them. The poem is ambiguous: is 'theirs not to reason why' admirable self-sacrifice or a condemnation of blind military authority?"
+      },
+      {
+        id:"po14",
+        speaker:"My Last Duchess (Browning)",
+        act:"My Last Duchess",
+        quote:"I gave commands; / Then all smiles stopped together",
+        context:"The Duke's euphemistic admission that he had his wife killed",
+        prompt:"The Duke's chilling euphemism — 'all smiles stopped _____' — admits murder through understatement.",
+        blank:"together",
+        options:["forever","together","then","suddenly"],
+        answerIndex:1,
+        themes:["Power & Identity","Destruction","Pride & Hubris"],
+        analysis:"The casual pause — 'I gave commands; / Then all smiles stopped together' — is one of the most chilling moments in Victorian poetry. The enjambment enacts the gap between order and consequence. Browning gives us a murderer who doesn't recognise his crime as such; the Duchess's 'smiles' are treated as a possession he had a right to control."
+      },
+      {
+        id:"po15",
+        speaker:"Kamikaze (Garland)",
+        act:"Kamikaze",
+        quote:"he must have looked far down at Pacific Islands / where fishermen… / …hauled / a net of kittiwakes",
+        context:"The pilot, about to die for Japan, sees fishing boats and turns back — remembering life",
+        prompt:"The vision of fishermen and _____ (seabirds) reconnects the pilot to life — nature overcomes ideology.",
+        blank:"kittiwakes",
+        options:["gulls","kittiwakes","dolphins","nets"],
+        answerIndex:1,
+        themes:["War & Conflict","Power of Nature","Loss & Memory","Power & Identity"],
+        analysis:"The specific word 'kittiwakes' is important — it is not a generic seabird but a precise, beautiful detail. Garland shows life's particularity overcoming the abstraction of ideology. The pilot chooses life, but the poem complicates this: his community rejects him, and his family must silence him. The 'correct' choice brings a different kind of destruction."
+      }
+    ]
+  },
+  aic: {
+    title: "An Inspector Calls",
+    author: "J.B. Priestley",
+    themes:["Social Responsibility","Class & Power","Gender & Society","Generations & Change","Hypocrisy","Guilt & Blame","Capitalism & Exploitation"],
+    cards: [
+      {
+        id:"aic1",
+        speaker:"Inspector Goole",
+        act:"Act 3",
+        quote:"We are members of one body. We are responsible for each other.",
+        context:"The Inspector's final speech before he leaves",
+        prompt:"The Inspector declares that humanity is one '_____ body' — his central socialist message about collective responsibility.",
+        blank:"one",
+        options:["one","shared","human","living"],
+        answerIndex:0,
+        themes:["Social Responsibility","Class & Power","Generations & Change"],
+        analysis:"This is Priestley's thesis statement delivered through the Inspector's mouth. 'One body' has biblical resonances (Saint Paul's body of Christ) — Priestley frames social responsibility as both political and moral. Written in 1945, performed to a post-war audience rebuilding society, this speech directly advocates for the welfare state."
+      },
+      {
+        id:"aic2",
+        speaker:"Inspector Goole",
+        act:"Act 3",
+        quote:"If men will not learn that lesson, then they will be taught it in fire and blood and anguish",
+        context:"The Inspector's warning at the end of his speech",
+        prompt:"The Inspector's warning of 'fire and blood and _____' foreshadows the two World Wars — Priestley wrote in 1945 with hindsight.",
+        blank:"anguish",
+        options:["terror","anguish","ruin","pain"],
+        answerIndex:1,
+        themes:["Social Responsibility","Guilt & Blame","Generations & Change"],
+        analysis:"Priestley wrote the play in 1945, set in 1912 — so the audience already knows what 'fire and blood' came. Two World Wars followed the Edwardians' failure to reform. The Inspector's prophecy is Priestley's retrospective diagnosis: class exploitation and social irresponsibility directly caused the catastrophe. This speech is deliberately anachronistic."
+      },
+      {
+        id:"aic3",
+        speaker:"Mr Birling",
+        act:"Act 1",
+        quote:"The Titanic — she sails next week — unsinkable, absolutely unsinkable",
+        context:"Arthur Birling's confident predictions at the dinner party",
+        prompt:"Birling's confident prediction that the Titanic is '___________' is deeply ironic — the audience knows it sinks.",
+        blank:"unsinkable",
+        options:["safe","unsinkable","seaworthy","indestructible"],
+        answerIndex:1,
+        themes:["Class & Power","Hypocrisy","Social Responsibility"],
+        analysis:"Priestley uses Birling's wrong predictions to undermine his authority immediately. The Titanic is not just a ship — it is a symbol of capitalist hubris (wealthy passengers in first class, poor in steerage). Birling's confidence is Priestley's target: he represents the self-satisfied ruling class whose certainties caused catastrophe."
+      },
+      {
+        id:"aic4",
+        speaker:"Mr Birling",
+        act:"Act 1",
+        quote:"A man has to mind his own business and look after himself and his own",
+        context:"Birling's philosophy of life — spoken just before the Inspector arrives",
+        prompt:"Birling's individualist philosophy — 'mind his own _____ and look after himself' — is the worldview the Inspector directly dismantles.",
+        blank:"business",
+        options:["interests","business","money","affairs"],
+        answerIndex:1,
+        themes:["Social Responsibility","Class & Power","Capitalism & Exploitation","Hypocrisy"],
+        analysis:"The timing is crucial: Priestley has Birling state his philosophy, then immediately sends the Inspector to demolish it. Birling's view is laissez-faire capitalism. The Inspector represents the opposite: collective responsibility. Their confrontation is structural to the play's ideology, not just its plot."
+      },
+      {
+        id:"aic5",
+        speaker:"Sheila Birling",
+        act:"Act 1",
+        quote:"But these girls aren't cheap labour — they're people",
+        context:"Sheila, before she knows about Eva Smith, reacts to her father's dismissal of the workers",
+        prompt:"Sheila's objection — 'they're _____' — shows her moral instinct that her parents lack, even before the Inspector arrives.",
+        blank:"people",
+        options:["workers","people","women","human"],
+        answerIndex:1,
+        themes:["Generations & Change","Social Responsibility","Gender & Society","Class & Power"],
+        analysis:"This early line establishes Sheila as morally more advanced than her parents from the outset. She instinctively humanises the workers Birling reduces to economic units. Her arc across the play is not moral growth from nothing but the testing and confirmation of instincts she already possesses."
+      },
+      {
+        id:"aic6",
+        speaker:"Sheila Birling",
+        act:"Act 3",
+        quote:"(bitterly) I suppose we're all nice people now",
+        context:"After Mr and Mrs Birling decide the Inspector was fake and resume normal life",
+        prompt:"Sheila's bitter sarcasm — 'I suppose we're all _____ people now' — exposes her parents' moral bankruptcy.",
+        blank:"nice",
+        options:["good","nice","fine","right"],
+        answerIndex:1,
+        themes:["Generations & Change","Hypocrisy","Guilt & Blame","Social Responsibility"],
+        analysis:"'Nice' is devastatingly chosen — it is the most socially polite, least morally substantial word available. Sheila uses it to expose how her parents reduce ethics to appearances. Her bitterness shows she has genuinely changed; she cannot return to the family's comfortable self-deception. This line often marks Sheila as the play's moral centre."
+      },
+      {
+        id:"aic7",
+        speaker:"Mrs Birling",
+        act:"Act 2",
+        quote:"I did nothing I'm ashamed of",
+        context:"Sybil Birling defending her decision to turn away Eva Smith from the charity",
+        prompt:"Mrs Birling's refusal to feel shame — 'I did nothing I'm _____ of' — shows her complete moral blindness.",
+        blank:"ashamed",
+        options:["ashamed","guilty","afraid","proud"],
+        answerIndex:0,
+        themes:["Hypocrisy","Class & Power","Social Responsibility","Guilt & Blame"],
+        analysis:"Priestley makes Mrs Birling the most resistant to change — she ends the play as she began it. Her certainty that she acted correctly is more dangerous than Birling's bluster, because it is rooted in genuine belief in the class system's moral authority. She turned away a desperate woman on the grounds of her 'respectability' — the system justifying itself."
+      },
+      {
+        id:"aic8",
+        speaker:"Eric Birling",
+        act:"Act 3",
+        quote:"(nearly at breaking point) You don't understand anything. You never did.",
+        context:"Eric's confrontation with his mother after she unknowingly helped cause Eva's death",
+        prompt:"Eric's 'you never _____' is a generational indictment — his parents' wilful ignorance made them complicit without even knowing it.",
+        blank:"did",
+        options:["cared","did","saw","tried"],
+        answerIndex:1,
+        themes:["Generations & Change","Guilt & Blame","Hypocrisy"],
+        analysis:"Eric and Sheila emerge from the play changed; the older generation does not. Priestley structures this as a generational split — the young can still learn, the old cannot. Eric's accusation that his parents never understood is also Priestley's diagnosis of the Edwardian ruling class: comfortable in ignorance, ruinous in consequence."
+      },
+      {
+        id:"aic9",
+        speaker:"Inspector Goole",
+        act:"Act 2",
+        quote:"Each of you helped to kill her",
+        context:"The Inspector accuses the whole family of collective responsibility for Eva Smith's death",
+        prompt:"The Inspector's charge — 'each of you helped to _____ her' — distributes guilt across the family, making moral responsibility collective.",
+        blank:"kill",
+        options:["ruin","destroy","kill","harm"],
+        answerIndex:2,
+        themes:["Guilt & Blame","Social Responsibility","Class & Power"],
+        analysis:"No single person murdered Eva; the play argues cumulative exploitation is equivalent to murder. This is Priestley's point about systemic rather than individual injustice — each person's small act of cruelty or indifference combines to destroy a life. The Inspector gives moral weight to what the Birlings treated as minor social transactions."
+      },
+      {
+        id:"aic10",
+        speaker:"Inspector Goole",
+        act:"Act 1",
+        quote:"(massively) — I don't think I will",
+        context:"The Inspector refuses to be hurried by Birling — his first demonstration of power",
+        prompt:"The stage direction '(massively)' shows the Inspector has a _____ that cannot be dominated by Birling's class authority.",
+        blank:"presence",
+        options:["calm","presence","authority","patience"],
+        answerIndex:1,
+        themes:["Class & Power","Social Responsibility","Guilt & Blame"],
+        analysis:"The stage direction 'massively' is unusual — it describes not just a physical quality but a moral weight. The Inspector cannot be bribed, impressed by social status, or hurried. He represents a force outside the class system entirely — possibly conscience, possibly something supernatural. His physical 'massiveness' is Priestley externalising moral authority."
+      },
+      {
+        id:"aic11",
+        speaker:"Gerald Croft",
+        act:"Act 2",
+        quote:"I discovered she was desperately hard up and…I made her your mistress",
+        context:"Gerald describes his relationship with Eva/Daisy in what he presents as a rescue",
+        prompt:"Gerald describes making Eva his _____ as if it were kindness — exposing how men of his class exercise power over women while believing they are helping.",
+        blank:"mistress",
+        options:["friend","companion","mistress","dependent"],
+        answerIndex:2,
+        themes:["Gender & Society","Class & Power","Capitalism & Exploitation","Hypocrisy"],
+        analysis:"Gerald presents exploitation as rescue. He is not hypocritical in the way Birling is — he genuinely believes he was generous. This is more insidious: benevolent paternalism allows him to exercise power over Eva while feeling virtuous. Priestley is critiquing not just cruelty but the comfortable self-deception of the privileged who 'help' on their own terms."
+      },
+      {
+        id:"aic12",
+        speaker:"Sheila Birling",
+        act:"Act 1",
+        quote:"(with sudden alarm) Mother — stop — stop!",
+        context:"Sheila realises her mother is condemning the father of Eva's baby — who is Eric",
+        prompt:"Sheila's horrified 'Mother — stop!' is one of the play's most theatrical moments, as she realises Mrs Birling is _____ without knowing it.",
+        blank:"condemning Eric",
+        options:["lying","condemning Eric","exposing herself","helping the Inspector"],
+        answerIndex:1,
+        themes:["Guilt & Blame","Generations & Change","Hypocrisy"],
+        analysis:"Dramatic irony at its sharpest. Mrs Birling demands the father of Eva's baby should be made an example of — she is unknowingly condemning her own son. Sheila's horror is the audience's. Priestley shows how the Birlings' moral pronouncements collapse when applied to themselves — their ethics are not principles but social performance."
+      }
+    ]
+  }
+};
+
+const MODE_MC = "mc", MODE_TYPE = "type";
+let currentText = "macbeth";
+let currentMode = MODE_MC;
+let currentQueue = [];
+let currentIndex = 0;
+let sessionCorrect = 0;
+let sessionWrong = 0;
+let streak = 0;
+let answered = false;
+
+function getMastery() {
+  try { return JSON.parse(localStorage.getItem("litrev_mastery") || "{}"); } catch { return {}; }
+}
+function setMastery(data) {
+  try { localStorage.setItem("litrev_mastery", JSON.stringify(data)); } catch {}
+}
+function markCard(id, correct) {
+  const m = getMastery();
+  if (!m[id]) m[id] = { correct: 0, wrong: 0 };
+  if (correct) m[id].correct++; else m[id].wrong++;
+  setMastery(m);
+}
+function isMastered(id) {
+  const m = getMastery();
+  if (!m[id]) return false;
+  return m[id].correct >= 3 && m[id].correct > m[id].wrong;
+}
+
+function updateHeaderStats() {
+  let total = 0, mastered = 0;
+  Object.values(TEXTS).forEach(t => {
+    t.cards.forEach(c => {
+      total++;
+      if (isMastered(c.id)) mastered++;
+    });
+  });
+  document.getElementById("hdr-total").textContent = total;
+  document.getElementById("hdr-mastered").textContent = mastered;
+}
+
+function getMasteryPct(cards) {
+  if (!cards.length) return 0;
+  return Math.round(cards.filter(c => isMastered(c.id)).length / cards.length * 100);
+}
+
+function showHome() {
+  document.getElementById("home-screen").classList.add("visible");
+  document.getElementById("card-screen").classList.remove("visible");
+  document.getElementById("results-screen").classList.remove("visible");
+  document.getElementById("card-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("home-screen").style.display = "block";
+  renderHome();
+  updateHeaderStats();
+  updateNavDots();
+}
+
+function renderHome() {
+  const text = TEXTS[currentText];
+  const pct = getMasteryPct(text.cards);
+  document.getElementById("text-header-display").innerHTML = `
+    <h2>${text.title}</h2>
+    <div class="author">${text.author}</div>
+    <div class="mastery-bar-wrap">
+      <div class="mastery-bar-label"><span>Mastery</span><span>${pct}%</span></div>
+      <div class="mastery-bar"><div class="mastery-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+  `;
+
+  const themes = text.themes;
+  const grid = document.getElementById("theme-grid-container");
+  const m = getMastery();
+  let html = '<div class="theme-grid">';
+  themes.forEach(th => {
+    const matching = text.cards.filter(c => c.themes.includes(th));
+    const masteredCount = matching.filter(c => isMastered(c.id)).length;
+    const thPct = matching.length ? Math.round(masteredCount / matching.length * 100) : 0;
+    html += `<button class="theme-btn" onclick="startTheme('${encodeURIComponent(th)}')">
+      <span>${th}</span>
+      <span class="count">${matching.length} quotes</span>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:${thPct}%"></div></div>
+    </button>`;
+  });
+  html += '</div>';
+  grid.innerHTML = html;
+}
+
+function updateNavDots() {
+  Object.keys(TEXTS).forEach(key => {
+    const pct = getMasteryPct(TEXTS[key].cards);
+    const dot = document.getElementById("dot-" + key);
+    if (dot) dot.classList.toggle("has-mastery", pct > 0);
+  });
+}
+
+function startTheme(encodedTheme) {
+  const theme = decodeURIComponent(encodedTheme);
+  const cards = TEXTS[currentText].cards.filter(c => c.themes.includes(theme));
+  startSession(cards);
+}
+
+function startSession(cards) {
+  const shuffled = [...cards].sort(() => Math.random() - 0.5);
+  currentQueue = shuffled;
+  currentIndex = 0;
+  sessionCorrect = 0;
+  sessionWrong = 0;
+  streak = 0;
+  document.getElementById("home-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("card-screen").style.display = "block";
+  document.getElementById("card-screen").classList.add("visible");
+  showCard();
+}
+
+function showCard() {
+  if (currentIndex >= currentQueue.length) {
+    showResults();
+    return;
+  }
+  answered = false;
+  const card = currentQueue[currentIndex];
+  const total = currentQueue.length;
+  const pct = Math.round(currentIndex / total * 100);
+
+  document.getElementById("prog-label").textContent = `${currentIndex + 1} / ${total}`;
+  document.getElementById("prog-fill").style.width = pct + "%";
+  document.getElementById("streak-label").textContent = streak > 1 ? `🔥 ${streak}` : "";
+  document.getElementById("card-meta").textContent = `${card.speaker} — ${card.act}`;
+  document.getElementById("card-theme-tag").textContent = card.themes[0];
+  document.getElementById("card-prompt").textContent = card.prompt;
+  document.getElementById("card-hint").textContent = `"${card.context}"`;
+
+  document.getElementById("analysis-panel").classList.remove("visible");
+  document.getElementById("next-btn").classList.remove("visible");
+  document.getElementById("self-mark-row").classList.remove("visible");
+
+  if (currentMode === MODE_MC) {
+    document.getElementById("mc-container").style.display = "flex";
+    document.getElementById("type-container").style.display = "none";
+    renderMC(card);
+  } else {
+    document.getElementById("mc-container").style.display = "none";
+    document.getElementById("type-container").style.display = "flex";
+    document.getElementById("type-input").value = "";
+    document.getElementById("type-input").className = "type-input";
+    document.getElementById("self-mark-row").classList.remove("visible");
+  }
+}
+
+function renderMC(card) {
+  const opts = [...card.options].sort(() => Math.random() - 0.5);
+  const container = document.getElementById("mc-container");
+  container.innerHTML = "";
+  opts.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "mc-opt";
+    btn.textContent = `"${opt}"`;
+    btn.onclick = () => handleMCAnswer(card, opt, btn, container);
+    container.appendChild(btn);
+  });
+}
+
+function handleMCAnswer(card, chosen, btn, container) {
+  if (answered) return;
+  answered = true;
+  const correct = chosen === card.options[card.answerIndex];
+  if (correct) { sessionCorrect++; streak++; } else { sessionWrong++; streak = 0; }
+  markCard(card.id, correct);
+  [...container.children].forEach(b => {
+    b.disabled = true;
+    if (b.textContent === `"${card.options[card.answerIndex]}"`) b.classList.add("correct");
+    else if (b === btn && !correct) b.classList.add("wrong");
+  });
+  showAnalysis(card);
+  document.getElementById("next-btn").classList.add("visible");
+  updateHeaderStats();
+}
+
+function handleTypeSubmit() {
+  if (answered) return;
+  const card = currentQueue[currentIndex];
+  const val = document.getElementById("type-input").value.trim().toLowerCase();
+  const target = card.options[card.answerIndex].toLowerCase();
+  const close = val.includes(target) || target.includes(val) || levenshtein(val, target) <= 2;
+  document.getElementById("type-input").classList.add(close ? "correct-input" : "wrong-input");
+  answered = true;
+  if (close) { sessionCorrect++; streak++; } else { sessionWrong++; streak = 0; }
+  markCard(card.id, close);
+  showAnalysis(card);
+  if (!close) {
+    document.getElementById("self-mark-row").classList.add("visible");
+  } else {
+    document.getElementById("next-btn").classList.add("visible");
+  }
+  updateHeaderStats();
+}
+
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, (_, i) => Array.from({length: n+1}, (_, j) => i === 0 ? j : j === 0 ? i : 0));
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+    dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+function handleReveal() {
+  if (answered) return;
+  const card = currentQueue[currentIndex];
+  answered = true;
+  sessionWrong++;
+  streak = 0;
+  markCard(card.id, false);
+  document.getElementById("type-input").value = card.options[card.answerIndex];
+  document.getElementById("type-input").classList.add("wrong-input");
+  showAnalysis(card);
+  document.getElementById("next-btn").classList.add("visible");
+  updateHeaderStats();
+}
+
+function showAnalysis(card) {
+  const panel = document.getElementById("analysis-panel");
+  document.getElementById("analysis-quote").textContent = `"${card.quote}"`;
+  document.getElementById("analysis-source").textContent = `${card.speaker} · ${card.act}`;
+  document.getElementById("analysis-text").textContent = card.analysis;
+  const tagsEl = document.getElementById("analysis-tags");
+  tagsEl.innerHTML = card.themes.map(t => `<span class="analysis-tag">${t}</span>`).join("");
+  panel.classList.add("visible");
+}
+
+function showResults() {
+  document.getElementById("card-screen").style.display = "none";
+  document.getElementById("card-screen").classList.remove("visible");
+  document.getElementById("results-screen").style.display = "block";
+  document.getElementById("results-screen").classList.add("visible");
+  const total = sessionCorrect + sessionWrong;
+  const pct = total ? Math.round(sessionCorrect / total * 100) : 0;
+  const masteredCount = currentQueue.filter(c => isMastered(c.id)).length;
+  document.getElementById("res-score").textContent = pct + "%";
+  document.getElementById("res-correct").textContent = sessionCorrect;
+  document.getElementById("res-wrong").textContent = sessionWrong;
+  document.getElementById("res-mastered").textContent = masteredCount;
+  updateHeaderStats();
+}
+
+// Nav
+document.querySelectorAll(".nav-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".nav-tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentText = btn.dataset.text;
+    showHome();
+  });
+});
+
+document.getElementById("start-all-btn").addEventListener("click", () => {
+  startSession(TEXTS[currentText].cards);
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  currentIndex++;
+  showCard();
+});
+
+document.getElementById("restart-btn").addEventListener("click", () => {
+  startSession(currentQueue);
+});
+document.getElementById("home-btn").addEventListener("click", showHome);
+
+document.getElementById("mode-mc").addEventListener("click", () => {
+  currentMode = MODE_MC;
+  document.getElementById("mode-mc").classList.add("active");
+  document.getElementById("mode-type").classList.remove("active");
+  if (!answered) showCard();
+});
+document.getElementById("mode-type").addEventListener("click", () => {
+  currentMode = MODE_TYPE;
+  document.getElementById("mode-type").classList.add("active");
+  document.getElementById("mode-mc").classList.remove("active");
+  if (!answered) showCard();
+});
+
+document.getElementById("submit-type-btn").addEventListener("click", handleTypeSubmit);
+document.getElementById("reveal-btn").addEventListener("click", handleReveal);
+document.getElementById("type-input").addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.ctrlKey) handleTypeSubmit();
+});
+
+document.getElementById("self-yes").addEventListener("click", () => {
+  sessionCorrect++;
+  sessionWrong = Math.max(0, sessionWrong - 1);
+  const card = currentQueue[currentIndex];
+  markCard(card.id, true);
+  document.getElementById("self-mark-row").classList.remove("visible");
+  document.getElementById("next-btn").classList.add("visible");
+  updateHeaderStats();
+});
+document.getElementById("self-no").addEventListener("click", () => {
+  document.getElementById("self-mark-row").classList.remove("visible");
+  document.getElementById("next-btn").classList.add("visible");
+});
+
+showHome();
+</script>
+</body>
+</html>
