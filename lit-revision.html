@@ -1127,6 +1127,7 @@ const TEXTS = {
       }
     ]
   },
+  const TEXTs = {
   poetry: {
     title: "Power & Conflict Poetry",
     author: "AQA Anthology",
@@ -1160,172 +1161,1026 @@ const TEXTS = {
       },
       {
         id:"po3",
-        speaker:"Exposure (Owen)",
-        act:"Exposure",
-        quote:"Our brains ache, in the merciless iced east winds that knive us",
-        context:"Opening of Owen's poem — soldiers in the trenches",
-        prompt:"Our brains ache, in the merciless iced east winds that _____ us",
-        blank:"knive",
-        options:["cut","slash","knive","tear"],
-        answerIndex:2,
-        themes:["War & Conflict","Power of Nature","Suffering"],
-        analysis:"The verb 'knive' is an invented word — Owen coins it to capture the unique sensation of cold as cutting violence. 'Merciless' personifies the wind as deliberately cruel. The soldiers face two enemies: the German lines and the weather. The poem argues the latter may be worse. Owen implicates nature itself in the war's horror."
+        speaker:"Ozymandias (Shelley)",
+        act:"Ozymandias",
+        quote:"The lone and level sands stretch far away.",
+        context:"Description of effects of time",
+        prompt:"The lone and level ____ stretch far away.",
+        blank:"sands",
+        options:["dunes","sands","desert","fields"],
+        answerIndex:1,
+        themes:["Pride & Hubris","Destruction","Power & Identity"],
+        analysis:"The 'lone and level sands' emphasise the emptiness surrounding the ruined statue, showing that Ozymandias’ empire has vanished. Shelley uses this image to suggest that time and nature are more powerful than human pride."
+
       },
       {
         id:"po4",
-        speaker:"Exposure (Owen)",
-        act:"Exposure",
-        quote:"But nothing happens",
-        context:"Repeated refrain throughout Exposure",
-        prompt:"But nothing _____",
-        blank:"happens",
-        options:["changes","moves","happens","comes"],
-        answerIndex:2,
-        themes:["War & Conflict","Suffering","Loss & Memory"],
-        analysis:"The refrain's repetition is structurally enacting the poem's subject: nothing changes, nothing resolves. After intense imagery, this plain sentence lands as brutal anticlimax. The 'but' creates contradiction — something should happen, but doesn't. This captures the specific psychological cruelty of attrition warfare."
+        speaker:"Ozymandias (Shelley)",
+        act:"Ozymandias",
+        quote:"sneer of cold command",
+        context:"Description of Ozymandias’ facial expression on the statue.",
+        prompt:"_____ of cold command",
+        blank:"sneer",
+        options:["smear", "sneer", "sick", "struck"],
+        answerIndex:1,
+        themes:["Pride & Hubris", "Destruction", "Power & Identity"],
+        analysis:"The “sneer” suggests Ozymandias was cruel and arrogant towards others. Shelley presents his “cold command” as emotionless and tyrannical, criticising rulers who abuse power."
       },
       {
         id:"po5",
-        speaker:"Storm on the Island (Heaney)",
-        act:"Storm on the Island",
-        quote:"We are prepared: we build our houses squat",
-        context:"Opening line — the islanders' defiant preparedness against nature's violence",
-        prompt:"We _____ prepared: we build our houses squat",
-        blank:"are",
-        options:["were","are","stand","feel"],
+        speaker:"Ozymandias (Shelley)",
+        act:"Ozymandias",
+        quote:"vast and trunkless legs of stone",
+        context:"Traveller describes the ruined statue in the desert",
+        prompt:"vast and _________ legs of stone",
+        blank:"trunkless",
+        options:["weathered", "trunkless", "bare", "stripped"],
         answerIndex:1,
-        themes:["Power of Nature","Power & Identity","Destruction"],
-        analysis:"'We are prepared' is immediately undercut by the entire rest of the poem. Heaney builds the poem as the dismantling of this opening confidence. By the end — 'it is a huge nothing that we fear' — the collective 'we' is terrified rather than prepared. The opening false certainty is the poem's central irony."
+        themes:["Pride & Hubris", "Destruction", "Power & Identity"],
+        analysis:"The “vast” legs show Ozymandias’ former power and greatness, but “trunkless” suggests his statue has been destroyed over time. Shelley uses the ruined image to show that even the most powerful rulers cannot escape decay."
+      },
+
+      // ─── EXPOSURE (Owen) ───────────────────────────────────────────────────────────
+
+      {
+        id: "po6",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "Our brains ache, in the merciless iced east winds that knive us",
+        context: "Opening line — soldiers in the trenches, suffering cold as much as combat",
+        prompt: "Our brains ache, in the merciless iced east winds that _____ us",
+        blank: "knive",
+        options: ["cut", "slice", "knive", "tear"],
+        answerIndex: 2,
+        themes: ["War & Conflict", "Power of Nature", "Suffering"],
+        analysis: "'Knive' is a verb Owen coins — it makes cold into deliberate violence. 'Merciless' personifies the wind as an enemy equal to the Germans. Owen frames nature itself as a weapon of war, implicating the entire physical world in the soldiers' suffering."
       },
       {
-        id:"po6",
-        speaker:"Bayonet Charge (Hughes)",
-        act:"Bayonet Charge",
-        quote:"In what cold clockwork of the stars and the nations / Was he the hand pointing that second?",
-        context:"The soldier questions why he specifically must die",
-        prompt:"In what cold _____ of the stars and the nations / Was he the hand pointing that second?",
-        blank:"clockwork",
-        options:["machinery","clockwork","industry","weaponry"],
-        answerIndex:1,
-        themes:["War & Conflict","Power & Identity","Suffering"],
-        analysis:"'Cold clockwork' removes human agency: the soldier is a hand on a clock, moved by vast impersonal forces. The word 'cold' echoes Owen's cold east wind — war is mechanical and inhuman. Hughes asks who designed this clockwork (stars = fate? nations = politics?) — the soldier gets no answer."
+        id: "po7",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "But nothing happens",
+        context: "Refrain repeated throughout the poem after each wave of vivid imagery",
+        prompt: "But nothing _____",
+        blank: "happens",
+        options: ["changes", "happens", "moves", "comes"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Suffering", "Loss & Memory"],
+        analysis: "The structural repetition of the refrain enacts the poem's argument: attrition warfare is defined by stasis, not heroic action. The 'but' creates an expectation that is perpetually refused. This is Owen's most precise formal technique — the poem's shape mirrors the soldiers' experience of waiting to die."
       },
       {
-        id:"po7",
-        speaker:"Remains (Armitage)",
-        act:"Remains",
-        quote:"his bloody life in my bloody hands",
-        context:"The soldier relives shooting a looter — the word 'bloody' does double duty",
-        prompt:"his _____ life in my bloody hands",
-        blank:"bloody",
-        options:["broken","bloody","empty","wasted"],
-        answerIndex:1,
-        themes:["War & Conflict","Suffering","Loss & Memory"],
-        analysis:"This is one of the most effective double-meanings in the anthology. The casual register of 'bloody hands' (swearing) sits alongside the literal image (blood). It shows how violence is absorbed into ordinary speech — and thus how trauma is buried in everyday language. The soldier cannot escape what he did even in casual thinking."
+        id: "po8",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "The poignant misery of dawn begins to grow",
+        context: "Dawn arrives but brings no relief — only more waiting and cold",
+        prompt: "The _____ misery of dawn begins to grow",
+        blank: "poignant",
+        options: ["bitter", "poignant", "creeping", "silent"],
+        answerIndex: 1,
+        themes: ["Suffering", "War & Conflict", "Loss & Memory"],
+        analysis: "'Poignant' is an unexpected word in a war poem — it belongs to grief and tenderness, not battle. Owen uses it to show the soldiers are not numbed brutes but feeling men. Dawn, which should signify hope, instead brings only a sharper awareness of their suffering."
       },
       {
-        id:"po8",
-        speaker:"War Photographer (Duffy)",
-        act:"War Photographer",
-        quote:"A hundred agonies in black-and-white / from which his editor will pick out five or six / for Sunday's supplement",
-        context:"The photographer reflects on how editors reduce mass suffering to a handful of images",
-        prompt:"_____ agonies in black-and-white / from which his editor will pick out five or six / for Sunday's supplement",
-        blank:"a hundred",
-        options:["countless","a hundred","foreign","human"],
-        answerIndex:1,
-        themes:["War & Conflict","Suffering","Power & Identity"],
-        analysis:"The arithmetic is damning. One hundred lives reduced to a handful of images selected for aesthetic impact. 'Sunday's supplement' places extreme violence next to recipes and lifestyle articles — the mundane context intensifies the horror. Duffy argues the Western media-consuming public is complicit in this trivialisation."
+        id: "po9",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "Pale flakes with fingering stealth come feeling for our faces",
+        context: "Snow falling on the soldiers — personified as something sinister and predatory",
+        prompt: "Pale flakes with fingering stealth come feeling for our _____",
+        blank: "faces",
+        options: ["hands", "wounds", "faces", "boots"],
+        answerIndex: 2,
+        themes: ["Power of Nature", "Suffering", "War & Conflict"],
+        analysis: "The alliteration of 'fingering' and 'feeling' makes the snow tactile and predatory. Nature here is not indifferent but actively hunting. The sibilance ('stealth') adds menace. Owen's nature is not Romantic backdrop — it is a co-combatant against the soldiers."
       },
       {
-        id:"po9",
-        speaker:"Poppies (Weir)",
-        act:"Poppies",
-        quote:"I was brave, as I walked / with you",
-        context:"A mother describes holding herself together as she says goodbye to her son leaving for war",
-        prompt:"I was _____, as I walked / with you",
-        blank:"brave",
-        options:["proud","brave","strong","still"],
-        answerIndex:1,
-        themes:["War & Conflict","Loss & Memory","Suffering"],
-        analysis:"The past tense is crucial — 'I was brave' implies she is no longer. The poem is retrospective, written in grief. Her bravery in the moment was a performance for her son's benefit. Weir focuses on the domestic, maternal experience of war — a perspective often absent from war poetry, which traditionally centres male combatants."
+        id: "po10",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "For love of God seems dying",
+        context: "Soldiers imagine home and question whether faith or meaning can survive the trenches",
+        prompt: "For love of God seems _____",
+        blank: "dying",
+        options: ["fading", "dying", "broken", "lost"],
+        answerIndex: 1,
+        themes: ["Suffering", "Loss & Memory", "War & Conflict"],
+        analysis: "Owen, himself a lapsed Christian who died as a soldier, embeds theological doubt here. The decay of faith mirrors physical decay. 'Seems' keeps it ambiguous — the soldiers are not certain God is gone, only that it feels that way. The war destroys not just bodies but belief."
       },
       {
-        id:"po10",
-        speaker:"Tissue (Dharker)",
-        act:"Tissue",
-        quote:"Paper that lets the light / shine through",
-        context:"Opening image — translucent tissue paper as a metaphor for what truly matters",
-        prompt:"Paper that lets the _____ / shine through",
-        blank:"light",
-        options:["truth","light","past","words"],
-        answerIndex:1,
-        themes:["Power & Identity","Destruction","Power of Nature"],
-        analysis:"Light shining through paper suggests vulnerability that enables transcendence. Dharker argues that what is thin and fragile — human life, relationships, time — is more real and more lasting than stone monuments or legal documents. The poem inverts conventional ideas of power: fragility as strength."
+        id: "po11",
+        speaker: "Exposure (Owen)",
+        act: "Exposure",
+        quote: "Slowly our ghosts drag home",
+        context: "Soldiers imagine their spirits returning to their homes while their bodies remain in the trenches", // VERIFY exact wording
+        prompt: "Slowly our _____ drag home",
+        blank: "ghosts",
+        options: ["bodies", "ghosts", "minds", "dreams"],
+        answerIndex: 1,
+        themes: ["Loss & Memory", "Suffering", "War & Conflict"],
+        analysis: "'Ghosts' suggests the men are already half-dead — their physical presence is in the trenches but their spirits have already left for home. The word anticipates their deaths. Owen collapses the boundary between the living and the dead long before any battle takes place."
+      },
+
+      // ─── STORM ON THE ISLAND (Heaney) ─────────────────────────────────────────────
+
+      {
+        id: "po12",
+        speaker: "Storm on the Island (Heaney)",
+        act: "Storm on the Island",
+        quote: "We are prepared: we build our houses squat",
+        context: "Opening line — the islanders' confident preparedness against nature's violence",
+        prompt: "We are prepared: we build our houses _____",
+        blank: "squat",
+        options: ["low", "squat", "firm", "strong"],
+        answerIndex: 1,
+        themes: ["Power of Nature", "Power & Identity", "Destruction"],
+        analysis: "'We are prepared' is immediately and systematically dismantled by everything that follows. The colon after 'prepared' signals proof — but the poem's evidence gradually undermines it. By the final line the collective 'we' is terrified. Heaney structures the poem as the collapse of human confidence before natural force."
       },
       {
-        id:"po11",
-        speaker:"The Prelude (Wordsworth)",
-        act:"The Prelude",
-        quote:"Upreared its head from the lake, as if with voluntary power instinct",
-        context:"The peak Wordsworth thought he was rowing past seems to rise and follow him",
-        prompt:"Upreared its head from the lake, as if with _____ power instinct",
-        blank:"voluntary",
-        options:["terrifying","voluntary","natural","sudden"],
-        answerIndex:1,
-        themes:["Power of Nature","Power & Identity","Suffering"],
-        analysis:"'Voluntary power' is the key phrase — the mountain acts with intent. Wordsworth cannot dismiss this as rational; the experience has genuinely terrified him. The sublime (beauty mixed with terror) is Wordsworth's subject. Nature corrects human pride not through argument but through overwhelming physical presence."
+        id: "po13",
+        speaker: "Storm on the Island (Heaney)",
+        act: "Storm on the Island",
+        quote: "Nor are there trees / Which might prove company when it blows full",
+        context: "The island has no trees — no natural shelter or comfort", // VERIFY exact wording
+        prompt: "Nor are there _____ / Which might prove company when it blows full",
+        blank: "trees",
+        options: ["walls", "trees", "crops", "hedges"],
+        answerIndex: 1,
+        themes: ["Power of Nature", "Suffering", "Destruction"],
+        analysis: "The absence of trees is both practical (no windbreak) and psychological. 'Company' is a strikingly human word for a tree — Heaney implies that even vegetation would be a comfort against isolation and the storm. The island is stripped of every buffer between the people and raw natural violence."
       },
       {
-        id:"po12",
-        speaker:"London (Blake)",
-        act:"London",
-        quote:"In every cry of every Man, / In every Infant's cry of fear",
-        context:"Blake describes the sounds of London — universal suffering",
-        prompt:"_____ every cry of every Man, / In every Infant's cry of fear",
-        blank:"In",
-        options:["Through","In","From","Beneath"],
-        answerIndex:1,
-        themes:["Suffering","Power & Identity","Destruction"],
-        analysis:"'Every' is repeated six times in the stanza — no one escapes. Blake's London is a city of universal suffering, from infants to soldiers to chimney-sweeps. The repetition is both musical (it creates a tolling rhythm) and ideological: Blake argues oppression is systemic, not individual. Written during the French Revolution, it is politically charged."
+        id: "po14",
+        speaker: "Storm on the Island (Heaney)",
+        act: "Storm on the Island",
+        quote: "The flung spray hits / The very windows",
+        context: "The storm intensifies — the sea reaches the houses directly", // VERIFY exact wording
+        prompt: "The flung spray _____ / The very windows",
+        blank: "hits",
+        options: ["hits", "cracks", "lashes", "beats"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Destruction", "Suffering"],
+        analysis: "'Flung' is a violent verb — it gives the spray agency, as though the sea is deliberately attacking. 'Very windows' emphasises the violation of domestic space: the storm breaches the boundary between outside and inside, between nature and human shelter."
       },
       {
-        id:"po13",
-        speaker:"Charge of the Light Brigade (Tennyson)",
-        act:"Charge of the Light Brigade",
-        quote:"Theirs not to reason why, / Theirs but to do and die",
-        context:"Tennyson describes the soldiers following suicidal orders without question",
-        prompt:"Theirs not to _____ why, / Theirs but to do and die",
-        blank:"reason",
-        options:["question","reason","wonder","know"],
-        answerIndex:1,
-        themes:["War & Conflict","Power & Identity","Suffering"],
-        analysis:"The rhyme of 'why/die' makes the soldiers' lack of agency feel inevitable — even the poem's sound structure cannot escape it. Tennyson glorifies their obedience while implicitly critiquing the command that sent them. The poem is ambiguous: is 'theirs not to reason why' admirable self-sacrifice or a condemnation of blind military authority?"
+        id: "po15",
+        speaker: "Storm on the Island (Heaney)",
+        act: "Storm on the Island",
+        quote: "Strange, it is a huge nothing that we fear",
+        context: "Closing line — the storm is wind and air, technically nothing, yet utterly terrifying",
+        prompt: "Strange, it is a huge _____ that we fear",
+        blank: "nothing",
+        options: ["darkness", "nothing", "absence", "silence"],
+        answerIndex: 1,
+        themes: ["Power of Nature", "Power & Identity", "Destruction"],
+        analysis: "The paradox of 'huge nothing' is the poem's philosophical centre. The storm has no physical mass — it is absence of calm, not a thing. Yet it overwhelms everything. Heaney may be gesturing beyond weather: critics read this as the Troubles — the violence tearing through Northern Ireland that is also, in a sense, built from nothing but ideology and fear."
       },
       {
-        id:"po14",
-        speaker:"My Last Duchess (Browning)",
-        act:"My Last Duchess",
-        quote:"I gave commands; / Then all smiles stopped together",
-        context:"The Duke's euphemistic admission that he had his wife killed",
-        prompt:"I gave commands; / Then all smiles stopped _____",
-        blank:"together",
-        options:["forever","together","then","suddenly"],
-        answerIndex:1,
-        themes:["Power & Identity","Destruction","Pride & Hubris"],
-        analysis:"The casual pause — 'I gave commands; / Then all smiles stopped together' — is one of the most chilling moments in Victorian poetry. The enjambment enacts the gap between order and consequence. Browning gives us a murderer who doesn't recognise his crime as such; the Duchess's 'smiles' are treated as a possession he had a right to control."
+        id: "po16",
+        speaker: "Storm on the Island (Heaney)",
+        act: "Storm on the Island",
+        quote: "We just sit tight while wind dives / And strafes invisibly",
+        context: "The islanders can only wait as the storm attacks — military verb used for natural force",
+        prompt: "We just sit tight while wind dives / And _____ invisibly",
+        blank: "strafes",
+        options: ["howls", "strafes", "roars", "tears"],
+        answerIndex: 1,
+        themes: ["Power of Nature", "War & Conflict", "Suffering"],
+        analysis: "'Strafes' is a Second World War term for low-level aircraft fire. Heaney deliberately imports military language into a nature poem, collapsing the distinction between human violence and natural violence. The wind is an air raid; the islanders are civilians under bombardment."
+      },
+
+      // ─── BAYONET CHARGE (Hughes) ──────────────────────────────────────────────────
+
+      {
+        id: "po17",
+        speaker: "Bayonet Charge (Hughes)",
+        act: "Bayonet Charge",
+        quote: "Suddenly he awoke and was running — raw",
+        context: "Opening — the soldier is thrown into action mid-charge with no context or preparation",
+        prompt: "Suddenly he awoke and was running — _____",
+        blank: "raw",
+        options: ["raw", "blind", "lost", "fast"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Suffering", "Power & Identity"],
+        analysis: "'Suddenly' opens the poem without preamble — the reader is thrown in exactly as the soldier is. 'Raw' is doing significant work: exposed, unprocessed, animal. The dash enacts the physical shock. Hughes refuses to build up to the charge; we are in it before we can orient ourselves, which is precisely the point."
       },
       {
-        id:"po15",
-        speaker:"Kamikaze (Garland)",
-        act:"Kamikaze",
-        quote:"he must have looked far down at Pacific Islands / where fishermen… / …hauled / a net of kittiwakes",
-        context:"The pilot, about to die for Japan, sees fishing boats and turns back — remembering life",
-        prompt:"he must have looked far down at Pacific Islands / where fishermen… / …hauled / a net of _____",
-        blank:"kittiwakes",
-        options:["gulls","kittiwakes","dolphins","nets"],
-        answerIndex:1,
-        themes:["War & Conflict","Power of Nature","Loss & Memory","Power & Identity"],
-        analysis:"The specific word 'kittiwakes' is important — it is not a generic seabird but a precise, beautiful detail. Garland shows life's particularity overcoming the abstraction of ideology. The pilot chooses life, but the poem complicates this: his community rejects him, and his family must silence him. The 'correct' choice brings a different kind of destruction."
+        id: "po18",
+        speaker: "Bayonet Charge (Hughes)",
+        act: "Bayonet Charge",
+        quote: "In what cold clockwork of the stars and the nations / Was he the hand pointing that second?",
+        context: "The soldier's mid-charge thought — questioning why he specifically must die",
+        prompt: "In what cold _____ of the stars and the nations / Was he the hand pointing that second?",
+        blank: "clockwork",
+        options: ["machinery", "clockwork", "turning", "system"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Power & Identity", "Suffering"],
+        analysis: "'Cold clockwork' strips the soldier of agency — he is a component in a mechanism driven by vast impersonal forces (fate, politics, nation-states). The clock metaphor makes his death predetermined, timed. Hughes offers no answer to the question: there is no answer, which is the point."
+      },
+      {
+        id: "po19",
+        speaker: "Bayonet Charge (Hughes)",
+        act: "Bayonet Charge",
+        quote: "His terror's touchy dynamite",
+        context: "The soldier's fear is described as explosive, ready to detonate",
+        prompt: "His terror's touchy _____",
+        blank: "dynamite",
+        options: ["powder", "dynamite", "fuse", "charge"],
+        answerIndex: 1,
+        themes: ["Suffering", "War & Conflict", "Power & Identity"],
+        analysis: "The simile compresses two ideas: fear as physical explosive energy, and the soldier himself as a weapon. 'Touchy' means hair-trigger — one wrong move and he detonates. Hughes shows war reducing a human being to a bundle of reactive instincts; the man who had patriotic thoughts has been replaced by a nervous system."
+      },
+      {
+        id: "po20",
+        speaker: "Bayonet Charge (Hughes)",
+        act: "Bayonet Charge",
+        quote: "King, honour, human dignity, etcetera / Dropped like luxuries",
+        context: "Abstract ideals that drove the soldier to enlist are discarded mid-charge",
+        prompt: "King, honour, human dignity, etcetera / Dropped like _____",
+        blank: "luxuries",
+        options: ["rubbish", "weight", "luxuries", "nothing"],
+        answerIndex: 2,
+        themes: ["War & Conflict", "Power & Identity", "Destruction"],
+        analysis: "'Etcetera' is brutally dismissive — Hughes reduces the patriotic abstractions to a list too tedious to complete. 'Luxuries' reframes ideology as something only sustainable when you're not being shot at. The poem argues that war propaganda is a peacetime invention that survives first contact with actual combat for approximately no time at all."
+      },
+      {
+        id: "po21",
+        speaker: "Bayonet Charge (Hughes)",
+        act: "Bayonet Charge",
+        quote: "a yellow hare that rolled like a flame / And crawled in a threshing circle",
+        context: "A hare caught in the crossfire — the only other living thing in the scene apart from the soldier",
+        prompt: "a yellow hare that rolled like a _____ / And crawled in a threshing circle",
+        blank: "flame",
+        options: ["wheel", "flame", "stone", "blur"],
+        answerIndex: 1,
+        themes: ["Suffering", "Power of Nature", "War & Conflict"],
+        analysis: "The hare is the poem's emotional centre — an innocent creature destroyed by a war it has no part in. 'Threshing circle' evokes both agricultural violence (grain being beaten) and futile dying. The hare's suffering mirrors the soldier's, but the hare cannot even understand what is happening. Hughes uses it to show war's indiscriminate destruction of all living things."
+      },
+
+      // ─── REMAINS (Armitage) ───────────────────────────────────────────────────────
+
+      {
+        id: "po22",
+        speaker: "Remains (Armitage)",
+        act: "Remains",
+        quote: "End of story, except not really",
+        context: "The soldier tries to mentally close the episode of shooting a looter, but cannot",
+        prompt: "End of story, except not _____",
+        blank: "really",
+        options: ["quite", "really", "ever", "done"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Suffering", "Loss & Memory"],
+        analysis: "The colloquial register ('end of story') mimics how soldiers talk — or try to talk — about violence. 'Except not really' undoes the dismissal immediately. Armitage structures the poem around this tension: the attempt to narrate trauma as closed and the failure to do so. The poem itself is the proof that it is not over."
+      },
+      {
+        id: "po23",
+        speaker: "Remains (Armitage)",
+        act: "Remains",
+        quote: "his bloody life in my bloody hands",
+        context: "The soldier relives the shooting — 'bloody' operates simultaneously as profanity and literal description",
+        prompt: "his _____ life in my bloody hands",
+        blank: "bloody",
+        options: ["broken", "bloody", "wasted", "stolen"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Suffering", "Loss & Memory"],
+        analysis: "The double meaning is exact and devastating: casual British profanity sits on top of a literal image of blood-covered hands. Violence has been so absorbed into ordinary speech that the soldier cannot even swear without re-enacting what he did. Armitage shows how trauma colonises language itself."
+      },
+      {
+        id: "po24",
+        speaker: "Remains (Armitage)",
+        act: "Remains",
+        quote: "I see broad daylight on the other side. / So we've hit the target. Happy days.",
+        context: "The soldier describes the moment the man was shot — described with chilling casualness",
+        prompt: "I see broad daylight on the other side. / So we've hit the target. _____ days.",
+        blank: "Happy",
+        options: ["Happy", "Good", "Fine", "Great"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Suffering", "Destruction"],
+        analysis: "'Happy days' is the most disturbing phrase in the poem — a cheerful idiom plastered over a killing. 'Broad daylight on the other side' is clinical: he can see through the bullet hole. Armitage uses the gap between the register of the language and the reality of what it describes to show how soldiers are trained to process killing."
+      },
+      {
+        id: "po25",
+        speaker: "Remains (Armitage)",
+        act: "Remains",
+        quote: "his image is his, and he's there / again and again and again",
+        context: "The PTSD of the soldier — the image of the dead man repeating obsessively", // VERIFY exact wording
+        prompt: "his image is his, and he's there / again and again and _____",
+        blank: "again",
+        options: ["again", "always", "still", "ever"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Suffering", "War & Conflict"],
+        analysis: "The triple repetition of 'again' formally enacts the intrusive memory loop of PTSD. The poem cannot move past this moment any more than the soldier can. Armitage uses the structure of the verse to put the reader inside the experience of traumatic repetition — the poem itself gets stuck."
+      },
+      {
+        id: "po26",
+        speaker: "Remains (Armitage)",
+        act: "Remains",
+        quote: "the drink and the drugs won't flush him out",
+        context: "The soldier tries to self-medicate to remove the memory of the man he killed",
+        prompt: "the drink and the drugs won't _____ him out",
+        blank: "flush",
+        options: ["wash", "flush", "drive", "push"],
+        answerIndex: 1,
+        themes: ["Suffering", "Loss & Memory", "War & Conflict"],
+        analysis: "'Flush out' is a military term (clearing a building of enemies) turned inward — the soldier is trying to run a counter-insurgency operation inside his own skull. The word choice shows how completely the soldier's mind has been militarised. He cannot even describe his own suffering without using the language of combat."
+      },
+
+      // ─── WAR PHOTOGRAPHER (Duffy) ─────────────────────────────────────────────────
+
+      {
+        id: "po27",
+        speaker: "War Photographer (Duffy)",
+        act: "War Photographer",
+        quote: "In his darkroom he is finally alone",
+        context: "The photographer develops his films — the darkroom as a space of private reckoning",
+        prompt: "In his darkroom he is finally _____",
+        blank: "alone",
+        options: ["quiet", "alone", "still", "safe"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Loss & Memory", "Suffering"],
+        analysis: "'Finally' carries enormous weight — it implies the photographer has been waiting for this solitude. The darkroom functions as a confessional or a chapel: a dark, enclosed space where something is being processed. Duffy sets up the contrast between this private, careful world and the chaos he has come from."
+      },
+      {
+        id: "po28",
+        speaker: "War Photographer (Duffy)",
+        act: "War Photographer",
+        quote: "something for a colour supplement",
+        context: "The editor selects images from the contact sheet — war reduced to weekend magazine content",
+        prompt: "something for a colour _____",
+        blank: "supplement",
+        options: ["magazine", "supplement", "spread", "feature"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Suffering", "Power & Identity"],
+        analysis: "A 'colour supplement' is a glossy weekend addition to a newspaper — leisure reading. Duffy places images of mass suffering in the most trivial possible context. The word 'something' is equally devastating: the editor is not selecting a document of horror but a piece of content, interchangeable with recipes and fashion."
+      },
+      {
+        id: "po29",
+        speaker: "War Photographer (Duffy)",
+        act: "War Photographer",
+        quote: "A hundred agonies in black-and-white / from which his editor will pick out five or six",
+        context: "The photographer reflects on how editorial selection reduces mass suffering to a handful of images",
+        prompt: "A hundred agonies in black-and-white / from which his editor will pick out _____ or six",
+        blank: "five",
+        options: ["five", "three", "four", "two"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Suffering", "Power & Identity"],
+        analysis: "The arithmetic is damning. One hundred documented human deaths reduced to five or six on the basis of visual impact. 'Agonies' is the right word — not deaths, not images — the suffering itself is being selected and discarded. Duffy indicts not just editors but the entire media-consumption apparatus that requires this reduction."
+      },
+      {
+        id: "po30",
+        speaker: "War Photographer (Duffy)",
+        act: "War Photographer",
+        quote: "the readers of the Sunday supplement / will sigh and look away",
+        context: "The public's response to the published images — momentary discomfort, then indifference", // VERIFY exact wording
+        prompt: "the readers of the Sunday supplement / will sigh and look _____",
+        blank: "away",
+        options: ["away", "down", "aside", "past"],
+        answerIndex: 0,
+        themes: ["Suffering", "War & Conflict", "Loss & Memory"],
+        analysis: "'Sigh' is the precisely calibrated response — not horror, not action, not change. A sigh acknowledges suffering just enough to feel something, and then allows you to turn the page. Duffy argues this is a structural feature of how Western media consumption works, not individual moral failure — though the individuals are implicated too."
+      },
+      {
+        id: "po31",
+        speaker: "War Photographer (Duffy)",
+        act: "War Photographer",
+        quote: "he has a job to do",
+        context: "The photographer suppresses emotion to function — professionalism as coping mechanism",
+        prompt: "he has a _____ to do",
+        blank: "job",
+        options: ["job", "role", "duty", "task"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Power & Identity", "Loss & Memory"],
+        analysis: "The flat, bureaucratic phrase deflects the moral complexity of photographing the dying. It is the same logic used by soldiers, guards, arms manufacturers — 'just doing my job.' Duffy is not condemning the photographer; she is showing how any individual embedded in a system uses this language to survive it psychologically."
+      },
+
+      // ─── POPPIES (Weir) ───────────────────────────────────────────────────────────
+      // Several quotes below: VERIFY exact wording against text
+
+      {
+        id: "po32",
+        speaker: "Poppies (Weir)",
+        act: "Poppies",
+        quote: "Three days before Armistice Sunday", // VERIFY
+        context: "Opening — the poem is set in the present day, not WW1; a contemporary mother is saying goodbye to her son",
+        prompt: "Three days before _____ Sunday",
+        blank: "Armistice",
+        options: ["Armistice", "Remembrance", "Poppy", "Sunday"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Loss & Memory", "Suffering"],
+        analysis: "The Armistice date grounds the poem in contemporary military loss, not historical nostalgia. Weir deliberately echoes the WW1 imagery (poppies, the fallen) while locating the grief in the present. The mother's loss is happening now — the poem refuses to make war into comfortable history."
+      },
+      {
+        id: "po33",
+        speaker: "Poppies (Weir)",
+        act: "Poppies",
+        quote: "I was brave, as I walked / with you",
+        context: "The mother describes holding herself together as she accompanies her son departing for war",
+        prompt: "I was _____, as I walked / with you",
+        blank: "brave",
+        options: ["proud", "brave", "strong", "calm"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Loss & Memory", "Suffering"],
+        analysis: "Past tense is the tell: 'I was brave' implies she is no longer. The poem is written in retrospect, in grief. Her bravery was a performance — suppressing her own terror for her son's sake. Weir centres the domestic, maternal experience of war that traditional war poetry (written by and about male combatants) almost entirely ignores."
+      },
+      {
+        id: "po34",
+        speaker: "Poppies (Weir)",
+        act: "Poppies",
+        quote: "released a song bird from its cage", // VERIFY
+        context: "The mother imagines her son leaving — the metaphor of a caged bird set free",
+        prompt: "released a _____ from its cage",
+        blank: "song bird",
+        options: ["song bird", "prisoner", "kite", "balloon"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Suffering"],
+        analysis: "A songbird released from a cage is conventionally joyful — freedom, flight, potential. But Weir uses it ambivalently: the mother has let her son go, but 'releasing' something you love also means losing it. The image captures the impossible position of a parent: to love a child is to eventually let them go into danger."
+      },
+      {
+        id: "po35",
+        speaker: "Poppies (Weir)",
+        act: "Poppies",
+        quote: "leaning against it with my face / upturned to the sky", // VERIFY
+        context: "The mother at the war memorial, pressed against the stone, grieving",
+        prompt: "leaning against it with my face / upturned to the _____",
+        blank: "sky",
+        options: ["sky", "stone", "light", "air"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Suffering", "War & Conflict"],
+        analysis: "The physical posture of grief — pressed against stone, face upward — is both desperate and searching. The war memorial is cold, public stone; the mother's body heat against it is a futile attempt at intimacy. Looking upward could be prayer, could be searching for her son's face. Weir leaves it ambiguous."
+      },
+      {
+        id: "po36",
+        speaker: "Poppies (Weir)",
+        act: "Poppies",
+        quote: "the world overflowing / like a treasure chest", // VERIFY
+        context: "The son's childhood bedroom — memory of him as a young child, when the world seemed abundant and safe",
+        prompt: "the world overflowing / like a _____ chest",
+        blank: "treasure",
+        options: ["treasure", "toy", "open", "wooden"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Suffering"],
+        analysis: "The treasure chest image retrieves childhood abundance — the sense that everything is still possible, that the world is full of wonder. Weir places this memory in direct contrast with what the mother now knows. The poem moves between a world full of promise and a world of loss; the mother carries both versions simultaneously."
+      },
+
+      // ─── TISSUE (Dharker) ─────────────────────────────────────────────────────────
+      // VERIFY all Tissue quotes — this is the poem I have least certainty on exact wording
+
+      {
+        id: "po37",
+        speaker: "Tissue (Dharker)",
+        act: "Tissue",
+        quote: "Paper that lets the light / shine through",
+        context: "Opening image — translucent tissue paper as metaphor for fragility as a form of power",
+        prompt: "Paper that lets the _____ / shine through",
+        blank: "light",
+        options: ["truth", "light", "sun", "world"],
+        answerIndex: 1,
+        themes: ["Power & Identity", "Destruction", "Power of Nature"],
+        analysis: "Light shining through paper inverts conventional ideas of strength: what is thin and penetrable is not weak but transparent — it reveals rather than conceals. Dharker argues that fragility can be a kind of honesty. What is hard and opaque (stone, steel, power structures) hides; what is thin admits light."
+      },
+      {
+        id: "po38",
+        speaker: "Tissue (Dharker)",
+        act: "Tissue",
+        quote: "An architect could use these / for the skeleton of a house", // VERIFY
+        context: "Tissue paper imagined as building material — the fragile becoming the structural",
+        prompt: "An _____ could use these / for the skeleton of a house",
+        blank: "architect",
+        options: ["architect", "engineer", "artist", "builder"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Destruction", "Power of Nature"],
+        analysis: "The architect figure imagines a world built from the fragile rather than the monumental. A paper skeleton is structurally absurd — and that is Dharker's point. She is imagining an alternative logic of building, one based on transparency and vulnerability rather than mass and permanence. The house of paper would not dominate; it would yield."
+      },
+      {
+        id: "po39",
+        speaker: "Tissue (Dharker)",
+        act: "Tissue",
+        quote: "maps too were once / pieces of paper", // VERIFY
+        context: "The paper that charted empires and drew borders was once just tissue — human power documented on fragile material",
+        prompt: "maps too were once / pieces of _____",
+        blank: "paper",
+        options: ["paper", "skin", "cloth", "parchment"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Destruction", "Pride & Hubris"],
+        analysis: "Maps are instruments of imperial power — they draw the borders that define who owns what land. Dharker's point is that these documents of dominance are physically fragile. The empires drawn on paper did not outlast the paper. The insight echoes Ozymandias: human power, however vast, is inscribed on perishable material."
+      },
+      {
+        id: "po40",
+        speaker: "Tissue (Dharker)",
+        act: "Tissue",
+        quote: "the sun shines through / their borderlines", // VERIFY
+        context: "Tissue paper held up to light — the borders and lines become transparent, less absolute",
+        prompt: "the sun shines through / their _____",
+        blank: "borderlines",
+        options: ["borderlines", "thin pages", "soft skin", "pale maps"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Power of Nature", "Destruction"],
+        analysis: "When light passes through paper, the lines drawn on it lose their authority — they are revealed as marks, not realities. 'Borderlines' conflates the literal (lines on a page) with the political (national borders). Dharker suggests that the natural world (sunlight) exposes the arbitrariness of all human demarcations of territory."
+      },
+      {
+        id: "po41",
+        speaker: "Tissue (Dharker)",
+        act: "Tissue",
+        quote: "turned into your skin", // VERIFY
+        context: "Final image — the paper becomes flesh; humanity itself is the ultimate tissue",
+        prompt: "turned into your _____",
+        blank: "skin",
+        options: ["skin", "hands", "breath", "self"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Destruction", "Power of Nature"],
+        analysis: "The closing metaphor identifies human skin with tissue paper — both thin, both penetrable, both carriers of information (maps, records, the marks of a life). Dharker ends by suggesting that human life itself is the most fragile and most important kind of tissue. All the paper monuments of power reduce, finally, to this."
+      },
+
+      // ─── THE PRELUDE (Wordsworth) ─────────────────────────────────────────────────
+
+      {
+        id: "po42",
+        speaker: "The Prelude (Wordsworth)",
+        act: "The Prelude",
+        quote: "It was an act of stealth / And troubled pleasure",
+        context: "Wordsworth describes taking the boat without permission — the guilt already present before the mountain appears",
+        prompt: "It was an act of stealth / And troubled _____",
+        blank: "pleasure",
+        options: ["pleasure", "silence", "darkness", "courage"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Power & Identity", "Suffering"],
+        analysis: "'Troubled pleasure' is the key psychological note: the pleasure is real but contaminated by guilt from the start. Wordsworth is not innocently rowing — he knows he has taken something that isn't his. The mountain's response is therefore not random punishment but feels, to the boy, like moral consequence. Wordsworth structures the passage as a lesson in conscience."
+      },
+      {
+        id: "po43",
+        speaker: "The Prelude (Wordsworth)",
+        act: "The Prelude",
+        quote: "Upreared its head from the lake, as if with voluntary power instinct",
+        context: "The peak appears to rise and follow the rowing boy across the lake",
+        prompt: "Upreared its head from the lake, as if with _____ power instinct",
+        blank: "voluntary",
+        options: ["terrifying", "voluntary", "natural", "sudden"],
+        answerIndex: 1,
+        themes: ["Power of Nature", "Power & Identity", "Suffering"],
+        analysis: "'Voluntary power' gives the mountain conscious intent — it chooses to rise. Wordsworth cannot rationalise this as optical illusion in the moment; the experience is too overwhelming. This is the Romantic sublime: nature as a moral, almost divine force that corrects human arrogance through sheer overwhelming presence."
+      },
+      {
+        id: "po44",
+        speaker: "The Prelude (Wordsworth)",
+        act: "The Prelude",
+        quote: "With trembling oars I turned",
+        context: "The boy turns the boat and rows back, terrified by the mountain's apparent pursuit",
+        prompt: "With _____ oars I turned",
+        blank: "trembling",
+        options: ["trembling", "frantic", "urgent", "guilty"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Suffering", "Power & Identity"],
+        analysis: "'Trembling oars' transfers the boy's physical fear into the tool he is using — the oars shake because his hands shake. The physical action of rowing back is now contaminated with terror. Wordsworth precisely records the sensation of fear moving through the body into its extensions."
+      },
+      {
+        id: "po45",
+        speaker: "The Prelude (Wordsworth)",
+        act: "The Prelude",
+        quote: "for many days, my brain / Worked with a dim and undetermined sense / Of unknown modes of being",
+        context: "The aftermath — the boy cannot shake the experience; his understanding of the world has been permanently altered",
+        prompt: "my brain / Worked with a dim and undetermined sense / Of unknown modes of _____",
+        blank: "being",
+        options: ["being", "terror", "nature", "thought"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Loss & Memory", "Power & Identity"],
+        analysis: "'Unknown modes of being' is philosophically precise — not 'fear' or 'sadness' but something more fundamental: the discovery that the world contains forces that exceed the human. The vagueness ('dim', 'undetermined') is deliberate; Wordsworth cannot name what he encountered. The poem records the education of a consciousness."
+      },
+      {
+        id: "po46",
+        speaker: "The Prelude (Wordsworth)",
+        act: "The Prelude",
+        quote: "No familiar shapes / Remained, no pleasant images of trees",
+        context: "After the encounter, the natural world loses its comfortable familiarity", // VERIFY exact wording
+        prompt: "No familiar _____ / Remained, no pleasant images of trees",
+        blank: "shapes",
+        options: ["shapes", "faces", "sounds", "places"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Loss & Memory", "Suffering"],
+        analysis: "The world the boy knew — friendly, legible nature, 'pleasant images' — is gone. The mountain has overwritten his previous relationship with the natural world. What was a backdrop for childhood play is now a space containing something vast and unknowable. Wordsworth documents the loss of the innocent, pre-sublime relationship with nature."
+      },
+
+      // ─── LONDON (Blake) ───────────────────────────────────────────────────────────
+
+      {
+        id: "po47",
+        speaker: "London (Blake)",
+        act: "London",
+        quote: "I wander thro' each charter'd street, / Near where the charter'd Thames does flow",
+        context: "Opening — Blake walks through London, observing the city's systematic oppression",
+        prompt: "I wander thro' each charter'd street, / Near where the charter'd _____ does flow",
+        blank: "Thames",
+        options: ["Thames", "river", "water", "city"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Suffering", "Destruction"],
+        analysis: "'Charter'd' means legally defined, commercially owned. Blake uses it twice in two lines — the repetition is deliberate. Even the river, which should be free-flowing and natural, has been chartered (commercially licensed). Everything in London, including nature, has been reduced to property. The word is Blake's indictment of capitalism."
+      },
+      {
+        id: "po48",
+        speaker: "London (Blake)",
+        act: "London",
+        quote: "marks of weakness, marks of woe",
+        context: "Blake reads the faces of Londoners — suffering written on their bodies",
+        prompt: "marks of weakness, marks of _____",
+        blank: "woe",
+        options: ["pain", "woe", "grief", "age"],
+        answerIndex: 1,
+        themes: ["Suffering", "Power & Identity", "Destruction"],
+        analysis: "'Marks' operates on multiple levels: Blake literally reads faces, but 'mark' also means the brand of ownership (as on livestock or slaves). The citizens of London are marked — by their oppressors, by poverty, by despair. The word connects individual suffering to a systemic branding. Blake was writing in the era of the slave trade; the resonance is not accidental."
+      },
+      {
+        id: "po49",
+        speaker: "London (Blake)",
+        act: "London",
+        quote: "In every cry of every Man, / In every Infant's cry of fear",
+        context: "The sounds of London — universal suffering from adult to newborn",
+        prompt: "In every cry of every Man, / In every Infant's cry of _____",
+        blank: "fear",
+        options: ["pain", "fear", "grief", "need"],
+        answerIndex: 1,
+        themes: ["Suffering", "Power & Identity", "Destruction"],
+        analysis: "'Every' is repeated six times in this stanza — the anaphora is both rhythmic (tolling, like a bell) and ideological. Blake argues oppression is total and universal: no age, no social position escapes. The infant who has done nothing to deserve suffering is Blake's most powerful evidence that the system, not individual failure, is the cause."
+      },
+      {
+        id: "po50",
+        speaker: "London (Blake)",
+        act: "London",
+        quote: "the mind-forg'd manacles I hear",
+        context: "Blake identifies the source of suffering as psychological as well as physical — people are imprisoned by their own thinking",
+        prompt: "the mind-forg'd _____ I hear",
+        blank: "manacles",
+        options: ["manacles", "prisons", "shackles", "chains"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Suffering", "Destruction"],
+        analysis: "'Mind-forg'd manacles' is Blake's most compressed and argued image. The oppression is not only the landlord and the king — it is the internalised belief that this is how things must be. Blake's radicalism is psychological as much as political: liberation requires changing how people think about themselves, not only changing the law."
+      },
+      {
+        id: "po51",
+        speaker: "London (Blake)",
+        act: "London",
+        quote: "the youthful Harlot's curse / Blasts the new-born Infant's tear",
+        context: "Closing image — a young prostitute, her baby, syphilis, and the destruction of the family unit",
+        prompt: "the youthful Harlot's curse / Blasts the new-born _____ 's tear",
+        blank: "Infant",
+        options: ["Infant", "baby", "child", "born"],
+        answerIndex: 0,
+        themes: ["Suffering", "Destruction", "Power & Identity"],
+        analysis: "Blake ends with the most socially marginalised figure possible: a young woman driven to prostitution, her baby born into the same system. 'Curse' means both her oath of anger and the literal curse of venereal disease. The new-born's tear is both physical (eye infection from syphilis) and the universal tear of being born into this London. The poem's final word is 'tear' — grief as the city's permanent condition."
+      },
+
+      // ─── CHARGE OF THE LIGHT BRIGADE (Tennyson) ──────────────────────────────────
+
+      {
+        id: "po52",
+        speaker: "Charge of the Light Brigade (Tennyson)",
+        act: "Charge of the Light Brigade",
+        quote: "Half a league, half a league, / Half a league onward",
+        context: "Opening — the cavalry charge described through drumming, forward-driving rhythm",
+        prompt: "Half a league, half a league, / Half a league _____",
+        blank: "onward",
+        options: ["forward", "onward", "charging", "marching"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Power & Identity", "Suffering"],
+        analysis: "The triple repetition mimics hoofbeats — form enacting content before a word of description has appeared. 'Onward' is the only possible direction; there is no turning back built into the poem's momentum. Tennyson writes the inevitability of the charge into the metre itself. The poem moves like cavalry."
+      },
+      {
+        id: "po53",
+        speaker: "Charge of the Light Brigade (Tennyson)",
+        act: "Charge of the Light Brigade",
+        quote: "Into the valley of Death / Rode the six hundred",
+        context: "The brigade rides into the heavily armed valley — the biblical resonance is deliberate",
+        prompt: "Into the valley of _____ / Rode the six hundred",
+        blank: "Death",
+        options: ["Death", "cannon", "guns", "shadow"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Suffering", "Destruction"],
+        analysis: "'Valley of Death' is from Psalm 23 — 'though I walk through the valley of the shadow of death.' Tennyson elevates a military blunder into something scriptural and sacrificial. 'The six hundred' replaces individual names with a collective number — they are a unit, not a list of people. This is simultaneously glorifying and dehumanising."
+      },
+      {
+        id: "po54",
+        speaker: "Charge of the Light Brigade (Tennyson)",
+        act: "Charge of the Light Brigade",
+        quote: "Theirs not to reason why, / Theirs but to do and die",
+        context: "The soldiers obey suicidal orders without questioning command",
+        prompt: "Theirs not to _____ why, / Theirs but to do and die",
+        blank: "reason",
+        options: ["question", "reason", "wonder", "know"],
+        answerIndex: 1,
+        themes: ["War & Conflict", "Power & Identity", "Suffering"],
+        analysis: "The rhyme of 'why/die' makes the soldiers' lack of agency sound inevitable, even musical. Tennyson admires the obedience while the reader can see it is obedience to a catastrophic error. The poem is ambiguous precisely here: is this nobility or condemnation of a military system that demands death without explanation?"
+      },
+      {
+        id: "po55",
+        speaker: "Charge of the Light Brigade (Tennyson)",
+        act: "Charge of the Light Brigade",
+        quote: "Cannon to right of them, / Cannon to left of them, / Cannon in front of them",
+        context: "The brigade is surrounded by artillery on three sides",
+        prompt: "Cannon to right of them, / Cannon to left of them, / Cannon in _____ of them",
+        blank: "front",
+        options: ["front", "reach", "sight", "range"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Destruction", "Suffering"],
+        analysis: "The anaphoric triple construction maps the geography of the ambush. The soldiers are enclosed on three sides — the repetition of 'Cannon' makes the encirclement sonic as well as visual. Tennyson makes the reader feel the tactical impossibility before explaining it. There is no good direction to go."
+      },
+      {
+        id: "po56",
+        speaker: "Charge of the Light Brigade (Tennyson)",
+        act: "Charge of the Light Brigade",
+        quote: "When can their glory fade? / O the wild charge they made!",
+        context: "The poem's closing question — Tennyson insists on the soldiers' honour despite the catastrophe",
+        prompt: "When can their _____ fade? / O the wild charge they made!",
+        blank: "glory",
+        options: ["glory", "honour", "courage", "memory"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Power & Identity", "Pride & Hubris"],
+        analysis: "The rhetorical question asserts the glory is permanent ('when can it fade?' implies: never). Tennyson's purpose was explicitly to memorialise the brigade and resist public criticism of the commanders. But the poem's earlier documentation of the tactical absurdity means the 'glory' sits uneasily. Tennyson glorifies the soldiers precisely because he cannot glorify the decision."
+      },
+
+      // ─── MY LAST DUCHESS (Browning) ───────────────────────────────────────────────
+
+      {
+        id: "po57",
+        speaker: "My Last Duchess (Browning)",
+        act: "My Last Duchess",
+        quote: "That's my last Duchess painted on the wall, / Looking as if she were alive",
+        context: "Opening — the Duke presents a portrait of his dead wife to a visiting envoy",
+        prompt: "That's my last Duchess painted on the wall, / Looking as if she were _____",
+        blank: "alive",
+        options: ["alive", "real", "there", "young"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Destruction", "Pride & Hubris"],
+        analysis: "'My last Duchess' is possessive before it is anything else — she is defined as his. 'Last' implies there will be more. 'As if she were alive' is the poem's first chill: she is not alive. The painting is the only form in which he will tolerate her — still, controllable, unable to smile at other men."
+      },
+      {
+        id: "po58",
+        speaker: "My Last Duchess (Browning)",
+        act: "My Last Duchess",
+        quote: "She had / A heart — how shall I say? — too soon made glad",
+        context: "The Duke's complaint — she smiled too readily, was pleased by too many people",
+        prompt: "She had / A heart — how shall I say? — too soon made _____",
+        blank: "glad",
+        options: ["glad", "warm", "bright", "free"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Pride & Hubris", "Destruction"],
+        analysis: "The em-dash hesitation ('how shall I say?') is theatrical — the Duke knows exactly what he wants to say. Browning shows a man performing reluctance while being precise. The crime he describes is her capacity for joy: she was 'too easily pleased.' A woman who finds pleasure in sunsets, gifts, and conversation rather than only in her husband's approval is, to the Duke, a moral failure."
+      },
+      {
+        id: "po59",
+        speaker: "My Last Duchess (Browning)",
+        act: "My Last Duchess",
+        quote: "I gave commands; / Then all smiles stopped together",
+        context: "The Duke's euphemistic admission that he had his wife killed",
+        prompt: "I gave commands; / Then all smiles stopped _____",
+        blank: "together",
+        options: ["forever", "together", "suddenly", "completely"],
+        answerIndex: 1,
+        themes: ["Power & Identity", "Destruction", "Pride & Hubris"],
+        analysis: "The casual pause between semicolon and 'Then' enacts the gap between an aristocrat's order and its consequence. The Duke does not say 'I had her killed' — he says smiles stopped. The Duchess is reduced to a single feature (her smiles) that he found insufficiently exclusive. Browning shows a murderer who does not experience himself as one."
+      },
+      {
+        id: "po60",
+        speaker: "My Last Duchess (Browning)",
+        act: "My Last Duchess",
+        quote: "None puts by / The curtain I have drawn for you, but I",
+        context: "The Duke controls who can see the portrait — he extends his control over his wife even after her death",
+        prompt: "None puts by / The curtain I have drawn for you, but _____",
+        blank: "I",
+        options: ["I", "me", "none", "he"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Pride & Hubris", "Destruction"],
+        analysis: "The curtain he controls over the portrait is the continuation of the control he exercised over the living woman. Death has not ended his ownership — it has perfected it. She cannot now smile at anyone he has not chosen to show her to. The painting is the Duke's ideal wife: beautiful, silent, entirely subject to his will."
+      },
+      {
+        id: "po61",
+        speaker: "My Last Duchess (Browning)",
+        act: "My Last Duchess",
+        quote: "Notice Neptune, though, / Taming a sea-horse",
+        context: "The Duke points to another artwork — Neptune taming a sea creature — as he leads the envoy downstairs",
+        prompt: "Notice Neptune, though, / Taming a _____",
+        blank: "sea-horse",
+        options: ["sea-horse", "dolphin", "wave", "creature"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Pride & Hubris", "Destruction"],
+        analysis: "The closing image is Browning's most compressed: the Duke, having just described controlling his wife into death, admires a sculpture of a god taming a wild creature. The juxtaposition is devastating. It is what the Duke considers art: domination. The 'sea-horse' is the Duchess; Neptune is the Duke. He does not notice the self-portrait he has just drawn."
+      },
+
+      // ─── KAMIKAZE (Garland) ───────────────────────────────────────────────────────
+      // VERIFY several quotes below
+
+      {
+        id: "po62",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "his father's house, second from the left",  // VERIFY
+        context: "The pilot imagines his childhood home as he flies — a specific, domestic detail pulling him back to life",
+        prompt: "his father's house, second from the _____",
+        blank: "left",
+        options: ["left", "right", "end", "road"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Loss & Memory", "Power & Identity"],
+        analysis: "The precision of 'second from the left' is Garland's technique throughout: specific domestic detail as the counterweight to ideological abstraction. The pilot is not choosing life in the abstract — he is choosing this house, this position on a particular street. Particularity defeats ideology."
+      },
+      {
+        id: "po63",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "he must have looked far down at Pacific Islands / like a huge flag", // VERIFY
+        context: "The pilot, mid-mission, sees the ocean and land below — the view from the cockpit",
+        prompt: "he must have looked far down at Pacific Islands / like a huge _____",
+        blank: "flag",
+        options: ["flag", "map", "painting", "dream"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Power of Nature", "Power & Identity"],
+        analysis: "The simile of a 'huge flag' ties the landscape to national identity — Japan, the mission, the reason he is in the cockpit. But the beauty of what he sees immediately undercuts the military framing. The poem shows the natural world (ocean, islands, fish) as more compelling than the ideological world (nation, honour, sacrifice)."
+      },
+      {
+        id: "po64",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "a net of kittiwakes",
+        context: "The pilot sees fishing boats below and remembers his father hauling in seabirds — a specific, living memory",
+        prompt: "hauled / a net of _____",
+        blank: "kittiwakes",
+        options: ["kittiwakes", "gulls", "mackerel", "nets"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Power of Nature", "Loss & Memory"],
+        analysis: "'Kittiwakes' is exact — not a generic seabird but a named species. Garland uses specificity as the mechanism of the pilot's reversal: the abstraction of 'dying for Japan' cannot compete with a precisely remembered living creature. The word does the philosophical work of the whole poem."
+      },
+      {
+        id: "po65",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "he turned back",
+        context: "The central act of the poem — the pilot refuses the suicide mission and returns home",
+        prompt: "he turned _____",
+        blank: "back",
+        options: ["back", "around", "away", "home"],
+        answerIndex: 0,
+        themes: ["War & Conflict", "Power & Identity", "Loss & Memory"],
+        analysis: "The simplest possible phrase carries the poem's entire moral weight. 'He turned back' — two words, plain verb. Garland gives no extended interior justification; the act is clean. But the poem's second half reveals that turning back is not a simple rescue. His family and community reject him, and in some ways the poem questions whether survival was liberation or a different kind of destruction."
+      },
+      {
+        id: "po66",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "as though he no longer existed", // VERIFY
+        context: "The family's response to the returned pilot — they treat him as if he were dead",
+        prompt: "as though he no longer _____",
+        blank: "existed",
+        options: ["existed", "lived", "mattered", "was"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Suffering"],
+        analysis: "The family's silence is a social death sentence. He chose biological survival over ideological sacrifice and was punished with erasure. Garland's poem complicates easy readings of the pilot as a hero: by choosing life he lost everything that made life meaningful in his community. The 'correct' choice by Western standards is the wrong one by his society's."
+      },
+      {
+        id: "po67",
+        speaker: "Kamikaze (Garland)",
+        act: "Kamikaze",
+        quote: "even the sun seemed to falter", // VERIFY
+        context: "The natural world appears to mourn or waver in response to the pilot's impossible situation",
+        prompt: "even the sun seemed to _____",
+        blank: "falter",
+        options: ["falter", "fade", "dim", "fall"],
+        answerIndex: 0,
+        themes: ["Power of Nature", "Suffering", "Loss & Memory"],
+        analysis: "The pathetic fallacy here is unusual — not nature raging but nature faltering, uncertain. Garland suggests even the natural world cannot clearly endorse what has happened. The sun's hesitation reflects the poem's own ambivalence: the pilot made a human choice and received an inhuman punishment. The poem refuses to fully resolve which was right."
+      },
+
+      // ─── THE EMIGRÉE (Rumens) ─────────────────────────────────────────────────────
+      // VERIFY all quotes — this poem is less widely anthologised and I have less certainty on exact wording
+
+      {
+        id: "po68",
+        speaker: "The Emigrée (Rumens)",
+        act: "The Emigrée",
+        quote: "There once was a country... I left it as a child", // VERIFY
+        context: "Opening — the speaker left their home country very young; the memory is formed partly from imagination",
+        prompt: "There once was a country... I left it as a _____",
+        blank: "child",
+        options: ["child", "girl", "refugee", "stranger"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Suffering"],
+        analysis: "The fairy-tale opening ('There once was') immediately signals that this country exists as much in imagination as in memory — the speaker was too young to have an adult's relationship with it. The country is partly invented, overlaid with a child's emotional imprint. Rumens explores how exile shapes identity when the homeland is as much myth as reality."
+      },
+      {
+        id: "po69",
+        speaker: "The Emigrée (Rumens)",
+        act: "The Emigrée",
+        quote: "It tastes of sunlight", // VERIFY
+        context: "The speaker's memory of the homeland is sensory, warm — despite the country's political reality",
+        prompt: "It tastes of _____",
+        blank: "sunlight",
+        options: ["sunlight", "honey", "summer", "freedom"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Power of Nature"],
+        analysis: "Synaesthesia — taste applied to light — makes the memory intensely physical and pleasurable. The warmth and sweetness of 'sunlight' sits directly against whatever political darkness the country may have experienced. Rumens shows that the emigrée's emotional connection to her homeland is immune to political reality; the body remembers differently from the mind."
+      },
+      {
+        id: "po70",
+        speaker: "The Emigrée (Rumens)",
+        act: "Emigrée",
+        quote: "my city takes me dancing", // VERIFY
+        context: "The speaker personifies her homeland city — an intimate, joyful relationship despite exile",
+        prompt: "my city takes me _____",
+        blank: "dancing",
+        options: ["dancing", "home", "back", "away"],
+        answerIndex: 0,
+        themes: ["Loss & Memory", "Power & Identity", "Power of Nature"],
+        analysis: "The city as dancing partner makes the relationship with the homeland tender and mutual — not the speaker longing for a passive place, but a two-way relationship. 'Takes me dancing' implies the city has agency, wants her. Rumens shows memory not as a fixed archive but as an ongoing relationship that continues despite physical absence."
+      },
+      {
+        id: "po71",
+        speaker: "The Emigrée (Rumens)",
+        act: "The Emigrée",
+        quote: "branded by an impression of sunlight", // VERIFY
+        context: "The speaker's identity has been permanently marked by her early memory of the homeland",
+        prompt: "branded by an impression of _____",
+        blank: "sunlight",
+        options: ["sunlight", "childhood", "warmth", "home"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Loss & Memory", "Suffering"],
+        analysis: "'Branded' is violent — it is the mark of ownership, like cattle or slaves. But here the branding is by sunlight rather than by a captor. Rumens shows identity formation as simultaneously beautiful (warm sunlight) and permanent (branded, indelible). The emigrée cannot escape her origins; they are burned into her even if she wanted to leave them behind."
+      },
+      {
+        id: "po72",
+        speaker: "The Emigrée (Rumens)",
+        act: "The Emigrée",
+        quote: "They accuse me of absence", // VERIFY
+        context: "Others — perhaps the current regime, perhaps those who stayed — blame her for leaving",
+        prompt: "They accuse me of _____",
+        blank: "absence",
+        options: ["absence", "leaving", "betrayal", "forgetting"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Suffering", "Loss & Memory"],
+        analysis: "'Accused of absence' is Rumens' political sharpness: the emigrée is being charged by the state (or its representatives) for the act of leaving. Absence has been criminalised — not being there is treachery. The poem shows how authoritarian states extend their power even over those who have physically escaped them."
+      },
+
+      // ─── CHECKING OUT ME HISTORY (Agard) ──────────────────────────────────────────
+      // VERIFY all quotes — Agard's dialect is specific and easy to misquote
+
+      {
+        id: "po73",
+        speaker: "Checking Out Me History (Agard)",
+        act: "Checking Out Me History",
+        quote: "Dem tell me / Dem tell me / Wha dem want to tell me",
+        context: "Opening — the speaker was given a selective, colonial education that excluded Caribbean and Black history",
+        prompt: "Dem tell me / Dem tell me / Wha dem want to _____",
+        blank: "tell me",
+        options: ["tell me", "show me", "teach me", "give me"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Suffering", "Loss & Memory"],
+        analysis: "The repetition of 'Dem tell me' is both rhythmic and accusatory — hammering on the act of transmission, not the content. 'Wha dem want to tell me' implies selection and suppression: he was taught what served others' interests. Agard frames education as a colonial tool, a means of controlling which histories get to exist."
+      },
+      {
+        id: "po74",
+        speaker: "Checking Out Me History (Agard)",
+        act: "Checking Out Me History",
+        quote: "Toussaint / a slave / with vision", // VERIFY exact wording
+        context: "The speaker names Toussaint L'Ouverture — the Haitian revolutionary leader absent from his schooling",
+        prompt: "Toussaint / a slave / with _____",
+        blank: "vision",
+        options: ["vision", "courage", "fire", "strength"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Loss & Memory", "War & Conflict"],
+        analysis: "Agard's condensed free verse — 'a slave / with vision' — packs biography into three words. Toussaint is identified first by his bondage, then immediately by the quality that transcended it. The brevity is a formal statement: he was denied space in the curriculum, so Agard gives him compressed but fierce space in the poem."
+      },
+      {
+        id: "po75",
+        speaker: "Checking Out Me History (Agard)",
+        act: "Checking Out Me History",
+        quote: "But Toussaint de thorn / dem pick out he eye", // VERIFY exact wording
+        context: "Toussaint is described as a thorn in the side of colonial power — threatening, and therefore removed",
+        prompt: "But Toussaint de thorn / dem pick out he _____",
+        blank: "eye",
+        options: ["eye", "flame", "side", "heart"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "War & Conflict", "Destruction"],
+        analysis: "'Pick out he eye' is visceral — the removal of sight as the removal of vision, both literal and metaphorical. Colonial power suppresses not just bodies but perspective; it blinds as well as kills. The dialect form makes the violence immediate and personal, not academic. Agard refuses to process this history at a distance."
+      },
+      {
+        id: "po76",
+        speaker: "Checking Out Me History (Agard)",
+        act: "Checking Out Me History",
+        quote: "I carving out me identity", // VERIFY exact wording
+        context: "Closing — the speaker takes active ownership of constructing his own historical and personal identity",
+        prompt: "I _____ out me identity",
+        blank: "carving",
+        options: ["carving", "making", "finding", "building"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Loss & Memory", "Suffering"],
+        analysis: "'Carving' is a physical, laborious verb — not discovering or receiving an identity, but cutting it out of resistant material. The active present continuous ('I carving') in Agard's dialect gives it ongoing urgency: this is not finished work. The poem ends as a declaration of self-determination against the colonial education that tried to carve his identity for him."
+      },
+      {
+        id: "po77",
+        speaker: "Checking Out Me History (Agard)",
+        act: "Checking Out Me History",
+        quote: "Bandage up me eye with me own history", // VERIFY exact wording
+        context: "Metaphor for how colonial education blindfolded the speaker — denied him his own heritage",
+        prompt: "Bandage up me _____ with me own history",
+        blank: "eye",
+        options: ["eye", "mind", "mouth", "ears"],
+        answerIndex: 0,
+        themes: ["Power & Identity", "Suffering", "Loss & Memory"],
+        analysis: "'Bandage up me eye' — the colonial curriculum used the speaker's own history against him, wrapping it as a blindfold. He was denied the very thing that would have let him see clearly. The image connects to the 'pick out he eye' of Toussaint: colonial power consistently attacks the capacity to see, to know, to have perspective on one's own place in the world."
       }
     ]
   },
